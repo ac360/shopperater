@@ -23,6 +23,7 @@ end
 gem 'jquery-rails'
 gem 'thin', '>= 1.5.0'
 gem 'better_errors', :group => :development
+gem 'devise'
 gem 'backbone-on-rails'
 
 # To use ActiveModel has_secure_password

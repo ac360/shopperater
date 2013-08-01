@@ -10,9 +10,32 @@
 <div class="container">
 	<div class="row">
 	  <div class="col-lg-8"><h2>Shopperater</h2></div>
-	  <div class="col-lg-4"></div>
+	  <div class="col-lg-4">
+	  	<% if user_signed_in? %>
+		  	<ul class="list-unstyled">
+			  	<li>
+			  		<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
+			  	</li>
+			</ul>
+		<% else %>
+			<ul class="list-unstyled">
+			  	<li>
+			  		<%= link_to('Login', new_user_session_path)  %>  
+			  	</li>
+			</ul>
+		<% end %>
+	  </div>
 	</div>
+
+	<div class="row">
+	   	<div class="col-offset-2 col-lg-6">
+	   		<p class="notice"><%= notice %></p>
+       		<p class="alert"><%= alert %></p>
+       	</div>
+	</div>
+
 	<%= yield %>
+
 </div>
 </body>
 </html>
