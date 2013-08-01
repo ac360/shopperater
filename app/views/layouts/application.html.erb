@@ -23,6 +23,12 @@
 		<% else %>
 			<ul class="list-unstyled list-inline">
 			  	<li>
+			  		Welcome, Guest
+			  	</li>
+			  	<li>
+			  		<%= link_to('Sign-Up', new_user_registration_path)  %>  
+			  	</li>
+			  	<li>
 			  		<%= link_to('Login', new_user_session_path)  %>  
 			  	</li>
 			</ul>
@@ -32,8 +38,12 @@
 
 	<div class="row">
 	   	<div class="col-offset-2 col-lg-6">
-	   		<p class="notice"><%= notice %></p>
-       		<p class=""><%= alert %></p>
+	   		<% if flash[:notice] %>
+	   			<p class="alert alert-success"><%= notice %></p>
+	   		<% end %>
+	   		<% if flash[:alert] %>
+       			<p class="alert alert-danger"><%= alert %></p>
+       		<% end %>
        	</div>
 	</div>
 
