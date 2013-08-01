@@ -16,7 +16,11 @@
 
  .s-no-margin {margin:0px;}
 
+/* Body */
+body {background:#eaeaea;}
+.container {background:#f9f9f9;}
+
  /* Header */
 
- #header-logo-search {padding-top:15px;}
+ #header-logo-search {}
  #primary-search {}

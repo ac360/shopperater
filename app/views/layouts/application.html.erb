@@ -34,11 +34,16 @@
 			<% end %>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-offset-4">
+			<p class="s-no-margin">Products | Creations | Users</p>
+		</div>
+	</div>
 	<div id="header-logo-search" class="row">
-	  	<div class="col-lg-3"><h2 class="s-no-margin"><a href="/">Shopperater</a></h2></div>
-	  	<div class="col-lg-7">
+	  	<div class="col-offset-1 col-lg-3"><h2 class="s-no-margin"><a href="/">Shopperater</a></h2></div>
+	  	<div class="col-lg-6">
 	  		<div class="row">
-  				<div class="col-lg-12" style="padding-top:5px;">
+  				<div class="col-lg-12" style="padding:5px 0px 0px 0px;">
   					<div class="input-group">
 	  					<%= text_field_tag 'Search', nil, placeholder: 'Type Product Keyword Here...', :id => 'primary-search', :class => 'form-control' %>
 	  					<span class="input-group-btn">
@@ -54,7 +59,7 @@
 	</div>
 
 	<div class="row">
-	   	<div class="col-offset-2 col-lg-6">
+	   	<div class="col-offset-4 col-lg-4">
 	   		<% if flash[:notice] %>
 	   			<p class="alert alert-success"><%= notice %></p>
 	   		<% end %>
