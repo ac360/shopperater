@@ -21,6 +21,8 @@ body {background:#eaeaea;}
 .container {background:#f9f9f9;min-height:700px;}
 
  /* Header */
-
+ .brand, .brand:hover {color:#ccc;text-decoration:none;}
  #header-logo-search {}
- #primary-search {}
+ #primary-search-field {}
+ #primary-category-dropdown li a {padding:2px 10px;font-size:11px;color:#666666;}
+  #primary-category-dropdown li a:hover {color:#ffffff;}
