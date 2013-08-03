@@ -1,6 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    a2z (0.1.2)
+      crack
+      jeff
+      money
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
       mail (~> 2.4.4)
@@ -38,6 +42,8 @@ GEM
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.1)
+      debug_inspector (>= 0.0.1)
     builder (3.0.4)
     coderay (1.0.9)
     coffee-rails (3.2.2)
@@ -47,11 +53,17 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    crack (0.4.1)
+      safe_yaml (~> 0.9.0)
     daemons (1.1.9)
+    debug_inspector (0.0.2)
     devise (1.5.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.1)
+    dotenv (0.6.0)
+    dotenv-rails (0.6.0)
+      dotenv (= 0.6.0)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -60,10 +72,13 @@ GEM
     ejs (1.1.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    excon (0.23.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     hike (1.2.3)
     i18n (0.6.4)
+    jeff (0.6.4)
+      excon (~> 0.23.0)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -74,6 +89,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.23)
+    money (5.1.1)
+      i18n (~> 0.6.0)
     multi_json (1.7.7)
     orm_adapter (0.0.5)
     pg (0.16.0)
@@ -103,6 +120,7 @@ GEM
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    safe_yaml (0.9.4)
     sass (3.2.10)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -133,10 +151,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  a2z
   backbone-on-rails
   better_errors
+  binding_of_caller
   coffee-rails (~> 3.2.1)
   devise
+  dotenv-rails
   jquery-rails
   pg
   rails (= 3.2.12)

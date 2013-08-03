@@ -23,8 +23,11 @@ end
 gem 'jquery-rails'
 gem 'thin', '>= 1.5.0'
 gem 'better_errors', :group => :development
+gem 'binding_of_caller', :group => :development
 gem 'devise'
 gem 'backbone-on-rails'
+gem 'a2z'
+gem 'dotenv-rails', :groups => [:development, :test]
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
