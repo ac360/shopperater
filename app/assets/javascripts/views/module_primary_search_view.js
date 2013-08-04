@@ -9,6 +9,7 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
 	events: {
 		// TODO:  You need to convert the Search Field to a Form so that you can capture the Submit event and run the searchProducts event when a user hits ENTER instead of hitting the search button
 		 "click #primary-search-button"              :   "searchProducts",
+		 "keypress #primary-search-field"			 :   "detectEnterButton",
 		 "click .s-category-link"					 :   "selectCategory"
     },
 
@@ -31,6 +32,13 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
       			}
 			} // End Success
 		}); // End fetch
+    },
+
+    detectEnterButton: function(event) {
+    	var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			this.searchProducts();	
+		}
     },
 
     selectCategory: function(e) {
