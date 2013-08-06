@@ -1,0 +1,10 @@
+<h6 class="s-grey">Your Search Results...</h6>
+
+<ul class="list-unstyled">
+
+	<% _.each(collection, function(collection) { %>
+			<li><span style="font-size:15px;"><%= collection.attrs.title %></span></li>
+			<li class="s-grey" style="padding-left:10px;padding-bottom:10px;"><button id="add-to-cart-button" type="button" class="btn btn-primary btn-mini" style="margin-right:10px;" data-title="<%= collection.attrs.title %>" data-product-group="<%= collection.attrs.product_group %>" data-asin="<%= collection.asin %>">Add to Cart</button> Category: <%= collection.attrs.product_group %></li>
+	<% }); %>
+
+</ul>

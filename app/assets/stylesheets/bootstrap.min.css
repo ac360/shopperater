@@ -31,3 +31,6 @@ body {background:#eaeaea;}
  /* Item Results */
  #module-item-results {min-height:400px;background:#f2f2f2;margin-top:20px;padding-top:10px;padding-bottom:10px;}
  #module-item-results ul li {padding:2px 0px;}
+
+ /* Cart Modal */
+.modal-body {}

@@ -16,6 +16,7 @@
 //= require underscore
 //= require backbone
 //= require shopperater
+//= require jstorage
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections

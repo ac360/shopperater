@@ -11,6 +11,8 @@ Shopperater.Routers.Main = Backbone.Router.extend({
 
     homePage: function() {
       var modulePrimarySearch = new Shopperater.Views.ModulePrimarySearch({})
+      var moduleCart = new Shopperater.Views.ModuleCart({})
+      $('#module-cart-container').html(moduleCart.render().$el);
     }, // END home
 
     
