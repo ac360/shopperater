@@ -28,6 +28,8 @@ Shopperater.Views.ModuleItemResults = Backbone.View.extend({
 			guestCart.push(cartItem1)
 			// Save item to localstorage
 			$.jStorage.set("shopperaterGuestCart", guestCart);
+			var newItemCount = guestCart.length;
+			$('#cart-item-count').text(newItemCount);
 		} else {
 			var guestCart = $.jStorage.get("shopperaterGuestCart");
 			var newCartItem = {}
