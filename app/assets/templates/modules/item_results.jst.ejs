@@ -5,7 +5,15 @@
 			
 			<div class="row item-result-row">
 				<div class="col-lg-2">
-					<center><img src="<%= collection.image_sets.primary.images.medium.url %>" class="s-box-shadow-one"></center>
+
+					<%  // Check for Image 
+						if (collection.image_sets.primary) { %>
+						<center><img src="<%= collection.image_sets.primary.images.medium.url %>" class="s-box-shadow-one"></center>
+					<%  } else {  %>
+						<p class="s-centered">No Image</p>
+					<%	}  %>
+
+
 				</div>
 				<div class="col-lg-10">
 					<p class="result-title" style="font-size:15px;"><%= collection.attrs.title %></p>
