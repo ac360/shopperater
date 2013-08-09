@@ -8,7 +8,7 @@
 
 		<% _.each(collection, function(collection, index) { %>
 				<li><button type="button" id="delete-cart-item-button" class="close" data-index="<%= index %>">&times;</button> <span style="font-size:12px;font-weight:bold"><%= collection.title %></span></li>
-				<li class="s-grey" style="padding-bottom:10px;font-size:10px;color:#999">Category: <%= collection.product_group %></li>
+				<li class="s-grey" style="font-size:10px;color:#999">Category: <%= collection.product_group %></li>
 		<% }); %>
 
 	</ul>

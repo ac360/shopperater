@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130801202435) do
+ActiveRecord::Schema.define(:version => 20130809150319) do
+
+  create_table "cart_items", :force => true do |t|
+    t.string   "product_name"
+    t.string   "product_id"
+    t.string   "product_source"
+    t.string   "product_price"
+    t.string   "product_image"
+    t.string   "product_category"
+    t.string   "product_referral_link"
+    t.integer  "user_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

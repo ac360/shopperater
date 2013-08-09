@@ -1,10 +1,39 @@
 <h6 class="s-grey">Your Search Results...</h6>
 
-<ul class="list-unstyled">
 
 	<% _.each(collection, function(collection) { %>
-			<li><span style="font-size:15px;"><%= collection.attrs.title %></span></li>
-			<li class="s-grey" style="padding-left:10px;padding-bottom:10px;"><button id="add-to-cart-button" type="button" class="btn btn-primary btn-mini" style="margin-right:10px;" data-title="<%= collection.attrs.title %>" data-product-group="<%= collection.attrs.product_group %>" data-asin="<%= collection.asin %>">Add to Cart</button> Category: <%= collection.attrs.product_group %></li>
+			
+			<div class="row item-result-row">
+				<div class="col-lg-2">
+					<center><img src="<%= collection.image_sets.primary.images.medium.url %>" class="s-box-shadow-one"></center>
+				</div>
+				<div class="col-lg-10">
+					<p class="result-title" style="font-size:15px;"><%= collection.attrs.title %></p>
+					<p class="result-category">
+
+						<%  if (collection.offers[0]) {
+								var productPrice = collection.offers[0].price.fractional
+								productPrice = (productPrice/100).toFixed(2)
+
+						%>  <span class="result-price">$ <%= productPrice %></span> 
+
+						<%	} else { %>
+							<span class="result-price">No Price Data</span> 
+						<%	}        %>
+					
+						&nbsp;&nbsp; Category: <%= collection.attrs.product_group %>
+					</p> 
+					<button id="add-to-cart-button" type="button" class="btn btn-primary btn-mini" style="margin-right:10px;" data-title="<%= collection.attrs.title %>" data-product-group="<%= collection.attrs.product_group %>" data-asin="<%= collection.asin %>">Add to Cart</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-3">
+					
+				</div>
+				<div class="col-lg-9">
+					
+				</div>
+			</div>
+
 	<% }); %>
 
-</ul>
