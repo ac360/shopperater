@@ -7,6 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+	<!-- Check whether is Logged in or not for Backbone --> 
+	<% if user_signed_in? %>
+		<script>
+			var shopperaterAuthenticated = true
+		</script>
+	<% else %>
+		<script>
+			var shopperaterAuthenticated = false
+		</script>
+	<% end %>
+
 <div class="container">
 	<div class="row">
 		<div class="col-offset-8 col-lg-4">
@@ -22,9 +34,6 @@
 			<% else %>
 				<ul class="list-unstyled list-inline">
 				  	<li>
-				  		Welcome, Guest
-				  	</li>
-				  	<li>
 				  		<%= link_to('Sign-Up', new_user_registration_path)  %>  
 				  	</li>
 				  	<li>
@@ -34,68 +43,19 @@
 			<% end %>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col-offset-4 visible-lg">
-			<p class="s-no-margin">Products | Creations | Users</p>
-		</div>
+
+	<div id="header-logo" class="row">
+	  	<div class="col-lg-12 s-centered"><h2 class="s-no-margin s-centered"><a href="/" class="brand">MEDLEY</a></h2></div>
 	</div>
-	<div id="header-logo-search" class="row">
-	  	<div class="col-offset-1 col-lg-3"><h2 class="s-no-margin"><a href="/" class="brand">Shopperater</a></h2></div>
-	  	<div id="module-primary-search" class="col-lg-6">
-	  		<div class="row">
-	  			<!-- Search Bar - The Category names on the Amazon site differ from the Search Indexes (category) Param values required by the API.  You have a list of the allowed Search Indexes in the Developer Notes (it's a link).  Regardless, some of the Categories may not be matched to the appropriate Search Indexes ( Cell Phone & Accessories = Wireless  ???).  Keep this in mind if there are problems with the search results -->
-  				<div class="col-lg-11" style="padding:5px 0px 0px 0px;">
-  					<div class="input-group">
-  						<span class="input-group-btn">
-							  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							    <span id="category-button-text" data-category="All">All</span> <span class="caret" style="margin-left:5px;"></span>
-							  </button>
-							  <ul id="primary-category-dropdown" class="dropdown-menu">
-							    <li><a href="#" data-category="All" class="s-category-link">All Departments</a></li>
-							    <li><a href="#" data-category="Appliances" class="s-category-link">Appliances</a></li>
-							    <li><a href="#" data-category="ArtsAndCrafts" class="s-category-link">Arts, Crafts &amp; Sewing</a></li>
-							    <li><a href="#" data-category="Automotive" class="s-category-link">Automotive</a></li>
-							    <li><a href="#" data-category="Baby" class="s-category-link">Baby</a></li>
-							    <li><a href="#" data-category="Beauty" class="s-category-link">Beauty</a></li>
-							    <li><a href="#" data-category="Books" class="s-category-link">Books</a></li>
-							    <li><a href="#" data-category="Wireless" class="s-category-link">Cell Phones &amp; Accessories</a></li>
-							    <li><a href="#" data-category="Apparel" class="s-category-link">Clothing &amp; Accessories</a></li>
-							    <li><a href="#" data-category="Collectibles" class="s-category-link">Collectibles</a></li>
-							    <li><a href="#" data-category="Electronics" class="s-category-link">Computers</a></li>
-							    <li><a href="#" data-category="Electronics" class="s-category-link">Electronics</a></li>
-							    <li><a href="#" data-category="Grocery" class="s-category-link">Grocery &amp; Gourmet Foods</a></li>
-							    <li><a href="#" data-category="HealthPersonalCare" class="s-category-link">Health &amp; Personal Care</a></li>
-							    <li><a href="#" data-category="HomeGarden" class="s-category-link">Home &amp; Kitchen</a></li>
-							    <li><a href="#" data-category="Industrial" class="s-category-link">Industrial &amp; Scientific</a></li>
-							    <li><a href="#" data-category="Jewelry" class="s-category-link">Jewelry</a></li>
-							    <li><a href="#" data-category="KindleStore" class="s-category-link">Kindle Store</a></li>
-							    <li><a href="#" data-category="Magazines" class="s-category-link">Magazine Subscriptions</a></li>
-							    <li><a href="#" data-category="Video" class="s-category-link">Movies &amp; TV</a></li>
-							    <li><a href="#" data-category="DigitalMusic" class="s-category-link">MP3 Music</a></li>
-							    <li><a href="#" data-category="Music" class="s-category-link">Music</a></li>
-							    <li><a href="#" data-category="MusicalInstruments" class="s-category-link">Musical Instruments</a></li>
-							    <li><a href="#" data-category="OfficeProducts" class="s-category-link">Office Products</a></li>
-							    <li><a href="#" data-category="HomeGarden" class="s-category-link">Patio, Lawn &amp; Garden</a></li>
-							    <li><a href="#" data-category="PetSupplies" class="s-category-link">Pet Supplies</a></li>
-							    <li><a href="#" data-category="Shoes" class="s-category-link">Shoes</a></li>
-							    <li><a href="#" data-category="Software" class="s-category-link">Software</a></li>
-							    <li><a href="#" data-category="SportingGoods" class="s-category-link">Sports &amp; Outdoors</a></li>
-							    <li><a href="#" data-category="Tools" class="s-category-link">Tools &amp; Home Improvement</a></li>
-							    <li><a href="#" data-category="Toys" class="s-category-link">Toys &amp; Games</a></li>
-							    <li><a href="#" data-category="VideoGames" class="s-category-link">Video Games</a></li>
-							    <li><a href="#" data-category="Watches" class="s-category-link">Watches</a></li>
-							  </ul>
-						</span>
-	  					<%= text_field_tag 'Search', nil, placeholder: 'Type Product Keyword Here...', :id => 'primary-search-field', :class => 'form-control' %>
-	  					<span class="input-group-btn">
-					        <button id="primary-search-button" class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-					    </span>
-	  				</div>
-	  			</div>
-	  		</div>
+
+	<div id="header-search" class="row">
+	  	<div class="col-offset-4 col-lg-4">
+	  		<p id="primary-search-instructions" class="s-centered s-font-bold">Enter A Product</p>
+			<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold' %>
+
 	  	</div>
-	  	<div id="module-cart-container" class="col-lg-1" style="padding-top:5px;">
-	  		
+
+	  	<div id="module-cart-container" class="col-offset-2 col-lg-1" style="padding-top:5px;">
 	  	</div>
 	</div>
 

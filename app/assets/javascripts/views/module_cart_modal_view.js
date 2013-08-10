@@ -25,9 +25,9 @@ Shopperater.Views.ModuleCartModal = Backbone.View.extend({
 
 	render: function () {
 		
-		var guestCartItems = $.jStorage.get("shopperaterGuestCart");
 		this.$el.html(this.template({ collection: this.collection }));
 		return this;
+		
 	}
 
 });

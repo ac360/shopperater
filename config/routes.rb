@@ -7,6 +7,7 @@ Shopperater::Application.routes.draw do
   authenticated :user do
     match 'api/get_cart_items', :to => 'shopperater_api#get_cart_items'
   end
+  
   root :to => 'main#index'
 
 end
