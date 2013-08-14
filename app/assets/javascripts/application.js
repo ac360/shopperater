@@ -18,6 +18,7 @@
 //= require shopperater
 //= require jstorage
 //= require nicescroll
+//= require gridster
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections

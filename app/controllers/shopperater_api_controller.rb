@@ -7,4 +7,8 @@ class ShopperaterApiController < ApplicationController
 
 	end
 
+	def create_medley
+
+	end
+
 end

@@ -28,6 +28,8 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
       			} else {
       				var moduleItemResultsView = new Shopperater.Views.ModuleItemResults({ collection: results[0].items })
       				$('#module-product-results').html(moduleItemResultsView.render().$el);
+              var moduleMedley = new Shopperater.Views.ModuleMedleyView({})
+              $('#module-medley-browser').html(moduleMedley.render().$el);
       			}
 			} // End Success
 		}); // End fetch

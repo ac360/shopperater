@@ -29,8 +29,8 @@
  .container {background:transparent;min-height:500px;}
 
  /* Header */
- #header-logo {margin-bottom:10px;}
- .brand, .brand:hover {color:#ffffff;padding-left:15px;letter-spacing:15px;text-decoration:none;font-family:nexa_boldregular;font-size:28px;font-weight:normal!important;}
+ #header-logo {margin-bottom:5px;margin-top:25px;}
+ .brand, .brand:hover {color:#ffffff;padding-left:15px;letter-spacing:15px;text-decoration:none;font-family:nexa_boldregular;font-size:24px;font-weight:normal!important;}
  #header-search {margin-bottom:10px;}
  #primary-search-field {background:#111111;border:none;margin:0px auto;width:300px;border-radius:0px;text-align:center;color:#ffffff;text-transform:uppercase;letter-spacing:4px;}
  #primary-search-field:focus {border:none;outline: 0;-webkit-box-shadow:none;box-shadow: none;}
@@ -40,8 +40,8 @@
  #cart-popover-trigger:hover {color:#888888;cursor:pointer;}
 
  /* Module - Product Results */
- #module-product-results-container {background:#eaeaea;height:500px;}
- #module-product-results {height:460px;}
+ #module-product-results-container {background:#eaeaea;height:565px;}
+ #module-product-results {height:520px;}
  .product-result-container {padding:8px;background:#ffffff;border:none;margin-bottom:10px;cursor: -webkit-grab;}
  .product-result-container img {max-width:90%;max-height:100px;margin-bottom:5px;}
   #module-item-results {min-height:400px;background:#f2f2f2;margin-top:20px;padding-top:10px;padding-bottom:10px;}
@@ -50,22 +50,25 @@
  .result-price {font-weight:normal;font-size:9px;color:#bbbbbb;}
 
  /* Module - Browser */
- #module-medley-browser {background:#151515;min-height:500px;}
- #medley-container {margin-top:0px;height:450px;background:#111111;
- 	-webkit-box-shadow: inset 0px 0px 8px 1px #000000;
-    box-shadow: inset 0px 0px 8px 1px #000000;
-
-
- }
+ #module-medley-browser {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
+ #medley-title {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;}
+ #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background:#111111;padding-top:10px;padding-bottom:10px;-webkit-box-shadow: inset 0px 0px 8px 1px #000000;box-shadow: inset 0px 0px 8px 1px #000000;border:1px solid #050505;}
+ .drop-zone-highlight {border:1px solid #555!important;}
+  #medley-grid { margin:0 auto;width:405px;}
+ .gridster li {background:#999;margin-left:5px;}
+ .temp-grid-item {background:#eaeaea!important;}
+ #medley-description {min-height:100px;color:#cccccc;font-size:13px;}
 
   /* Module - Medley Results */
- #module-medley-results {background:#eaeaea;min-height:500px;}
-
-
-
-
+ #module-medley-results {background:#eaeaea;min-height:565px;}
 
  /* Cart Modal */
 .modal-body {}
 .modal-body ul {margin-bottom:0px;}
+
+
+/* CSS For Plugins */
+
+/*! gridster.js - v0.1.0 - 2013-06-14 - * http://gridster.net/ - Copyright (c) 2013 ducksboard; Licensed MIT */ 
+.gridster{position:relative}.gridster>*{margin:0 auto;-webkit-transition:height .4s;-moz-transition:height .4s;-o-transition:height .4s;-ms-transition:height .4s;transition:height .4s}.gridster .gs_w{z-index:2;position:absolute}.ready .gs_w:not(.preview-holder){-webkit-transition:opacity .3s,left .3s,top .3s;-moz-transition:opacity .3s,left .3s,top .3s;-o-transition:opacity .3s,left .3s,top .3s;transition:opacity .3s,left .3s,top .3s}.ready .gs_w:not(.preview-holder){-webkit-transition:opacity .3s,left .3s,top .3s,width .3s,height .3s;-moz-transition:opacity .3s,left .3s,top .3s,width .3s,height .3s;-o-transition:opacity .3s,left .3s,top .3s,width .3s,height .3s;transition:opacity .3s,left .3s,top .3s,width .3s,height .3s}.gridster .preview-holder{z-index:1;position:absolute;background-color:#fff;border-color:#fff;opacity:.3}.gridster .player-revert{z-index:10!important;-webkit-transition:left .3s,top .3s!important;-moz-transition:left .3s,top .3s!important;-o-transition:left .3s,top .3s!important;transition:left .3s,top .3s!important}.gridster .dragging{z-index:10!important;-webkit-transition:all 0s!important;-moz-transition:all 0s!important;-o-transition:all 0s!important;transition:all 0s!important}
 

@@ -1,7 +1,19 @@
 
 	<% _.each(collection, function(collection) { %>
+
+			<%  // Check for Product Price
+
+				if (collection.offers[0]) {
+					var productPrice = collection.offers[0].price.fractional
+					productPrice = (productPrice/100).toFixed(2)
+				
+				} else { 
+					var productPrice = "No Price"
+				}        
+			%>
 			
-			<div class="row item-result-row" draggable="true">
+			<div class="row item-result-row" draggable="true"
+			data-id="<%= collection.asin %>" data-title="<%= collection.attrs.title %>" data-price="<%= productPrice %>" data-image="<%= collection.image_sets.primary.images.medium.url %>" data-category="<%= collection.attrs.product_group %>" data-source="amazon" data-link="">
 				<div class="col-offset-1 col-lg-10 product-result-container s-box-shadow-one">
 
 					<%  // Check for Image 
@@ -13,15 +25,7 @@
 
 					<p class="result-title" ><%= collection.attrs.title %></p>
 
-					<%  if (collection.offers[0]) {
-							var productPrice = collection.offers[0].price.fractional
-							productPrice = (productPrice/100).toFixed(2)
-
-						%>  <span class="result-price pull-right">$<%= productPrice %></span> 
-
-						<%	} else { %>
-							<span class="result-price pull-right">No Price</span> 
-						<%	}        %>
+					<span class="result-price pull-right">$<%= productPrice %></span> 
 
 					<p class="result-category">
 						<%= collection.attrs.product_group %>
