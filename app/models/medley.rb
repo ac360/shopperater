@@ -1,0 +1,3 @@
+class Medley < ActiveRecord::Base
+  # attr_accessible :title, :body
+end

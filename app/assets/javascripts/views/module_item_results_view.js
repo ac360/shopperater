@@ -45,7 +45,8 @@ Shopperater.Views.ModuleItemResults = Backbone.View.extend({
 
 	render: function () {
     this.$el.html(this.template({ collection: this.collection }));
-		return this;
+    $('#module-product-results').niceScroll({cursorcolor:"#999999"});
+	return this;
 	}
 
 });
