@@ -1,18 +1,19 @@
-Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
+Shopperater.Views.ModuleMedleyPreviewView = Backbone.View.extend({
 	
 	tagName: "div",
     className: "row",
-	template: JST['modules/medley'],
+	template: JST['modules/medley_preview'],
 
 	initialize: function() {
 		_.bindAll(this);
 	},
 
 	events: {
-		'dragenter #medley-grid'              : 'addTempItemToGrid',
-		'dragleave #medley-container' 		  : 'unhighlightDropZone',
-		'drop #medley-container'      		  : 'createNewMedley',
-	    'dragover #medley-container'  		  : 'highlightDropZone'    
+		'dragenter #medley-container'              : 'addTempItemToGrid',
+		'dragleave #medley-container'              : 'removeTempItemFromGrid',
+		'dragleave #medley-container' 		       : 'unhighlightDropZone',
+		'drop #medley-container'      		       : 'createNewMedley',
+	    'dragover #medley-container'  		       : 'highlightDropZone' 
     },
 
     instantiateGridster: function() {
@@ -60,7 +61,15 @@ Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
 
 	render: function () {
 		this.$el.html(this.template({ }));
+        // Defer the instantiation of Gridster so that it happens at the end of everything else
 		_(this.instantiateGridster).defer();
+
+        var self = this;
+        // Manual Event Binder for Notification Modal Hide
+        $('#notification-modal').on('hidden.bs.modal', function () {
+            self.removeTempItemFromGrid();
+        })
+
 		return this;
 	},
 
@@ -68,9 +77,8 @@ Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
     	
         // Show Notification Modal
         var modalRemixNotificationView = new Shopperater.Views.ModalRemixNotification()
-        $('.modal-content').html(modalRemixNotificationView.render().$el);
-        $('#notification-modal').modal().delay( 8000 )
         $('#notification-modal').modal('show')
+        
 
 		var medleyTitle = $('#medley-title').text()
 		var medleyDescription = $('#medley-description').text()

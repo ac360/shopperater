@@ -7,19 +7,18 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
 	},
 
 	events: {
-		// TODO:  You need to convert the Search Field to a Form so that you can capture the Submit event and run the searchProducts event when a user hits ENTER instead of hitting the search button
 		 "click #primary-search-button"              :   "searchProducts",
 		 "keypress #primary-search-field"			       :   "detectEnterButton"
-    },
+  },
 
-    searchProducts: function() {
+  searchProducts: function() {
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr( 'data-category' );
 
     	var searchItem = new Shopperater.Collections.ItemSearch();
       	searchItem.fetch({
       		data: { keywords: searchKeywords, category: searchCategory },
-    		processData: true,
+    		  processData: true,
       		success: function (response) {
       			var results = response.toJSON();
             	console.log(results[0].items)
@@ -28,19 +27,19 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
       			} else {
       				var moduleItemResultsView = new Shopperater.Views.ModuleItemResults({ collection: results[0].items })
       				$('#module-product-results').html(moduleItemResultsView.render().$el);
-              var moduleMedley = new Shopperater.Views.ModuleMedleyView({})
+              var moduleMedley = new Shopperater.Views.ModuleMedleyPreviewView({})
               $('#module-medley-browser').html(moduleMedley.render().$el);
       			}
 			} // End Success
 		}); // End fetch
-    },
+  },
 
-    detectEnterButton: function(event) {
-    	  var keycode = (event.keyCode ? event.keyCode : event.which);
-    		if(keycode == '13'){
-    			this.searchProducts();	
-    		}
-    },
+  detectEnterButton: function(event) {
+  	  var keycode = (event.keyCode ? event.keyCode : event.which);
+  		if(keycode == '13'){
+  			this.searchProducts();	
+  		}
+  },
 
     // selectCategory: function(e) {
     	
