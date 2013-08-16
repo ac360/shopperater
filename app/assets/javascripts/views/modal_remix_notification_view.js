@@ -7,6 +7,12 @@ Shopperater.Views.ModalRemixNotification = Backbone.View.extend({
 	},
 
 	events: {
+		"click #remix-button"		:     "renderRemixScreen"
+    },
+
+    renderRemixScreen: function() {
+    	$('#notification-modal').modal('hide')
+    	Shopperater.Router.navigate("/remix", {trigger: true});
     },
 
 	render: function () {
