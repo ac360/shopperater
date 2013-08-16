@@ -16,7 +16,8 @@ Medley.Views.EditorSearch = Backbone.View.extend({
   },
 
   searchParameter: function() {
-    $('#primary-search-field').val(this.options.params.search);
+    var searchKeywords = this.options.params.search.split('+').join(' ');
+    $('#primary-search-field').val(searchKeywords);
     this.searchProducts();
   },
 

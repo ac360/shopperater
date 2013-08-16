@@ -87,6 +87,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
         var self = this;
         $('#notification-modal').on('hidden.bs.modal', function () {
             self.removeTempItemFromGrid();
+            self.unhighlightDropZone();
         })
 
 		return this;
@@ -94,10 +95,12 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 
 	openRemixModal: function(e) {
     	
-        // Build Editor Link
-        var searchKeywords = $('#primary-search-field').val();
+        this.unhighlightDropZone();
 
-        var editorLink = '/editor?search=' + searchKeywords + ''
+        // Build Editor Link
+        var searchKeywords = $('#primary-search-field').val().replace(/ /g,"+");
+
+        var editorLink = '/editor?search=' + searchKeywords
 
         $("#editor-button").attr('href', editorLink );
 
