@@ -10,10 +10,9 @@ Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
 
 	events: {
 		'dragenter #medley-grid'              : 'addTempItemToGrid',
-		'dragleave #medley-grid'              : 'removeTempItemFromGrid',
 		'dragleave #medley-container' 		  : 'unhighlightDropZone',
 		'drop #medley-container'      		  : 'createNewMedley',
-	    'dragover #medley-container'  		  : 'highlightDropZone'
+	    'dragover #medley-container'  		  : 'highlightDropZone'    
     },
 
     instantiateGridster: function() {
@@ -42,7 +41,6 @@ Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
 	        }).data('gridster');
 	    	// Add new item
 	    	medleyGrid.add_widget('<li class="temp-grid-item">New Item!</li>', 1, 1, 1, 1);
-	    	console.log("Item Added!")
     	}
     },
 
@@ -68,6 +66,12 @@ Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
 
 	createNewMedley: function(e) {
     	
+        // Show Notification Modal
+        var modalRemixNotificationView = new Shopperater.Views.ModalRemixNotification()
+        $('.modal-content').html(modalRemixNotificationView.render().$el);
+        $('#notification-modal').modal().delay( 8000 )
+        $('#notification-modal').modal('show')
+
 		var medleyTitle = $('#medley-title').text()
 		var medleyDescription = $('#medley-description').text()
 
@@ -274,7 +278,6 @@ Shopperater.Views.ModuleMedleyView = Backbone.View.extend({
         //     });
 
     	this.unhighlightDropZone();
-    	this.removeTempItemFromGrid();
     },
 
 });
