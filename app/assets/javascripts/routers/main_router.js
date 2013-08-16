@@ -1,21 +1,22 @@
-Shopperater.Routers.Main = Backbone.Router.extend({
+Medley.Routers.Main = Backbone.Router.extend({
 	
-	routes: {
-    	"":                              "homePage",
-      "remix":                         "remixPage"
+	routes: { 
+      ""                    :              "browser",
+      "editor"              :              "editor"
     },
 
     initialize: function() {
         _.bindAll(this);
-    }, // End of initialize
+    }, // /initialize
 
-    homePage: function() {
-        var screenBrowseMedlies = new Shopperater.Views.ScreenBrowseMedliesView();
-        $('#dashboard-container').html(screenBrowseMedlies.render().$el); 
-    }, // End home
+    browser: function() {
+        var screenBrowser = new Medley.Views.ScreenBrowser();
+        $('#dashboard-container').html(screenBrowser.render().$el); 
+    }, // /home
 
-    remixPage: function() {
-        var screenRemixMedley = new Shopperater.Views.ScreenRemixMedleyView();
-        $('#dashboard-container').html(screenRemixMedley.render().$el); 
+    editor: function() {
+        var screenEditor = new Medley.Views.ScreenEditor();
     }
-}); // End of Router.Deals
+
+}); // /Router.Deals
+

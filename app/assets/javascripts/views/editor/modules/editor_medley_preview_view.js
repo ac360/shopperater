@@ -1,34 +1,32 @@
-Shopperater.Views.ModuleMedleyPreviewView = Backbone.View.extend({
+Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	
 	tagName: "div",
     className: "row",
-	template: JST['modules/medley_preview'],
+	template: JST['screens/editor/medley_preview'],
 
 	initialize: function() {
 		_.bindAll(this);
 	},
 
 	events: {
-		'dragenter #medley-container'              : 'addTempItemToGrid',
+		'dragenter #medley-container'              : '',
 		'dragleave #medley-container'              : 'removeTempItemFromGrid',
 		'dragleave #medley-container' 		       : 'unhighlightDropZone',
-		'drop #medley-container'      		       : 'openRemixModal',
+		'drop #medley-container'      		       : 'addItemToGrid',
 	    'dragover #medley-container'  		       : 'highlightDropZone' 
     },
 
     instantiateGridster: function() {
         var self = this;
     	var gridster = $(".gridster ul").gridster({
-                   widget_margins: [5, 5],
-                   widget_base_dimensions: [90, 90],
-                   // Put in callback for drag stop
-                   draggable: {
-                       stop: function () {
-                           self.openRemixModal()
-                       }
-                   }
-               }).data("gridster");
-
+                    widget_margins: [5, 5],
+                    widget_base_dimensions: [90, 90],
+                    // Put in callback for drag stop
+                    draggable: {
+                        stop: function () {
+                        }
+                    }
+                }).data("gridster");
     },
 
     highlightDropZone: function(e) {
@@ -40,11 +38,9 @@ Shopperater.Views.ModuleMedleyPreviewView = Backbone.View.extend({
     	$('#medley-container').removeClass('drop-zone-highlight')
     },
 
-    addTempItemToGrid: function() {
-    	// Check to see if a temporary grid item has already been added...
-    	if (!$("li").hasClass("temp-grid-item")) {
-	    	// Re-instantiate Gridster under a variable that also has access to the API object
-	    	var gridster = $(".gridster ul").gridster({
+    addItemToGrid: function() {
+    	// Re-instantiate Gridster
+        var gridster = $(".gridster ul").gridster({
                    widget_margins: [5, 5],
                    widget_base_dimensions: [90, 90],
                    // Put in callback for drag stop
@@ -54,9 +50,10 @@ Shopperater.Views.ModuleMedleyPreviewView = Backbone.View.extend({
                        }
                    }
                }).data("gridster");
-	    	// Add new item
-	    	gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
-    	}
+        // Add new item
+        gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
+
+        this.unhighlightDropZone();
     },
 
     removeTempItemFromGrid: function() {
@@ -80,32 +77,23 @@ Shopperater.Views.ModuleMedleyPreviewView = Backbone.View.extend({
     },
 
 	render: function () {
-		this.$el.html(this.template({ }));
+
+		this.$el.html(this.template());
+
         // Defer the instantiation of Gridster so that it happens at the end of everything else
 		_(this.instantiateGridster).defer();
-
-        var self = this;
-        // Manual Event Binder for Notification Modal Hide
-        $('#notification-modal').on('hidden.bs.modal', function () {
-            self.removeTempItemFromGrid();
-        })
 
 		return this;
 	},
 
 	openRemixModal: function(e) {
-    	
-        // Show Remix Notification Modal
-        var modalRemixNotificationView = new Shopperater.Views.ModalRemixNotification()
-        $('#notification-modal').modal('show')
 
 		var medleyTitle = $('#medley-title').text()
 		var medleyDescription = $('#medley-description').text()
 
-        this.unhighlightDropZone();
 
         // This code is used to create new Medlies, but you are no longer using it here
-    	// var newMedley = new Shopperater.Collections.Medlies();
+    	// var newMedley = new Medley.Collections.Medlies();
         // newMedley.create({ 
         //        	title: medleyTitle, 
         //        	description:  ,
@@ -303,7 +291,6 @@ Shopperater.Views.ModuleMedleyPreviewView = Backbone.View.extend({
         //        	item_one_row:  
                	
         //     });
-
     },
 
 });

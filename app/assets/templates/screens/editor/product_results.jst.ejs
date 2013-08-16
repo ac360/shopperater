@@ -1,0 +1,42 @@
+
+	<% _.each(collection, function(collection) { %>
+
+			<%  // Check for Product Price
+
+				if (collection.offers[0]) {
+					var productPrice = collection.offers[0].price.fractional
+					productPrice = (productPrice/100).toFixed(2)
+				} else { 
+					var productPrice = "No Price"
+				}        
+			%>
+			
+			<div class="row item-result-row" draggable="true"
+			data-id="<%= collection.asin %>" data-title="<%= collection.attrs.title %>" data-price="<%= productPrice %>" data-image="<%= collection.image_sets.primary.images.medium.url %>" data-category="<%= collection.attrs.product_group %>" data-source="amazon" data-link="">
+				
+				<div class="product-result-container s-box-shadow-one col-offset-1 col-lg-10">
+					<div class="row">
+						<div class="col-offset-1 col-lg-4" style="padding-top:10px;"> 
+							<%  // Check for Image
+								if (collection.image_sets.primary) { %>
+								<center><img src="<%= collection.image_sets.primary.images.medium.url %>" draggable="false" class=""></center>
+							<%  } else {  %>
+								<p class="s-centered">No Image</p>
+							<%	}  %>
+						</div>
+						<div class="col-lg-7">
+
+							<p class="result-title" ><%= collection.attrs.title %></p>
+							<span class="result-price pull-right">$<%= productPrice %></span> 
+							<p class="result-category">
+								<%= collection.attrs.product_group %>
+							</p> 
+							
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+	<% }); %>
+

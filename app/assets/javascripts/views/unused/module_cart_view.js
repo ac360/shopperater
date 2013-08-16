@@ -1,4 +1,4 @@
-Shopperater.Views.ModuleCart = Backbone.View.extend({
+Medley.Views.ModuleCart = Backbone.View.extend({
 	
 	tagName: "div",
     id: "",
@@ -17,7 +17,7 @@ Shopperater.Views.ModuleCart = Backbone.View.extend({
 		 // cartItem1.title = "Garden Hose";
 		 // cartItem1.asin = "12384829";
 		 // guestCart.push(cartItem1)
-		 // $.jStorage.set("shopperaterGuestCart", guestCart);
+		 // $.jStorage.set("MedleyGuestCart", guestCart);
 	},
 
 	events: {
@@ -32,22 +32,22 @@ Shopperater.Views.ModuleCart = Backbone.View.extend({
     	// $("#cart-popover-trigger").popover('toggle');
 
     	// If User is Logged In
-		if (shopperaterAuthenticated == true) {
+		if (MedleyAuthenticated == true) {
 				var self = this
-				var userCartItems = new Shopperater.Collections.UserCartItems();
+				var userCartItems = new Medley.Collections.UserCartItems();
 		      	userCartItems.fetch({
 	      			success: function (response) {
 		      			var results = response.toJSON();
 		      			if (results[0].error) {
 		      			} else {
-		      				var moduleCartModal = new Shopperater.Views.ModuleCartModal({ collection: results })
+		      				var moduleCartModal = new Medley.Views.ModuleCartModal({ collection: results })
     						$('.modal-content').html(moduleCartModal.render().$el);
 		      			}
 					} // End Success
 				}); // End fetch
-    	} else if (shopperaterAuthenticated == false) {
-    			var guestCartItems = $.jStorage.get("shopperaterGuestCart");
-    			var moduleCartModal = new Shopperater.Views.ModuleCartModal({ collection: guestCartItems })
+    	} else if (MedleyAuthenticated == false) {
+    			var guestCartItems = $.jStorage.get("MedleyGuestCart");
+    			var moduleCartModal = new Medley.Views.ModuleCartModal({ collection: guestCartItems })
     			$('.modal-content').html(moduleCartModal.render().$el);
     	}
 
@@ -56,9 +56,9 @@ Shopperater.Views.ModuleCart = Backbone.View.extend({
 	render: function () {
 		
 		// If User is Logged In
-		if (shopperaterAuthenticated == true) {
+		if (MedleyAuthenticated == true) {
 			var self = this
-			var userCartItems = new Shopperater.Collections.UserCartItems();
+			var userCartItems = new Medley.Collections.UserCartItems();
 	      	userCartItems.fetch({
       			success: function (response) {
 	      			var results = response.toJSON();
@@ -71,8 +71,8 @@ Shopperater.Views.ModuleCart = Backbone.View.extend({
 			}); // End fetch
 		
 		// If User is not Logged in
-		} else if (shopperaterAuthenticated == false) {
-				var guestCartItems = $.jStorage.get("shopperaterGuestCart");
+		} else if (MedleyAuthenticated == false) {
+				var guestCartItems = $.jStorage.get("MedleyGuestCart");
 				if(!guestCartItems){
 					// If there are no items in the cart do this
 					console.log("This Guest has no items in their cart")

@@ -1,10 +1,10 @@
-window.Shopperater = {
+window.Medley = {
   Models: {},
   Collections: {},
   Views: {},
   Routers: {},
   initialize: function() {
-  	Shopperater.Router = new Shopperater.Routers.Main();
+  	Medley.Router = new Medley.Routers.Main();
     if (!Backbone.history.started) {
             Backbone.history.start({ pushState: true });
             Backbone.history.started = true;
@@ -13,5 +13,5 @@ window.Shopperater = {
 };
 
 $(document).ready(function(){
-  Shopperater.initialize();
+  Medley.initialize();
 });

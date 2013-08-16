@@ -1,4 +1,4 @@
-Shopperater.Collections.Medlies = Backbone.Collection.extend({
+Medley.Collections.Medlies = Backbone.Collection.extend({
 
   url: '/medlies'
 

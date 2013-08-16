@@ -1,4 +1,4 @@
-Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
+Medley.Views.ModuleBrowseMedleySearch = Backbone.View.extend({
 	
 	el: "#module-primary-search",
 
@@ -15,7 +15,7 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr( 'data-category' );
 
-    	var searchItem = new Shopperater.Collections.ItemSearch();
+    	var searchItem = new Medley.Collections.ProductSearch();
       	searchItem.fetch({
       		data: { keywords: searchKeywords, category: searchCategory },
     		  processData: true,
@@ -25,9 +25,9 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
       			if (results[0].error) {
       				// $('#service-results').html('<tbody><tr></tr><tr><td class="c-centered" style="margin-top:30px;opacity:0.8">Nothing found yet, keep typing...</td></tr></tbody>');
       			} else {
-      				var moduleItemResultsView = new Shopperater.Views.ModuleItemResults({ collection: results[0].items })
+      				var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: results[0].items })
       				$('#module-product-results').html(moduleItemResultsView.render().$el);
-              var moduleMedley = new Shopperater.Views.ModuleMedleyPreviewView({})
+              var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({})
               $('#module-medley-browser').html(moduleMedley.render().$el);
       			}
 			} // End Success
@@ -40,17 +40,6 @@ Shopperater.Views.ModulePrimarySearch = Backbone.View.extend({
   			this.searchProducts();	
   		}
   },
-
-    // selectCategory: function(e) {
-    	
-    // 	// Remember the API takes difference Search Indexes (categories) then these category names listed on the Amazon site which you copied to populate the drop down list with options, that's why there are two variables.
-    // 	var apiCategory = $(e.currentTarget).attr('data-category');
-    // 	var uiCategory = $(e.currentTarget).text();
-    // 	// Set the DropDown Button text with new Category
-    // 	$('#category-button-text').text(uiCategory);
-    // 	$('#category-button-text').attr( 'data-category', apiCategory );
-
-    // },
 
 	render: function () {
 		return this;

@@ -15,7 +15,7 @@
 //= require bootstrap
 //= require underscore
 //= require backbone
-//= require shopperater
+//= require medley
 //= require jstorage
 //= require nicescroll
 //= require gridster

@@ -1,9 +1,9 @@
-Shopperater.Views.ModuleItemResults = Backbone.View.extend({
+Medley.Views.ModuleBrowseItemResults = Backbone.View.extend({
 	 
     tagName: "div",
     id: "",
     className: "",
-    template: JST['modules/item_results'],
+    template: JST['screens/browse/item_results'],
 
 	initialize: function() {
 		_.bindAll(this);
@@ -16,7 +16,7 @@ Shopperater.Views.ModuleItemResults = Backbone.View.extend({
     addItemToCart: function(e) {
     	
     	// If Guest Session
-    	var guestCartItems = $.jStorage.get("shopperaterGuestCart");
+    	var guestCartItems = $.jStorage.get("MedleyGuestCart");
 		if(!guestCartItems){
 			// Create Array w/ first Javascript Object
 			var guestCart = []
@@ -27,17 +27,17 @@ Shopperater.Views.ModuleItemResults = Backbone.View.extend({
 			cartItem1.product_group = $(e.currentTarget).attr( "data-product-group" );
 			guestCart.push(cartItem1)
 			// Save item to localstorage
-			$.jStorage.set("shopperaterGuestCart", guestCart);
+			$.jStorage.set("MedleyGuestCart", guestCart);
 			var newItemCount = guestCart.length;
 			$('#cart-item-count').text(newItemCount);
 		} else {
-			var guestCart = $.jStorage.get("shopperaterGuestCart");
+			var guestCart = $.jStorage.get("MedleyGuestCart");
 			var newCartItem = {}
 			newCartItem.title = $(e.currentTarget).attr( "data-title" );
 			newCartItem.asin = $(e.currentTarget).attr( "data-asin" );
 			newCartItem.product_group = $(e.currentTarget).attr( "data-product-group" );
 			guestCart.push(newCartItem)
-			$.jStorage.set("shopperaterGuestCart", guestCart);
+			$.jStorage.set("MedleyGuestCart", guestCart);
 			var newItemCount = guestCart.length
 			$('#cart-item-count').text(newItemCount)
 		};

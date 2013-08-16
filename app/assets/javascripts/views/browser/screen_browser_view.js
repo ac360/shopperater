@@ -1,4 +1,4 @@
-Shopperater.Views.ScreenBrowseMedliesView = Backbone.View.extend({
+Medley.Views.ScreenBrowser = Backbone.View.extend({
 	
 	tagName: "div",
     id: "",
@@ -15,7 +15,7 @@ Shopperater.Views.ScreenBrowseMedliesView = Backbone.View.extend({
 	render: function () {
 		this.$el.html(this.template({}));
 		// Render Sub Views
-		var modulePrimarySearch = new Shopperater.Views.ModulePrimarySearch()
+		var modulePrimarySearch = new Medley.Views.ModuleBrowseMedleySearch()
 		return this;
 	}
 

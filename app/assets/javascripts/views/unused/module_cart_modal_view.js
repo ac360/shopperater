@@ -1,4 +1,4 @@
-Shopperater.Views.ModuleCartModal = Backbone.View.extend({
+Medley.Views.ModuleCartModal = Backbone.View.extend({
 	
 	tagName: "div",
     id: "",
@@ -18,7 +18,7 @@ Shopperater.Views.ModuleCartModal = Backbone.View.extend({
     	this.collection.splice(itemIndex, 1);
     	// Save Changes to Local Storage
     	$.jStorage.flush()
-    	$.jStorage.set("shopperaterGuestCart", this.collection);
+    	$.jStorage.set("MedleyGuestCart", this.collection);
     	this.render();
     	$('#cart-item-count').text(this.collection.length);
     },

@@ -1,6 +1,9 @@
 class MainController < ApplicationController
 
-	def index
+	def browser
+	end
+
+	def editor
 	end
 
 end

@@ -40,32 +40,31 @@
  #primary-category-dropdown li a:hover {color:#ffffff;}
  #cart-popover-trigger:hover {color:#888888;cursor:pointer;}
 
- /* Module - Product Results */
+ /* Screen - Browse */
  #module-product-results-container {background:#eaeaea;height:565px;}
  #module-product-results {height:520px;}
- .product-result-container {padding:8px;background:#ffffff;border:none;margin-bottom:10px;cursor: -webkit-grab;}
+ .product-result-container {padding:13px;background:#ffffff;border:none;margin-bottom:10px;cursor: -webkit-grab;}
  .product-result-container img {max-width:90%;max-height:100px;margin-bottom:5px;}
   #module-item-results {min-height:400px;background:#f2f2f2;margin-top:20px;padding-top:10px;padding-bottom:10px;}
  .result-title {font-weight:normal;color:#777777;margin-bottom:5px;font-size:10px;line-height:15px;}
  .result-category {color:#bbbbbb;margin-bottom:10px;font-size:9px;}
  .result-price {font-weight:normal;font-size:9px;color:#bbbbbb;}
 
- /* Module - Browser */
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
  #medley-title {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;}
  #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background:#111111;padding-top:10px;padding-bottom:10px;-webkit-box-shadow: inset 0px 0px 8px 1px #000000;box-shadow: inset 0px 0px 8px 1px #000000;border:1px solid #050505;}
  .drop-zone-highlight {border:1px solid #555!important;}
-  #medley-grid { margin:0 auto;width:405px;}
+ #medley-grid { margin:0 auto;width:405px;}
  .gridster li {background:#999;margin-left:5px;}
  .temp-grid-item {background:#eaeaea!important;}
  #medley-description {min-height:100px;color:#cccccc;font-size:13px;}
 
-  /* Module - Medley Results */
  #module-medley-results {background:#eaeaea;min-height:565px;}
- .animated {-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:1s;-moz-animation-duration:1s;-ms-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;}.animated.hinge{-webkit-animation-duration:2s;-moz-animation-duration:2s;-ms-animation-duration:2s;-o-animation-duration:2s;animation-duration:2s;}@-webkit-keyframes wobble {0% { -webkit-transform: translateX(0%); } 15% { -webkit-transform: translateX(-25%) rotate(-5deg); } 30% { -webkit-transform: translateX(20%) rotate(3deg); } 45% { -webkit-transform: translateX(-15%) rotate(-3deg); } 60% { -webkit-transform: translateX(10%) rotate(2deg); } 75% { -webkit-transform: translateX(-5%) rotate(-1deg); } 100% { -webkit-transform: translateX(0%); } } @-moz-keyframes wobble {0% { -moz-transform: translateX(0%); } 15% { -moz-transform: translateX(-25%) rotate(-5deg); } 30% { -moz-transform: translateX(20%) rotate(3deg); } 45% { -moz-transform: translateX(-15%) rotate(-3deg); } 60% { -moz-transform: translateX(10%) rotate(2deg); } 75% { -moz-transform: translateX(-5%) rotate(-1deg); } 100% { -moz-transform: translateX(0%); } } @-o-keyframes wobble {0% { -o-transform: translateX(0%); } 15% { -o-transform: translateX(-25%) rotate(-5deg); } 30% { -o-transform: translateX(20%) rotate(3deg); } 45% { -o-transform: translateX(-15%) rotate(-3deg); } 60% { -o-transform: translateX(10%) rotate(2deg); } 75% { -o-transform: translateX(-5%) rotate(-1deg); } 100% { -o-transform: translateX(0%); } } @keyframes wobble {0% { transform: translateX(0%); } 15% { transform: translateX(-25%) rotate(-5deg); } 30% { transform: translateX(20%) rotate(3deg); } 45% { transform: translateX(-15%) rotate(-3deg); } 60% { transform: translateX(10%) rotate(2deg); } 75% { transform: translateX(-5%) rotate(-1deg); } 100% { transform: translateX(0%); } }
- .remixed {-webkit-animation-name: wobble; -moz-animation-name: wobble; -o-animation-name: wobble; animation-name: wobble; }
+ 
 
- /* Cart Modal */
+ /* Modals */
+.animated {-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:0.5s;-moz-animation-duration:0.5s;-ms-animation-duration:0.5s;-o-animation-duration:0.5s;animation-duration:0.5s;}.animated.hinge{-webkit-animation-duration:0.5s;-moz-animation-duration:0.5s;-ms-animation-duration:0.5s;-o-animation-duration:0.5s;animation-duration:0.5s;}@-webkit-keyframes wobble {0% { -webkit-transform: translateX(0%); } 15% { -webkit-transform: translateX(-25%) rotate(-5deg); } 30% { -webkit-transform: translateX(20%) rotate(3deg); } 45% { -webkit-transform: translateX(-15%) rotate(-3deg); } 60% { -webkit-transform: translateX(10%) rotate(2deg); } 75% { -webkit-transform: translateX(-5%) rotate(-1deg); } 100% { -webkit-transform: translateX(0%); } } @-moz-keyframes wobble {0% { -moz-transform: translateX(0%); } 15% { -moz-transform: translateX(-25%) rotate(-5deg); } 30% { -moz-transform: translateX(20%) rotate(3deg); } 45% { -moz-transform: translateX(-15%) rotate(-3deg); } 60% { -moz-transform: translateX(10%) rotate(2deg); } 75% { -moz-transform: translateX(-5%) rotate(-1deg); } 100% { -moz-transform: translateX(0%); } } @-o-keyframes wobble {0% { -o-transform: translateX(0%); } 15% { -o-transform: translateX(-25%) rotate(-5deg); } 30% { -o-transform: translateX(20%) rotate(3deg); } 45% { -o-transform: translateX(-15%) rotate(-3deg); } 60% { -o-transform: translateX(10%) rotate(2deg); } 75% { -o-transform: translateX(-5%) rotate(-1deg); } 100% { -o-transform: translateX(0%); } } @keyframes wobble {0% { transform: translateX(0%); } 15% { transform: translateX(-25%) rotate(-5deg); } 30% { transform: translateX(20%) rotate(3deg); } 45% { transform: translateX(-15%) rotate(-3deg); } 60% { transform: translateX(10%) rotate(2deg); } 75% { transform: translateX(-5%) rotate(-1deg); } 100% { transform: translateX(0%); } } 
+.remixed  {-webkit-animation-name: wobble; -moz-animation-name: wobble; -o-animation-name: wobble; animation-name: wobble; }
 .modal-content {min-height:300px;padding:20px 0px 30px 0px;}
 .modal-body {}
 .modal-body ul {margin-bottom:0px;}

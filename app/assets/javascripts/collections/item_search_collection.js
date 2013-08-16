@@ -1,5 +1,5 @@
-Shopperater.Collections.ItemSearch = Backbone.Collection.extend({
+Medley.Collections.ProductSearch = Backbone.Collection.extend({
 
-  url: '/item_search'
+  url: '/product_search'
 
 }); // End Collection
