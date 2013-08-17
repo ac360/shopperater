@@ -18,6 +18,7 @@
  a {color:#444;}
  .s-no-margin {margin:0px;}
  .s-grey {color: #bbbbbb}
+ .m-white {color:#ffffff;}
  .s-box-shadow-one {-webkit-box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 1px hsla(0, 0%, 0%, 0.30) ;}
  .s-centered {text-align:center;}
  .s-font-bold {font-family:nexa_boldregular;font-weight:normal!important;text-transform: uppercase;}
@@ -60,6 +61,11 @@
  #medley-description {min-height:100px;color:#cccccc;font-size:13px;}
 
  #module-medley-results {background:#eaeaea;min-height:565px;}
+
+ /* Screen - Editor */
+ #medley-grid-item {}
+ .edit-item-button {color:#ccc;font-size:10px;padding:5px;}
+ .edit-item-button:hover {color:#ffffff;cursor:pointer;}
  
 
  /* Modals */

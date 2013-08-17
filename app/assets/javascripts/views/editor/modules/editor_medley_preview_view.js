@@ -9,6 +9,8 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	},
 
 	events: {
+        'click .glyphicon-pencil'                  : 'openItemOptions',
+        'click .glyphicon-remove'                  : 'closeItemOptions',
 		'dragenter #medley-container'              : '',
 		'dragleave #medley-container'              : 'removeTempItemFromGrid',
 		'dragleave #medley-container' 		       : 'unhighlightDropZone',
@@ -16,17 +18,26 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	    'dragover #medley-container'  		       : 'highlightDropZone' 
     },
 
+    openItemOptions: function(e) {
+        var gridster = M.instantiateGridster();
+        // Add new item
+        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 2, 2);
+        $(e.currentTarget).removeClass('glyphicon-pencil')
+        $(e.currentTarget).addClass('glyphicon-remove')
+        // Load in Options View
+    },
+
+    closeItemOptions: function(e) {
+        var gridster = M.instantiateGridster();
+        // Add new item
+        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 1, 1);
+        $(e.currentTarget).removeClass('glyphicon-remove')
+        $(e.currentTarget).addClass('glyphicon-pencil')
+    },
+
     instantiateGridster: function() {
         var self = this;
-    	var gridster = $(".gridster ul").gridster({
-                    widget_margins: [5, 5],
-                    widget_base_dimensions: [90, 90],
-                    // Put in callback for drag stop
-                    draggable: {
-                        stop: function () {
-                        }
-                    }
-                }).data("gridster");
+    	M.instantiateGridster();
     },
 
     highlightDropZone: function(e) {
@@ -39,20 +50,14 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
     },
 
     addItemToGrid: function() {
-    	// Re-instantiate Gridster
-        var gridster = $(".gridster ul").gridster({
-                   widget_margins: [5, 5],
-                   widget_base_dimensions: [90, 90],
-                   // Put in callback for drag stop
-                   draggable: {
-                       stop: function () {
-                           self.openRemixModal()
-                       }
-                   }
-               }).data("gridster");
-        // Add new item
-        gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
-
+        //  Run Helper function to check how many Medley items are curerntly in the Medley
+        if(M.checkMedleyItemCount()) {
+            // Re-instantiate Gridster
+            var gridster = M.instantiateGridster();
+            gridster.add_widget('<li class="medley-grid-item"><i class="glyphicon glyphicon-pencil pull-right edit-item-button"></i></li>', 1, 1, 1, 1);
+        } else {
+            alert("Sorry, Medlies can contain only 16 Items");
+        }
         this.unhighlightDropZone();
     },
 
@@ -60,19 +65,9 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
     	// Check to see if a temporary grid item has already been added...
     	if ($("li").hasClass("temp-grid-item")) {
 	    	// Re-instantiate Gridster under a variable that also has access to the API object
-	    	var gridster = $(".gridster ul").gridster({
-                   widget_margins: [5, 5],
-                   widget_base_dimensions: [90, 90],
-                   // Put in callback for drag stop
-                   draggable: {
-                       stop: function () {
-                           self.openRemixModal()
-                       }
-                   }
-               }).data("gridster");
+	    	var gridster = M.instantiateGridster();
 	    	// Add new item
 	    	gridster.remove_widget($('.temp-grid-item'));
-	    	console.log("Item Removed!")
     	}
     },
 
