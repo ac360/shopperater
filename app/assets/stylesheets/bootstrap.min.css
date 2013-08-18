@@ -16,13 +16,12 @@
 
  /* Custom Shopperater Styles */
  a {color:#444;}
- .s-no-margin {margin:0px;}
- .s-grey {color: #bbbbbb}
+ .s-no-margin, .m-no-margin {margin:0px;}
+ .s-grey, .m-grey {color: #bbbbbb}
  .m-white {color:#ffffff;}
- .s-box-shadow-one {-webkit-box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 1px hsla(0, 0%, 0%, 0.30) ;}
- .s-centered {text-align:center;}
- .s-font-bold {font-family:nexa_boldregular;font-weight:normal!important;text-transform: uppercase;}
- .m-box-shadow-one {-webkit-box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 1px hsla(0, 0%, 0%, 0.30) ;}
+ .s-box-shadow-one, .m-box-shadow-one {-webkit-box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 1px hsla(0, 0%, 0%, 0.30) ;}
+ .s-centered, .m-centered {text-align:center;}
+ .s-font-bold, .m-font-bold {font-family:nexa_boldregular;font-weight:normal!important;text-transform: uppercase;}
 
  :focus {outline: 0!important; }
  .modal-content, .form-control {border-radius:0px;}
@@ -53,6 +52,8 @@
  .result-title {font-weight:normal;color:#777777;margin-bottom:5px;font-size:10px;line-height:15px;}
  .result-category {color:#bbbbbb;margin-bottom:10px;font-size:9px;}
  .result-price {font-weight:normal;font-size:9px;color:#bbbbbb;}
+ .item-title-1 {width:100%;background:hsla(0, 0%, 100%, 0.6);padding-top:4px;font-size:8px;color:#999;position: absolute;bottom: 0;margin-bottom:3px;text-align:center!important;}
+ .item-image-1 {max-width:70px;max-height:50px;}
 
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
  #medley-title {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;}
@@ -62,7 +63,6 @@
  .gridster li {margin-left:5px;}
  .temp-grid-item {background:#eaeaea!important;}
  #medley-description {min-height:100px;color:#cccccc;font-size:13px;}
-
  #module-medley-results {background:#eaeaea;min-height:565px;}
 
  /* Screen - Editor */
@@ -72,7 +72,7 @@
  #item-options-panel {background:#eaeaea;height:190px;width:100%;}
  #item-options-panel .glyphicon-remove {color:#bbb;padding:5px;}
  #item-options-panel .glyphicon-remove:hover {color:#ee8787;cursor:pointer;}
- #item-title {font-size:14px;max-width:90%;margin:5px auto 0px auto;}
+ #item-title-field {font-size:14px;max-width:90%;margin:5px auto 0px auto;}
  #size-minus-button {width:60px;}
  #size-plus-button {width:60px;}
  #save-item-button {width:125px;}

@@ -9,27 +9,36 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	},
 
 	events: {
-        'click .glyphicon-pencil'                  : 'openItemOptions',
-        'click .glyphicon-remove'                  : 'removeItemFromGrid',
-		'dragenter #medley-container'              : '',
-		'dragleave #medley-container'              : 'removeTempItemFromGrid',
-		'dragleave #medley-container' 		       : 'unhighlightDropZone',
-		'drop #medley-container'      		       : 'addItemToGrid',
-	    'dragover #medley-container'  		       : 'highlightDropZone',
-        'click #size-minus-button'                 : 'makeItemSmaller',
-        'click #size-plus-button'                  : 'makeItemBigger'
+        'click .glyphicon-pencil'                  : 'gridOpenItemOptions',
+        'click .glyphicon-remove'                  : 'gridRemoveItemFromGrid',
+		'dragleave #medley-container' 		       : 'gridUnhighlightDropZone',
+		'drop #medley-container'      		       : 'gridAddItemToGrid',
+	    'dragover #medley-container'  		       : 'gridHighlightDropzone',
+        'click #size-minus-button'                 : 'gridMakeItemSmaller',
+        'click #size-plus-button'                  : 'gridMakeItemBigger'
     },
 
-    removeItemFromGrid: function(e) {
+    render: function () {
+        this.$el.html(this.template());
+        // If there is a Collection, load it into the Medley
+        if(this.collection){
+            _(this.loadFirstMedley).defer();
+        } else {
+            // Defer the instantiation of Gridster so that it happens at the end of everything else
+            _(this.instantiateGridster).defer();
+        }
+        return this;
+    },
+
+    gridRemoveItemFromGrid: function(e) {
         var verifyRemoval = confirm("Remove this item from your Medley?")
-            if (verifyRemoval == true)
-              {
+            if (verifyRemoval == true) {
                 var gridster = M.instantiateGridster();
                 gridster.remove_widget($(e.currentTarget).closest('.medley-grid-item'));
               }
     },
 
-    makeItemSmaller: function() {
+    gridMakeItemSmaller: function() {
         var currentSize = $('#item-box-size').attr('data-size')
         if (currentSize > 1) {
             currentSize = currentSize - 1
@@ -48,7 +57,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         }
     },
 
-    makeItemBigger: function() {
+    gridMakeItemBigger: function() {
         var currentSize = $('#item-box-size').attr('data-size')
         if (currentSize < 3) {
             currentSize = parseInt(currentSize) + 1
@@ -67,7 +76,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         }
     },
 
-    openItemOptions: function(e) {
+    gridOpenItemOptions: function(e) {
         // Resize Item
         var gridster = M.instantiateGridster();
         gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 2, 2);
@@ -83,7 +92,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         //$(e.currentTarget).closest('.medley-grid-item')
     },
 
-    closeItemOptions: function(e) {
+    gridCloseItemOptions: function(e) {
         var gridster = M.instantiateGridster();
         // Resize Item Box
         gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 1, 1);
@@ -91,16 +100,16 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         $(e.currentTarget).addClass('glyphicon-pencil')
     },
 
-    highlightDropZone: function(e) {
+    gridHighlightDropzone: function(e) {
     	e.preventDefault();
     	$('#medley-container').addClass('drop-zone-highlight')
     },
 
-    unhighlightDropZone: function(e) {
+    gridUnhighlightDropZone: function(e) {
     	$('#medley-container').removeClass('drop-zone-highlight')
     },
 
-    addItemToGrid: function() {
+    gridAddItemToGrid: function() {
         //  Run Helper function to check how many Medley items are curerntly in the Medley
         if(M.checkMedleyItemCount()) {
             // Re-instantiate Gridster
@@ -109,19 +118,21 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         } else {
             alert("Sorry, Medlies can contain only 16 Items");
         }
-        this.unhighlightDropZone();
+        this.gridUnhighlightDropZone();
     },
 
-     instantiateGridster: function() {
+    loadFirstMedley: function() {
+        _.each(this.collection, function(model) { 
+                    var itemView = new Medley.Views.EditorItem({ model: model });
+                    $('#medley-grid').html(itemView.render().$el)
+            });
+        M.instantiateGridster();
+
+    },
+
+    instantiateGridster: function() {
         M.instantiateGridster();
     },
-
-	render: function () {
-		this.$el.html(this.template());
-        // Defer the instantiation of Gridster so that it happens at the end of everything else
-		_(this.instantiateGridster).defer();
-		return this;
-	},
 
 	openRemixModal: function(e) {
 

@@ -1,0 +1,6 @@
+<i class="glyphicon glyphicon-pencil pull-right edit-item-button"></i><br/>
+<% if(model.custom_title){ %>
+	<h6 class="item-title-<%= this.model.rows %>"><%= model.custom_title %></h6>
+<% } else { %>
+	<h6 class="item-title-<%= this.model.rows %>"><%= model.title %></h6>
+<% } %>
