@@ -64,19 +64,23 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
                 $('#item-box-size').text('Large');
                 break;
             }
-
         }
     },
 
     openItemOptions: function(e) {
+        // Resize Item
         var gridster = M.instantiateGridster();
-        // Add new item
         gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 2, 2);
-        $(e.currentTarget).removeClass('glyphicon-pencil')
-        $(e.currentTarget).addClass('glyphicon-remove')
+        // If li hasClass then remove View
+        if ( $('li').hasClass("open-options") ) {
+            // TODO ------- Write in Code to re-render Original View within the li  
+            $('.open-options').removeClass('open-options')     
+        };
         // Load in Options Panel
         var itemOptionsPanel = new Medley.Views.EditorItemOptions();
-        $($(e.currentTarget).closest('.medley-grid-item')).html(itemOptionsPanel.render().$el); 
+        $($(e.currentTarget).closest('.medley-grid-item')).html(itemOptionsPanel.render().$el).addClass('open-options')
+        // Add open-options Class
+        //$(e.currentTarget).closest('.medley-grid-item')
     },
 
     closeItemOptions: function(e) {
