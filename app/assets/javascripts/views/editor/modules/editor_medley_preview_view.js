@@ -10,12 +10,62 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 
 	events: {
         'click .glyphicon-pencil'                  : 'openItemOptions',
-        'click .glyphicon-remove'                  : 'closeItemOptions',
+        'click .glyphicon-remove'                  : 'removeItemFromGrid',
 		'dragenter #medley-container'              : '',
 		'dragleave #medley-container'              : 'removeTempItemFromGrid',
 		'dragleave #medley-container' 		       : 'unhighlightDropZone',
 		'drop #medley-container'      		       : 'addItemToGrid',
-	    'dragover #medley-container'  		       : 'highlightDropZone' 
+	    'dragover #medley-container'  		       : 'highlightDropZone',
+        'click #size-minus-button'                 : 'makeItemSmaller',
+        'click #size-plus-button'                  : 'makeItemBigger'
+    },
+
+    removeItemFromGrid: function(e) {
+        var verifyRemoval = confirm("Remove this item from your Medley?")
+            if (verifyRemoval == true)
+              {
+                var gridster = M.instantiateGridster();
+                gridster.remove_widget($(e.currentTarget).closest('.medley-grid-item'));
+              }
+    },
+
+    makeItemSmaller: function() {
+        var currentSize = $('#item-box-size').attr('data-size')
+        if (currentSize > 1) {
+            currentSize = currentSize - 1
+            $('#item-box-size').attr('data-size', currentSize);
+            switch (currentSize) {
+              case 1:
+                $('#item-box-size').text('Small');
+                break;
+              case 2:
+                $('#item-box-size').text('Medium');
+                break;
+              case 3:
+                $('#item-box-size').text('Large');
+                break;
+            }
+        }
+    },
+
+    makeItemBigger: function() {
+        var currentSize = $('#item-box-size').attr('data-size')
+        if (currentSize < 3) {
+            currentSize = parseInt(currentSize) + 1
+            $('#item-box-size').attr('data-size', currentSize);
+            switch (currentSize) {
+              case 1:
+                $('#item-box-size').text('Small');
+                break;
+              case 2:
+                $('#item-box-size').text('Medium');
+                break;
+              case 3:
+                $('#item-box-size').text('Large');
+                break;
+            }
+
+        }
     },
 
     openItemOptions: function(e) {
@@ -24,20 +74,17 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 2, 2);
         $(e.currentTarget).removeClass('glyphicon-pencil')
         $(e.currentTarget).addClass('glyphicon-remove')
-        // Load in Options View
+        // Load in Options Panel
+        var itemOptionsPanel = new Medley.Views.EditorItemOptions();
+        $($(e.currentTarget).closest('.medley-grid-item')).html(itemOptionsPanel.render().$el); 
     },
 
     closeItemOptions: function(e) {
         var gridster = M.instantiateGridster();
-        // Add new item
+        // Resize Item Box
         gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 1, 1);
         $(e.currentTarget).removeClass('glyphicon-remove')
         $(e.currentTarget).addClass('glyphicon-pencil')
-    },
-
-    instantiateGridster: function() {
-        var self = this;
-    	M.instantiateGridster();
     },
 
     highlightDropZone: function(e) {
@@ -61,23 +108,14 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         this.unhighlightDropZone();
     },
 
-    removeTempItemFromGrid: function() {
-    	// Check to see if a temporary grid item has already been added...
-    	if ($("li").hasClass("temp-grid-item")) {
-	    	// Re-instantiate Gridster under a variable that also has access to the API object
-	    	var gridster = M.instantiateGridster();
-	    	// Add new item
-	    	gridster.remove_widget($('.temp-grid-item'));
-    	}
+     instantiateGridster: function() {
+        M.instantiateGridster();
     },
 
 	render: function () {
-
 		this.$el.html(this.template());
-
         // Defer the instantiation of Gridster so that it happens at the end of everything else
 		_(this.instantiateGridster).defer();
-
 		return this;
 	},
 
