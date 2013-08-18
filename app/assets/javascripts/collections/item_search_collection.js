@@ -1,5 +1,5 @@
 Medley.Collections.ProductSearch = Backbone.Collection.extend({
 
-  url: '/product_search'
+  url: 'retailer/product_search'
 
 }); // End Collection

@@ -6,6 +6,8 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+        console.log("Below are the params passed into this view:")
+        console.log(this.options.params)
 	},
 
 	events: {
@@ -19,15 +21,53 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
     },
 
     render: function () {
-        this.$el.html(this.template());
-        // If there is a Collection, load it into the Medley
-        if(this.collection){
-            _(this.loadFirstMedley).defer();
-        } else {
-            // Defer the instantiation of Gridster so that it happens at the end of everything else
-            _(this.instantiateGridster).defer();
-        }
-        return this;
+        
+        var self = this;
+        // Check If REFERRAL w/ Product ID
+            if(this.options.params.referral){
+                    // Perform Product Look-up
+                    var referralProducts = new Medley.Collections.ItemLookup();
+                    referralProducts.fetch({
+                        data: { 
+                            product_one_retailer: this.options.params.product_one_retailer,
+                            product_one_id: this.options.params.product_one_id
+                        },
+                        processData: true,
+                        success: function (response) {
+                            var result = response.toJSON();
+                            if (result.error) {
+                               console.log(result.error)
+                            } else {
+                                var collection = result
+                                self.$el.html(self.template({}));
+                                // // For Each Item in Collection load sub view...
+                                _(self.loadReferralMedley(collection)).defer();
+                            };
+                        }
+                    });
+        // Check If REMIX w/ Product ID
+            } else if (this.options.params.remix) {
+                    this.$el.html(this.template());
+                    // Defer the instantiation of Gridster so that it happens at the end of everything else
+                    _(this.instantiateGridster).defer();
+        // Check if Plain CREATE Mode
+            } else {
+                    this.$el.html(this.template());
+                    // Defer the instantiation of Gridster so that it happens at the end of everything else
+                    _(this.instantiateGridster).defer();
+            };
+            return this;
+    },
+
+    loadReferralMedley: function(collection) {
+        console.log("here are the collection models")
+        _.each(collection, function(model) { 
+                    // Build New Model Object
+                    var itemView = new Medley.Views.EditorItem({ model: model });
+                    $('#medley-grid').html(itemView.render().$el)
+            });
+        M.instantiateGridster();
+
     },
 
     gridRemoveItemFromGrid: function(e) {
@@ -119,15 +159,6 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
             alert("Sorry, Medlies can contain only 16 Items");
         }
         this.gridUnhighlightDropZone();
-    },
-
-    loadFirstMedley: function() {
-        _.each(this.collection, function(model) { 
-                    var itemView = new Medley.Views.EditorItem({ model: model });
-                    $('#medley-grid').html(itemView.render().$el)
-            });
-        M.instantiateGridster();
-
     },
 
     instantiateGridster: function() {

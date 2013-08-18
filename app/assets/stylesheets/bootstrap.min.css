@@ -52,7 +52,7 @@
  .result-title {font-weight:normal;color:#777777;margin-bottom:5px;font-size:10px;line-height:15px;}
  .result-category {color:#bbbbbb;margin-bottom:10px;font-size:9px;}
  .result-price {font-weight:normal;font-size:9px;color:#bbbbbb;}
- .item-title-1 {width:100%;background:hsla(0, 0%, 100%, 0.6);padding-top:4px;font-size:8px;color:#999;position: absolute;bottom: 0;margin-bottom:3px;text-align:center!important;}
+ .item-title-1 {width:100%;background:hsla(0, 0%, 100%, 0.6);padding-top:4px;font-size:8px;color:#444;position: absolute;bottom: 0;margin-bottom:3px;text-align:center!important;}
  .item-image-1 {max-width:70px;max-height:50px;}
 
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
