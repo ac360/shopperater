@@ -80,6 +80,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 
 	render: function () {
 		this.$el.html(this.template({ }));
+        
         // Defer the instantiation of Gridster so that it happens at the end of everything else
 		_(this.instantiateGridster).defer();
 
@@ -99,9 +100,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 
         // Build Editor Link
         var searchKeywords = $('#primary-search-field').val().replace(/ /g,"+");
-
         var editorLink = '/editor?search=' + searchKeywords
-
         $("#editor-button").attr('href', editorLink );
 
         // Show Remix Notification Modal
@@ -109,208 +108,6 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 
 		var medleyTitle = $('#medley-title').text()
 		var medleyDescription = $('#medley-description').text()
-
-
-        // This code is used to create new Medlies, but you are no longer using it here
-    	// var newMedley = new Medley.Collections.Medlies();
-        // newMedley.create({ 
-        //        	title: medleyTitle, 
-        //        	description:  ,
-               	
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  
-               	
-        //     });
-
     },
 
 });
