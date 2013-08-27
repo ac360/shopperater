@@ -22,6 +22,7 @@
  .s-box-shadow-one, .m-box-shadow-one {-webkit-box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 1px hsla(0, 0%, 0%, 0.30) ;}
  .s-centered, .m-centered {text-align:center;}
  .s-font-bold, .m-font-bold {font-family:nexa_boldregular;font-weight:normal!important;text-transform: uppercase;}
+ .m-font-two {font-family:'Open Sans',sans-serif!important;font-weight:400;}
 
  :focus {outline: 0!important; }
  .modal-content, .form-control {border-radius:0px;}
@@ -54,6 +55,10 @@
  .result-price {font-weight:normal;font-size:9px;color:#bbbbbb;}
  .item-title-1 {width:100%;background:hsla(0, 0%, 100%, 0.6);padding-top:4px;font-size:8px;color:#444;position: absolute;bottom: 0;margin-bottom:3px;text-align:center!important;}
  .item-image-1 {max-width:70px;max-height:50px;}
+ .product-title {max-height:58px;overflow:hidden;font-size:10px;line-height:12px;text-align:center;margin:0px;padding:8px;}
+ .product-option-icons {height:25px;width:100%;padding-top:10px;font-size:14px;color:#ccc;text-align:center;}
+ .product-option-icons i {padding-right:2px;}
+ .product-option-icons i:hover {color:#999;cursor:pointer;}
 
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
  #medley-title {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;}
@@ -66,17 +71,19 @@
  #module-medley-results {background:#eaeaea;min-height:565px;}
 
  /* Screen - Editor */
- .medley-grid-item {background:#ffffff;}
- .edit-item-button {color:#ccc;font-size:10px;padding:5px;}
- .edit-item-button:hover {color:#999;cursor:pointer;}
+ .medley-grid-item  {background:#ffffff;}
+ .medley-grid-item-view {min-height:100%;}
+ #medley-item-image-container {text-align:center;}
+ #medley-item-image-container img { max-width:90%;max-height:90%;padding-top:5px;}
+ #medley-item-title-container {display:none;}
  #item-options-panel {background:#eaeaea;height:190px;width:100%;}
  #item-options-panel .glyphicon-remove {color:#bbb;padding:5px;}
  #item-options-panel .glyphicon-remove:hover {color:#ee8787;cursor:pointer;}
- #item-title-field {font-size:14px;max-width:90%;margin:5px auto 0px auto;}
+ #item-custom-title-field {font-size:14px;max-width:90%;margin:5px auto 0px auto;}
  #size-minus-button {width:60px;}
  #size-plus-button {width:60px;}
- #save-item-button {width:125px;}
- 
+ #save-options-button {width:125px;}
+
  /* Modals */
 .animated {-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:0.9s;-moz-animation-duration:0.9s;-ms-animation-duration:0.9s;-o-animation-duration:0.9s;animation-duration:0.9s;}.animated.hinge{-webkit-animation-duration:0.5s;-moz-animation-duration:0.5s;-ms-animation-duration:0.5s;-o-animation-duration:0.5s;animation-duration:0.5s;}@-webkit-keyframes wobble {0% { -webkit-transform: translateX(0%); } 15% { -webkit-transform: translateX(-25%) rotate(-5deg); } 30% { -webkit-transform: translateX(20%) rotate(3deg); } 45% { -webkit-transform: translateX(-15%) rotate(-3deg); } 60% { -webkit-transform: translateX(10%) rotate(2deg); } 75% { -webkit-transform: translateX(-5%) rotate(-1deg); } 100% { -webkit-transform: translateX(0%); } } @-moz-keyframes wobble {0% { -moz-transform: translateX(0%); } 15% { -moz-transform: translateX(-25%) rotate(-5deg); } 30% { -moz-transform: translateX(20%) rotate(3deg); } 45% { -moz-transform: translateX(-15%) rotate(-3deg); } 60% { -moz-transform: translateX(10%) rotate(2deg); } 75% { -moz-transform: translateX(-5%) rotate(-1deg); } 100% { -moz-transform: translateX(0%); } } @-o-keyframes wobble {0% { -o-transform: translateX(0%); } 15% { -o-transform: translateX(-25%) rotate(-5deg); } 30% { -o-transform: translateX(20%) rotate(3deg); } 45% { -o-transform: translateX(-15%) rotate(-3deg); } 60% { -o-transform: translateX(10%) rotate(2deg); } 75% { -o-transform: translateX(-5%) rotate(-1deg); } 100% { -o-transform: translateX(0%); } } @keyframes wobble {0% { transform: translateX(0%); } 15% { transform: translateX(-25%) rotate(-5deg); } 30% { transform: translateX(20%) rotate(3deg); } 45% { transform: translateX(-15%) rotate(-3deg); } 60% { transform: translateX(10%) rotate(2deg); } 75% { transform: translateX(-5%) rotate(-1deg); } 100% { transform: translateX(0%); } } 
 .remixed  {-webkit-animation-name: wobble; -moz-animation-name: wobble; -o-animation-name: wobble; animation-name: wobble; }

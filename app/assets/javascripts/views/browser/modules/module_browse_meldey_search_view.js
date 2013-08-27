@@ -21,15 +21,12 @@ Medley.Views.ModuleBrowseMedleySearch = Backbone.View.extend({
     		  processData: true,
       		success: function (response) {
       			var results = response.toJSON();
-            	console.log(results[0].items)
-      			if (results[0].error) {
-      				// $('#service-results').html('<tbody><tr></tr><tr><td class="c-centered" style="margin-top:30px;opacity:0.8">Nothing found yet, keep typing...</td></tr></tbody>');
-      			} else {
-      				var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: results[0].items })
+            	console.log("Here are your product search results:")
+              console.log(results)
+      				var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: results })
       				$('#module-product-results').html(moduleItemResultsView.render().$el);
               var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({})
               $('#module-medley-browser').html(moduleMedley.render().$el);
-      			}
 			} // End Success
 		}); // End fetch
   },

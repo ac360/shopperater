@@ -75,6 +75,8 @@ GEM
     excon (0.23.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    google-webfonts (0.1.2)
+      actionpack (>= 3.0.0)
     hike (1.2.3)
     i18n (0.6.4)
     jeff (0.6.4)
@@ -95,6 +97,8 @@ GEM
     orm_adapter (0.0.5)
     pg (0.16.0)
     polyglot (0.3.3)
+    rabl (0.8.2)
+      activesupport (>= 2.3.14)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -158,9 +162,11 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   dotenv-rails
+  google-webfonts
   jquery-rails
   json
   pg
+  rabl
   rails (= 3.2.12)
   sass-rails (~> 3.2.3)
   thin (>= 1.5.0)

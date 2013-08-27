@@ -9,29 +9,36 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	    
 			// Fetch Parameters, if any...
 			var query = location.search.substr(1);
-			// Check if REFERRAL
 			if(query){
-					var data = query.split("&");
-			    	var params = {};
-					for(var i=0; i<data.length; i++) {
-					    var item = data[i].split("=");
-					    params[item[0]] = item[1];
-					}
-
-					// You removed this until you do the Local Storage for Remixes - 
-					// var itemCollection = this.parseUrlParams(params);
-
+				var data = query.split("&");
+		    	var params = {};
+				for(var i=0; i<data.length; i++) {
+				    var item = data[i].split("=");
+				    params[item[0]] = item[1];
+				}
+			};
+			// Check if SEARCH
+			if ( params !== undefined && params.search !== undefined ){
 					// Load Views and pass in the params option
 					var editorSearch = new Medley.Views.EditorSearch({ params: params });
 					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
+			}
+			// Check if REFERRAL
+			if ( params !== undefined && params.referral !== undefined ){
+					// Load Views and pass in the params option
+					var editorSearch = new Medley.Views.EditorSearch({ params: params });
+					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
+					$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
+
 			// Check if REMIX
-			} else if (remix) {
+			} else if (  params !== undefined && params.remix !== undefined ) {
 					// Load Views and pass in the params option
 					var editorSearch = new Medley.Views.EditorSearch({});
 					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el);
-			// Plain CREATE MODE
+			
+			// Check if PLAIN CREATE MODE
 			} else {
 					// Load Views and pass in the params option
 					var editorSearch = new Medley.Views.EditorSearch({});
@@ -40,33 +47,23 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 			};
 	},
 
-	events: {},
+	events: {
+		"dragstart .item-result-row"                :   "gridSetDataTransferObject"
+	},
 
-	// parseUrlParams: function(params) {
+	gridSetDataTransferObject: function(e) {
+	    e.originalEvent.dataTransfer.setData("productID", $(e.currentTarget).attr('data-id'));
+	    e.originalEvent.dataTransfer.setData("productTitle", $(e.currentTarget).attr('data-title'));
+	    e.originalEvent.dataTransfer.setData("productPrice", $(e.currentTarget).attr('data-price'));
+	    e.originalEvent.dataTransfer.setData("productImage", $(e.currentTarget).attr('data-image'));
+	    e.originalEvent.dataTransfer.setData("productCategory", $(e.currentTarget).attr('data-category'));
+	    e.originalEvent.dataTransfer.setData("productSource", $(e.currentTarget).attr('data-source'));
+	    e.originalEvent.dataTransfer.setData("productLink", $(e.currentTarget).attr('data-link'));
+	},
 
-	// 	if(params.i1_id){ 
-	// 			var itemOne = {}
-	// 			itemOne.i1_id = params.id
-	// 			if(params.i1_source){ itemOne.source = params.i1_source }
-	// 			if(params.i1_title){ itemOne.title = params.i1_title }
-	// 			if(params.i1_custom_title){ itemOne.custom_title = params.i1_custom_title }
-	// 			if(params.i1_price){ itemOne.price = params.i1_price }
-	// 			if(params.i1_img_small){ itemOne.img_small = params.i1_img_small }
-	// 			if(params.i1_img_big){ itemOne.img_big = params.i1_img_big }
-	// 			if(params.i1_category){ itemOne.category = params.i1_category }
-	// 			if(params.i1_link){ itemOne.link = params.i1_link }
-	// 			if(params.i1_x){ itemOne.sizex = params.i1_x }
-	// 			if(params.i1_y){ itemOne.sizey = params.i1_y }
-	// 			if(params.i1_c){ itemOne.columns = params.i1_c }
-	// 			if(params.i1_r){ itemOne.rows = params.i1_r }
-	// 		}
-		
-	// 	var itemCollection = []
-	// 	if(itemOne){itemCollection.push(itemOne)}
-
-	// 	return itemCollection;	
-
-	// },
+	showProductTitle: function(e) {
+    	console.log("hello!")
+    },
 
 	render: function () {
 		return this;

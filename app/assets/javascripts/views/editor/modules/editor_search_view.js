@@ -16,7 +16,7 @@ Medley.Views.EditorSearch = Backbone.View.extend({
   },
 
   searchParameter: function() {
-    var searchKeywords = this.options.params.search.split('+').join(' ');
+    var searchKeywords = decodeURI(this.options.params.search)
     $('#primary-search-field').val(searchKeywords);
     this.searchProducts();
   },
@@ -31,15 +31,10 @@ Medley.Views.EditorSearch = Backbone.View.extend({
     		  processData: true,
       		success: function (response) {
       			var results = response.toJSON();
-            	console.log(results[0].items)
-      			if (results[0].error) {
-      				// $('#service-results').html('<tbody><tr></tr><tr><td class="c-centered" style="margin-top:30px;opacity:0.8">Nothing found yet, keep typing...</td></tr></tbody>');
-      			} else {
-      				var productResultsView = new Medley.Views.EditorProductResults({ collection: results[0].items })
+            	console.log("Here are your Product Search Results")
+              console.log(results)
+      				var productResultsView = new Medley.Views.EditorProductResults({ collection: results })
       				$('#module-product-results').html(productResultsView.render().$el);
-              // var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({})
-              // $('#module-medley-browser').html(moduleMedley.render().$el);
-      			}
 			} // End Success
 		}); // End fetch
   },

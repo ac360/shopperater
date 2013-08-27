@@ -6,138 +6,62 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
-        console.log("Below are the params passed into this view:")
-        console.log(this.options.params)
+        if ( this.options.params !== undefined ) {
+            console.log("Below are the params passed into this view:")
+            console.log(this.options.params)
+        }
 	},
 
 	events: {
-        'click .glyphicon-pencil'                  : 'gridOpenItemOptions',
-        'click .glyphicon-remove'                  : 'gridRemoveItemFromGrid',
 		'dragleave #medley-container' 		       : 'gridUnhighlightDropZone',
 		'drop #medley-container'      		       : 'gridAddItemToGrid',
-	    'dragover #medley-container'  		       : 'gridHighlightDropzone',
-        'click #size-minus-button'                 : 'gridMakeItemSmaller',
-        'click #size-plus-button'                  : 'gridMakeItemBigger'
+	    'dragover #medley-container'  		       : 'gridHighlightDropzone'
     },
 
     render: function () {
-        
         var self = this;
-        // Check If REFERRAL w/ Product ID
-            if(this.options.params.referral){
-                    // Perform Product Look-up
-                    var referralProducts = new Medley.Collections.ItemLookup();
-                    referralProducts.fetch({
-                        data: { 
-                            product_one_retailer: this.options.params.product_one_retailer,
-                            product_one_id: this.options.params.product_one_id
-                        },
-                        processData: true,
-                        success: function (response) {
-                            var result = response.toJSON();
-                            if (result.error) {
-                               console.log(result.error)
-                            } else {
-                                var collection = result
-                                self.$el.html(self.template({}));
-                                // // For Each Item in Collection load sub view...
-                                _(self.loadReferralMedley(collection)).defer();
-                            };
-                        }
-                    });
-        // Check If REMIX w/ Product ID
-            } else if (this.options.params.remix) {
-                    this.$el.html(this.template());
-                    // Defer the instantiation of Gridster so that it happens at the end of everything else
-                    _(this.instantiateGridster).defer();
+        // Check If REFERRAL by looking for the referral=true parameter
+        if( this.options.params !== undefined && this.options.params.referral !== undefined ){
+                // Perform Product Look-up
+                var referralProducts = new Medley.Collections.ItemLookup();
+                referralProducts.fetch({
+                    data: { 
+                        product_one_retailer: this.options.params.product_one_retailer,
+                        product_one_id: this.options.params.product_one_id
+                    },
+                    processData: true,
+                    success: function (response) {
+                        var collection = response.toJSON();
+                        if (collection.error) {
+                           console.log(collection.error)
+                        } else {
+                            self.$el.html(self.template({ collection: self.options.params }));
+                            // For Each Item in Collection load sub view...
+                            _(self.loadReferralMedley(collection)).defer();
+                        };
+                    }
+                });
+        // Check If REMIX by looking for the remix=true parameter
+        } else if ( this.options.params !== undefined && this.options.params.remix !== undefined ) {
+                this.$el.html(this.template());
+                // Defer the instantiation of Gridster so that it happens at the end of everything else
+                _(this.instantiateGridster).defer();
         // Check if Plain CREATE Mode
-            } else {
-                    this.$el.html(this.template());
-                    // Defer the instantiation of Gridster so that it happens at the end of everything else
-                    _(this.instantiateGridster).defer();
-            };
-            return this;
+        } else {
+                this.$el.html(this.template());
+                // Defer the instantiation of Gridster so that it happens at the end of everything else
+                _(this.instantiateGridster).defer();
+        };
+        return this;
     },
 
     loadReferralMedley: function(collection) {
-        console.log("here are the collection models")
         _.each(collection, function(model) { 
-                    // Build New Model Object
-                    var itemView = new Medley.Views.EditorItem({ model: model });
-                    $('#medley-grid').html(itemView.render().$el)
-            });
+            // Build New Model Object
+            var itemView = new Medley.Views.EditorProductImage({ model: model });
+            $('#medley-grid').html(itemView.render().$el)
+        });
         M.instantiateGridster();
-
-    },
-
-    gridRemoveItemFromGrid: function(e) {
-        var verifyRemoval = confirm("Remove this item from your Medley?")
-            if (verifyRemoval == true) {
-                var gridster = M.instantiateGridster();
-                gridster.remove_widget($(e.currentTarget).closest('.medley-grid-item'));
-              }
-    },
-
-    gridMakeItemSmaller: function() {
-        var currentSize = $('#item-box-size').attr('data-size')
-        if (currentSize > 1) {
-            currentSize = currentSize - 1
-            $('#item-box-size').attr('data-size', currentSize);
-            switch (currentSize) {
-              case 1:
-                $('#item-box-size').text('Small');
-                break;
-              case 2:
-                $('#item-box-size').text('Medium');
-                break;
-              case 3:
-                $('#item-box-size').text('Large');
-                break;
-            }
-        }
-    },
-
-    gridMakeItemBigger: function() {
-        var currentSize = $('#item-box-size').attr('data-size')
-        if (currentSize < 3) {
-            currentSize = parseInt(currentSize) + 1
-            $('#item-box-size').attr('data-size', currentSize);
-            switch (currentSize) {
-              case 1:
-                $('#item-box-size').text('Small');
-                break;
-              case 2:
-                $('#item-box-size').text('Medium');
-                break;
-              case 3:
-                $('#item-box-size').text('Large');
-                break;
-            }
-        }
-    },
-
-    gridOpenItemOptions: function(e) {
-        // Resize Item
-        var gridster = M.instantiateGridster();
-        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 2, 2);
-        // If li hasClass then remove View
-        if ( $('li').hasClass("open-options") ) {
-            // TODO ------- Write in Code to re-render Original View within the li  
-            $('.open-options').removeClass('open-options')     
-        };
-        // Load in Options Panel
-        var itemOptionsPanel = new Medley.Views.EditorItemOptions();
-        $($(e.currentTarget).closest('.medley-grid-item')).html(itemOptionsPanel.render().$el).addClass('open-options')
-        // Add open-options Class
-        //$(e.currentTarget).closest('.medley-grid-item')
-    },
-
-    gridCloseItemOptions: function(e) {
-        var gridster = M.instantiateGridster();
-        // Resize Item Box
-        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), 1, 1);
-        $(e.currentTarget).removeClass('glyphicon-remove')
-        $(e.currentTarget).addClass('glyphicon-pencil')
     },
 
     gridHighlightDropzone: function(e) {
@@ -149,15 +73,32 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
     	$('#medley-container').removeClass('drop-zone-highlight')
     },
 
-    gridAddItemToGrid: function() {
+    gridAddItemToGrid: function(e) {
         //  Run Helper function to check how many Medley items are curerntly in the Medley
         if(M.checkMedleyItemCount()) {
+            // Get Product from DataTransferObject that was set on dragstart
+            var product = {}
+            product.id           = e.originalEvent.dataTransfer.getData("productID");
+            product.title        = e.originalEvent.dataTransfer.getData("productTitle");
+            product.price        = e.originalEvent.dataTransfer.getData("productPrice");
+            product.img_small    = e.originalEvent.dataTransfer.getData("productImage");
+            product.category     = e.originalEvent.dataTransfer.getData("productCategory");
+            product.source       = e.originalEvent.dataTransfer.getData("productSource");
+            product.link         = e.originalEvent.dataTransfer.getData("productLink");
+            product.sizex        = 1;
+            product.sizey        = 1;
+            product.size         = 1;
+            console.log("You just added the product below:");
+            console.log(product);
             // Re-instantiate Gridster
             var gridster = M.instantiateGridster();
-            gridster.add_widget('<li class="medley-grid-item"><i class="glyphicon glyphicon-pencil pull-right edit-item-button"></i></li>', 1, 1, 1, 1);
+            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-image="' + product.img_small + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
+            var itemView = new Medley.Views.EditorProduct({ model: product });
+            $('.new-item').html(itemView.render().$el)
+            $('.new-item').removeClass('new-item')
         } else {
             alert("Sorry, Medlies can contain only 16 Items");
-        }
+        };
         this.gridUnhighlightDropZone();
     },
 
