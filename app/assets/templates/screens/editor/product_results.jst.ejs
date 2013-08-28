@@ -17,7 +17,13 @@
 						<div class="col-lg-7">
 
 							<p class="result-title" ><%= collection.title %></p>
-							<span class="result-price pull-right">$<%= collection.price %></span> 
+							<% 	// Check for Price
+							   	if (collection.price != "No Price") { %>
+								<span class="result-price pull-right">$<%= collection.price %></span> 
+							<% 	} else { %>
+								<span class="result-price pull-right"><%= collection.price %></span> 
+							<%  } %>
+
 							<p class="result-category">
 								<%= collection.category %>
 							</p> 
