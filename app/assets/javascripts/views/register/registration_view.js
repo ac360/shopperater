@@ -16,10 +16,10 @@ Medley.Views.Registration = Backbone.View.extend({
 		var username = $(e.currentTarget).val()
 		if(username.match(/[^0-9a-z]/i)) {
 			$('.registration-username').tooltip({
-					placement:'top',
-					title: 'Only Letters & Numbers Allowed',
-					trigger: 'manual',
-					delay: { hide: 500 }
+				placement:'top',
+				title: 'Only Letters & Numbers Allowed',
+				trigger: 'manual',
+				delay: { hide: 500 }
 			});
 		    $('.registration-username').tooltip('show');
 		    $('.tooltip-inner').css('background-color', '#d94f4f')
