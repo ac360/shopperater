@@ -17,12 +17,12 @@
 			</div>
 
 			<div id="notifications-container" class="row">
-			   	<div class="col-offset-1 col-lg-5" style="margin-top:5px;">
+			   	<div class="col-offset-4 col-lg-4" style="margin-top:5px;">
 			   		<% if flash[:notice] %>
-			   			<p class="alert alert-success s-no-margin"><%= notice %></p>
+			   			<p class="alert alert-success m-centered" style="margin:5px auto;"><%= notice %></p>
 			   		<% end %>
 			   		<% if flash[:alert] %>
-		       			<p class="alert alert-danger s-no-margin"><%= alert %></p>
+		       			<p class="alert alert-danger m-centered" style="margin:5px auto;"><%= alert %></p>
 		       		<% end %>
 		       	</div>
 			</div>

@@ -1,23 +1,27 @@
-<h2 id="signup-title" class="m-font-bold m-centered">Log In</h2>
+<div id="login-container">
 
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-	<div>
-  		<p>
-  			<%= f.text_field :login, :class => 'form-control m-centered', :placeholder => 'Username or Email' %>
-  		</p>
-	</div>
+    <h2 id="signup-title" class="m-font-bold m-centered">Log In</h2>
 
-  	<div>
-  		<%= f.password_field :password, :class => 'form-control m-centered', :placeholder => 'Password' %>
-	</div>
+    <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+    	<div>
+      		<p>
+      			<%= f.text_field :login, :class => 'form-control m-centered', :placeholder => 'Username or Email' %>
+      		</p>
+    	</div>
 
-  	<div>
-      <center>
-  		<%= f.submit "Sign in", :class => 'btn btn-primary', :style => 'min-width:190px;height:50px;background:#444;' %>
-      </center>
-  	</div>
+      	<div>
+      		<%= f.password_field :password, :class => 'form-control m-centered', :placeholder => 'Password' %>
+    	</div>
 
-<% end %>
-<div class="m-centered" style="padding-top:25px;">
-  <%= render :partial => "devise/shared/links" %>
+      	<div>
+          <center>
+      		<%= f.submit "Sign in", :class => 'btn btn-primary', :style => 'min-width:190px;height:50px;background:#8fbf67;' %>
+          </center>
+      	</div>
+
+    <% end %>
+    <div class="m-centered" style="padding-top:25px;">
+      <%= render :partial => "devise/shared/links" %>
+    </div>
+
 </div>
