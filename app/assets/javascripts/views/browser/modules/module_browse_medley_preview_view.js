@@ -97,7 +97,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 	openRemixModal: function(e) {
         this.unhighlightDropZone();
         // Build Editor Link
-        var searchKeywords = $('#primary-search-field').val().replace(/ /g,"+");
+        var searchKeywords = $('#primary-search-field').val()
         var editorLink = '/editor?search=' + searchKeywords
         $("#editor-button").attr('href', editorLink );
 
