@@ -81,4 +81,26 @@ class MedleyApiController < ApplicationController
 		@user =  User.find(current_user.id)
 	end
 
+	def username_validation
+		@username = params[:username]
+		if User.exists?(:username => @username)
+			@result        =   OpenStruct.new(:valid => true)
+			@result
+		else
+			@result        =   OpenStruct.new(:valid => false)
+			@result
+		end
+	end
+
+	def email_validation
+		@email = params[:email]
+		if User.exists?(:email => @email)
+			@result        =   OpenStruct.new(:valid => true)
+			@result
+		else
+			@result        =   OpenStruct.new(:valid => false)
+			@result
+		end
+	end
+
 end
