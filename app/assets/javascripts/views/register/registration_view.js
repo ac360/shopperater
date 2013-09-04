@@ -35,6 +35,7 @@ Medley.Views.Registration = Backbone.View.extend({
 
     checkEmail: function(e) {
     },
+    
     checkPassword: function(e) {
     },
 
