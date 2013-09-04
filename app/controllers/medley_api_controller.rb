@@ -77,8 +77,8 @@ class MedleyApiController < ApplicationController
 		end
 	end # product_lookup
 
-	def current_user 
-		current_user
+	def user_information 
+		@user =  User.find(current_user.id)
 	end
 
 end

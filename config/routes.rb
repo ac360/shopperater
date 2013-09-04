@@ -6,9 +6,9 @@ Shopperater::Application.routes.draw do
   match 'medley/medlies',     :to => 'shopperater_api#create_medley', :via => [:post]
 
   authenticated :user do
-    match 'api/get_cart_items', :to => 'shopperater_api#get_cart_items'
+    match 'api/get_cart_items',     :to => 'shopperater_api#get_cart_items'
     # Authenticated API Routes
-    match 'api/current_user',   :to => 'medley_api#current_user',   :via => [:get]
+    match 'api/current_user',       :to => 'medley_api#user_information',   :via => [:get]
   end
   devise_for :users
   devise_scope :user do

@@ -109,6 +109,7 @@
  #description {color:#fff;}
  #other-information {color:#fff;}
  #created-by {font-size:10px;color:#999;}
+ #created-by-username {margin:5px auto;color:#fff;}
 
  /* Registration/Log In Page */
  #user-actions-box {background:#111111;padding-top:15px;padding-bottom:35px;}

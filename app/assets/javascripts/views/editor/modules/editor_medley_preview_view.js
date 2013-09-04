@@ -52,7 +52,27 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
                 // Defer the instantiation of Gridster so that it happens at the end of everything else
                 _(this.instantiateGridster).defer();
         };
+        // Load User Information
+        _(this.loadUserInformation).defer();
         return this;
+    },
+
+    loadUserInformation: function() {
+        if ( medleyAuthenticated == true) {
+            var userInfo = new Medley.Models.CurrentUser({});
+            userInfo.fetch({
+                success: function (response) {
+                    var result = response.toJSON();
+                    console.log("Here is the Current User Information:", result)
+                    if (result.error) {
+                       console.log(result.error)
+                    } else {
+                        var userInformationView = new Medley.Views.EditorUserInformation({ model: result });
+                        $('#user-information').html(userInformationView.render().$el);
+                    }
+                } // End Success
+            }); // End fetch 
+        }
     },
 
     loadReferralMedley: function(collection) {
