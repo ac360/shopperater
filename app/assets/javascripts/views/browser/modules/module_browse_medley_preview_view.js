@@ -9,15 +9,15 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 	},
 
 	events: {
-		'dragenter #medley-container'              : 'addTempItemToGrid',
-		'dragleave #medley-container'              : 'removeTempItemFromGrid',
-		'dragleave #medley-container' 		       : 'unhighlightDropZone',
-		'drop #medley-container'      		       : 'openRemixModal',
-	    'dragover #medley-container'  		       : 'highlightDropZone' 
+		'dragenter #medley-container'                : 'addTempItemToGrid',
+		'dragleave #medley-container'                : 'removeTempItemFromGrid',
+		'dragleave #medley-container' 		           : 'unhighlightDropZone',
+		'drop #medley-container'      		           : 'openRemixModal',
+	  'dragover #medley-container'  		           : 'highlightDropZone' 
     },
 
     instantiateGridster: function() {
-        var self = this;
+      var self = this;
     	var gridster = $(".gridster ul").gridster({
                    widget_margins: [5, 5],
                    widget_base_dimensions: [90, 90],
@@ -95,9 +95,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 	},
 
 	openRemixModal: function(e) {
-    	
         this.unhighlightDropZone();
-
         // Build Editor Link
         var searchKeywords = $('#primary-search-field').val().replace(/ /g,"+");
         var editorLink = '/editor?search=' + searchKeywords

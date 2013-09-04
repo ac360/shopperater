@@ -36,7 +36,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
                            console.log(collection.error)
                         } else {
                             self.$el.html(self.template({ collection: self.options.params }));
-                            // For Each Item in Collection load sub view...
+                            // Load in the Referral Medley Items
                             _(self.loadReferralMedley(collection)).defer();
                         };
                     }
@@ -56,12 +56,18 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
     },
 
     loadReferralMedley: function(collection) {
-        _.each(collection, function(model) { 
+        var gridster = M.instantiateGridster();
+        _.each(collection, function(product) { 
             // Build New Model Object
-            var itemView = new Medley.Views.EditorProductImage({ model: model });
-            $('#medley-grid').html(itemView.render().$el)
+            product.size  = 1
+            product.sizex = 1
+            product.sizey = 1
+            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-image="' + product.img_small + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
+            var itemView = new Medley.Views.EditorProduct({ model: product });
+            $('.new-item').html(itemView.render().$el)
+            $('.new-item').removeClass('new-item')
+            console.log("Referral Medley Loaded")
         });
-        M.instantiateGridster();
     },
 
     gridHighlightDropzone: function(e) {
@@ -88,7 +94,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
             product.sizex        = 1;
             product.sizey        = 1;
             product.size         = 1;
-            console.log("You just added the product below:");
+            console.log("You just added the Product below:");
             console.log(product);
             // Re-instantiate Gridster
             var gridster = M.instantiateGridster();

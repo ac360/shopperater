@@ -33,8 +33,8 @@ Medley.Views.EditorSearch = Backbone.View.extend({
       			var results = response.toJSON();
             	console.log("Here are your Product Search Results")
               console.log(results)
-      				var productResultsView = new Medley.Views.EditorProductResults({ collection: results })
-      				$('#module-product-results').html(productResultsView.render().$el);
+      				var searchResultsView = new Medley.Views.EditorSearchResults({ collection: results })
+      				$('#module-product-results').html(searchResultsView.render().$el);
 			} // End Success
 		}); // End fetch
   },

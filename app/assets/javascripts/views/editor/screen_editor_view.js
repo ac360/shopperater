@@ -17,31 +17,24 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 				    params[item[0]] = item[1];
 				}
 			};
-			// Check if SEARCH
+			// Check for SEARCH Param
 			if ( params !== undefined && params.search !== undefined ){
-					// Load Views and pass in the params option
 					var editorSearch = new Medley.Views.EditorSearch({ params: params });
-					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
-					$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
+			} else {
+					var editorSearch = new Medley.Views.EditorSearch({});
 			}
-			// Check if REFERRAL
+			// Check for REFERRAL Param
 			if ( params !== undefined && params.referral !== undefined ){
-					// Load Views and pass in the params option
-					var editorSearch = new Medley.Views.EditorSearch({ params: params });
 					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
 
-			// Check if REMIX
+			// Check for REMIX Param
 			} else if (  params !== undefined && params.remix !== undefined ) {
-					// Load Views and pass in the params option
-					var editorSearch = new Medley.Views.EditorSearch({});
 					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 			
-			// Check if PLAIN CREATE MODE
+			// Check for PLAIN CREATE MODE
 			} else {
-					// Load Views and pass in the params option
-					var editorSearch = new Medley.Views.EditorSearch({});
 					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 			};

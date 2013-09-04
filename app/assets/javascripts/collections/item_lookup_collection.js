@@ -1,5 +1,5 @@
 Medley.Collections.ItemLookup = Backbone.Collection.extend({
 
-  url: 'retailer/product_lookup'
+  url: 'api/product_lookup'
 
 }); // End Collection

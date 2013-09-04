@@ -1,5 +1,5 @@
 Medley.Models.ItemLookup = Backbone.Model.extend({
 
-	urlRoot: '/retailer/product_lookup'
+	urlRoot: '/api/product_lookup'
 
 });  // End Model

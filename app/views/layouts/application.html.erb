@@ -12,64 +12,71 @@
 	<!-- Check whether is Logged in or not for Backbone --> 
 	<% if user_signed_in? %>
 		<script>
-			var shopperaterAuthenticated = true
+			var medleyAuthenticated = true
 		</script>
 	<% else %>
 		<script>
-			var shopperaterAuthenticated = false
+			var medleyAuthenticated = false
 		</script>
 	<% end %>
 
 <div class="container">
-	<div class="row hide">
-		<div class="col-offset-8 col-lg-4">
-			<% if user_signed_in? %>
-			  	<ul class="list-unstyled list-inline">
-				  	<li>
-				  		<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>        
-				  	</li>
-				  	<li>
-				  		<%= link_to('Account', edit_user_registration_path) %>
-				  	</li>
-				</ul>
-			<% else %>
-				<ul class="list-unstyled list-inline">
-				  	<li>
-				  		<%= link_to('Sign-Up', new_user_registration_path)  %>  
-				  	</li>
-				  	<li>
-				  		<%= link_to('Login', new_user_session_path)  %>  
-				  	</li>
-				</ul>
-			<% end %>
-		</div>
-	</div>
+	<div id="header-container">
 
-	<div id="header-logo" class="row">
-	  	<div class="col-lg-12 s-centered"><h2 class="s-no-margin s-centered"><a href="/" class="brand">MEDLEY</a></h2></div>
-	</div>
+			<div id="upper-navigation" class="row">
+				<% if user_signed_in? %>
+				<% else %>
+			  	<div class="col-offset-1 col-lg-10">
+			   		<ul id="upper-navigation-links" class="list-inline pull-right m-font-light">
+						<li><a href="/register">SIGN UP</a></li>
+						<li><a href="/login">LOG IN</a></li>
+					</ul>
+		       	</div>
+		       	<% end %>
+			</div>
 
-	<div id="module-primary-search" class="row">
-	  	<div class="col-offset-4 col-lg-4">
-	  		<p id="primary-search-instructions" class="s-centered s-font-bold">Enter A Product</p>
-			<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold', :autofocus => true %>
+			<div id="header-logo" class="row">
+			  	<div class="col-lg-12 s-centered"><h2 class="s-no-margin s-centered"><a href="/" class="brand">MEDLEY</a></h2></div>
+			</div>
 
-	  	</div>
+			<div id="module-primary-search" class="row">
+			  	<div class="col-offset-4 col-lg-4">
+			  		<p id="primary-search-instructions" class="s-centered s-font-bold">Enter A Product</p>
+					<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold', :autofocus => true %>
+			  	</div>
 
-	  	<div id="module-cart-container" class="col-offset-2 col-lg-1 hide" style="padding-top:5px;">
-	  	</div>
-	</div>
+			  	<div id="menu-button-container" class="col-offset-2 col-lg-1">
+			  		<a id="menu-button" class="m-font-bold"><i class="glyphicon glyphicon-chevron-down"></i>MENU</a>
+			  	</div>
+			</div>
 
-	<div class="row">
-	   	<div class="col-offset-1 col-lg-5" style="margin-top:5px;">
-	   		<% if flash[:notice] %>
-	   			<p class="alert alert-success s-no-margin"><%= notice %></p>
-	   		<% end %>
-	   		<% if flash[:alert] %>
-       			<p class="alert alert-danger s-no-margin"><%= alert %></p>
-       		<% end %>
-       	</div>
-	</div>
+			<div id="menu-links-container" class="row">
+			   	<div class="col-offset-1 col-lg-10">
+			   		<ul id="menu-links" class="list-inline pull-right m-font-light">
+						<li><a href="/">Home</a></li>
+						<li><a href="/editor">Create Medley</a></li>
+						<% if user_signed_in? %>
+						<li><a href="/logout">LOGOUT</a></li>
+						<% else %>
+						<li><a href="/">SIGN UP</a></li>
+						<li><a href="/editor">LOG IN</a></li>
+						<% end %>
+					</ul>
+		       	</div>
+			</div>
+
+			<div id="notifications-container" class="row">
+			   	<div class="col-offset-4 col-lg-4" style="margin-top:5px;text-align:center">
+			   		<% if flash[:notice] %>
+			   			<p class="alert alert-success m-centered"><%= notice %></p>
+			   		<% end %>
+			   		<% if flash[:alert] %>
+		       			<p class="alert alert-danger m-centered"><%= alert %></p>
+		       		<% end %>
+		       	</div>
+			</div>
+
+	</div><!-- #header-container -->
 
 	<div class="row">
 	   	<div class="col-offset-1 col-lg-10">

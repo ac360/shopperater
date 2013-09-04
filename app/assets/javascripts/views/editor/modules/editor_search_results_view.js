@@ -1,9 +1,9 @@
-Medley.Views.EditorProductResults = Backbone.View.extend({
+Medley.Views.EditorSearchResults = Backbone.View.extend({
 	 
     tagName: "div",
     id: "",
     className: "",
-    template: JST['screens/editor/product_results'],
+    template: JST['screens/editor/search_results'],
 
 	initialize: function() {
 		_.bindAll(this);
