@@ -83,7 +83,8 @@ class MedleyApiController < ApplicationController
 
 	def username_validation
 		@username = params[:username]
-		if User.exists?(:username => @username)
+		@user = User.where('LOWER(username) = ?', @username.downcase) unless params[:username].blank?
+		if @user.present?
 			@result        =   OpenStruct.new(:valid => true)
 			@result
 		else
@@ -94,7 +95,8 @@ class MedleyApiController < ApplicationController
 
 	def email_validation
 		@email = params[:email]
-		if User.exists?(:email => @email)
+		@user = User.where('LOWER(email) = ?', @email.downcase) unless params[:email].blank?
+		if @user.present?
 			@result        =   OpenStruct.new(:valid => true)
 			@result
 		else

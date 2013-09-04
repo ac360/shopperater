@@ -10,6 +10,9 @@ class User < ActiveRecord::Base
   # Define Relations
   has_many :cart_items, dependent: :destroy
 
+  # Validations
+  validates_uniqueness_of :username, :case_sensitive => false
+
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login

@@ -87,7 +87,7 @@ Medley.Views.Registration = Backbone.View.extend({
 			            success: function (response) {
 			                var result = response.toJSON();
 			                if (result.valid == true) {
-								$('#email-notifications').removeClass('hide').html('<p style="color:#ffd1d1">Email Has Been Taken</p>');
+								$('#email-notifications').removeClass('hide').html('<p style="color:#ffd1d1">An Account With This Email Already Exists</p>');
 								$('.registration-email').css("background-color", "#ffd1d1");
 								self.options.validations.email = false
 								return;
