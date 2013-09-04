@@ -2,7 +2,8 @@ Medley.Routers.Main = Backbone.Router.extend({
 	
 	routes: { 
       ""                    :              "browser",
-      "editor"              :              "editor"
+      "editor"              :              "editor",
+      "register"            :              "register"
     },
 
     initialize: function() {
@@ -18,6 +19,10 @@ Medley.Routers.Main = Backbone.Router.extend({
     editor: function() {
         var header = new Medley.Views.Header();
         var screenEditor = new Medley.Views.ScreenEditor();
+    },
+
+    register: function() {
+        var registrationView = new Medley.Views.Registration();
     }
 
 }); // /Router.Deals
