@@ -59,12 +59,21 @@ Medley.Views.EditorProduct = Backbone.View.extend({
     },
 
     gridMakeItemBigger: function(e) {
-        if (this.model.size < 3) { 
-        	this.model.size = this.model.size + 1 
-        }
-        this.gridSaveItemSizes();
-        var gridster = M.instantiateGridster();
-        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), this.model.sizex, this.model.sizey);
+        var itemPosition = {}
+        itemPosition.row = $(e.currentTarget).closest('.medley-grid-item').attr('data-row');
+        itemPosition.col = $(e.currentTarget).closest('.medley-grid-item').attr('data-col');
+        console.log("This Item is in Medley Position:", itemPosition);
+
+        if (itemPosition.col < 4) {
+            if (this.model.size < 3) { 
+                this.model.size = this.model.size + 1 
+            }
+            this.gridSaveItemSizes();
+            var gridster = M.instantiateGridster();
+            gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), this.model.sizex, this.model.sizey);
+        } else {
+            alert("This Item has no where to grow!  Move it one column to the left, and then resize it.");
+        };
     },
 
     gridSaveItemSizes: function() {

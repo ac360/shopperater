@@ -44,7 +44,7 @@ Medley.Views.EditorSearchResults = Backbone.View.extend({
     },
 
 	render: function () {
-    this.$el.html(this.template({ collection: this.collection }));
+    this.$el.html(this.template({ collection: this.collection })).fadeIn(500);
     $('#module-product-results').niceScroll({cursorcolor:"#999999"});
 	return this;
 	}

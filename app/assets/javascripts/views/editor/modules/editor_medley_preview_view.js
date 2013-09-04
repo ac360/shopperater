@@ -15,7 +15,8 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	events: {
 		'dragleave #medley-container' 		       : 'gridUnhighlightDropZone',
 		'drop #medley-container'      		       : 'gridAddItemToGrid',
-	    'dragover #medley-container'  		       : 'gridHighlightDropzone'
+	    'dragover #medley-container'  		       : 'gridHighlightDropzone',
+        'click #medley-publish-button'             : 'publishMedley'
     },
 
     render: function () {
@@ -35,7 +36,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
                         if (collection.error) {
                            console.log(collection.error)
                         } else {
-                            self.$el.html(self.template({ collection: self.options.params }));
+                            self.$el.html(self.template({ collection: self.options.params })).fadeIn(1000);
                             // Load in the Referral Medley Items
                             _(self.loadReferralMedley(collection)).defer();
                         };
@@ -43,12 +44,12 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
                 });
         // Check If REMIX by looking for the remix=true parameter
         } else if ( this.options.params !== undefined && this.options.params.remix !== undefined ) {
-                this.$el.html(this.template());
+                this.$el.html(this.template()).fadeIn(1000)
                 // Defer the instantiation of Gridster so that it happens at the end of everything else
                 _(this.instantiateGridster).defer();
         // Check if Plain CREATE Mode
         } else {
-                this.$el.html(this.template());
+                this.$el.html(this.template()).fadeIn(1000)
                 // Defer the instantiation of Gridster so that it happens at the end of everything else
                 _(this.instantiateGridster).defer();
         };
@@ -72,6 +73,12 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
                     }
                 } // End Success
             }); // End fetch 
+        } else {
+            var anonUser = {}
+            anonUser.email = "No Email"
+            anonUser.username = "Anonymous"
+            var userInformationView = new Medley.Views.EditorUserInformation({ model: anonUser });
+            $('#user-information').html(userInformationView.render().$el);
         }
     },
 
@@ -107,7 +114,8 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
             product.id           = e.originalEvent.dataTransfer.getData("productID");
             product.title        = e.originalEvent.dataTransfer.getData("productTitle");
             product.price        = e.originalEvent.dataTransfer.getData("productPrice");
-            product.img_small    = e.originalEvent.dataTransfer.getData("productImage");
+            product.img_small    = e.originalEvent.dataTransfer.getData("productImageSmall");
+            product.img_large    = e.originalEvent.dataTransfer.getData("productImageLarge");
             product.category     = e.originalEvent.dataTransfer.getData("productCategory");
             product.source       = e.originalEvent.dataTransfer.getData("productSource");
             product.link         = e.originalEvent.dataTransfer.getData("productLink");
@@ -118,7 +126,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
             console.log(product);
             // Re-instantiate Gridster
             var gridster = M.instantiateGridster();
-            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-image="' + product.img_small + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
+            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_small + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
             var itemView = new Medley.Views.EditorProduct({ model: product });
             $('.new-item').html(itemView.render().$el)
             $('.new-item').removeClass('new-item')
@@ -130,6 +138,30 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 
     instantiateGridster: function() {
         M.instantiateGridster();
+    },
+
+    publishMedley: function() {
+        var thisMedley              = {};
+        thisMedley.title            = $('#medley-title').text();
+        thisMedley.description      = $('#description').text();
+        thisMedley.items            = [];
+        $('.medley-grid-item').each(function(index, elem) {
+                var thisItem = {};
+                thisItem.row        = $(elem).attr('data-row')
+                thisItem.col        = $(elem).attr('data-col')
+                thisItem.sizex      = $(elem).attr('data-sizex')
+                thisItem.sizey      = $(elem).attr('data-sizey')
+                thisItem.id         = $(elem).attr('data-id')
+                thisItem.title      = $(elem).attr('data-title')
+                thisItem.price      = $(elem).attr('data-price')
+                thisItem.imagesmall = $(elem).attr('data-imagesmall')
+                thisItem.imagelarge = $(elem).attr('data-imagelarge')
+                thisItem.category   = $(elem).attr('data-category')
+                thisItem.source     = $(elem).attr('data-source')
+                thisItem.link       = $(elem).attr('data-link')
+                thisMedley.items.push( thisItem );
+        });
+        console.log(thisMedley);
     },
 
 	openRemixModal: function(e) {

@@ -3,7 +3,8 @@ Medley.Routers.Main = Backbone.Router.extend({
 	routes: { 
       ""                    :              "browser",
       "editor"              :              "editor",
-      "register"            :              "register"
+      "register"            :              "register",
+      "users/sign_up"       :              "register"
     },
 
     initialize: function() {

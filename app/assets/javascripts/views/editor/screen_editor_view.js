@@ -4,8 +4,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
-
-	    // CHECK IF REFERRAL OR REMIX
 	    
 			// Fetch Parameters, if any...
 			var query = location.search.substr(1);
@@ -48,15 +46,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	    e.originalEvent.dataTransfer.setData("productID", $(e.currentTarget).attr('data-id'));
 	    e.originalEvent.dataTransfer.setData("productTitle", $(e.currentTarget).attr('data-title'));
 	    e.originalEvent.dataTransfer.setData("productPrice", $(e.currentTarget).attr('data-price'));
-	    e.originalEvent.dataTransfer.setData("productImage", $(e.currentTarget).attr('data-image'));
+	    e.originalEvent.dataTransfer.setData("productImageSmall", $(e.currentTarget).attr('data-image-small'));
+	    e.originalEvent.dataTransfer.setData("productImageLarge", $(e.currentTarget).attr('data-image-large'));
 	    e.originalEvent.dataTransfer.setData("productCategory", $(e.currentTarget).attr('data-category'));
 	    e.originalEvent.dataTransfer.setData("productSource", $(e.currentTarget).attr('data-source'));
 	    e.originalEvent.dataTransfer.setData("productLink", $(e.currentTarget).attr('data-link'));
 	},
-
-	showProductTitle: function(e) {
-    	console.log("hello!")
-    },
 
 	render: function () {
 		return this;
