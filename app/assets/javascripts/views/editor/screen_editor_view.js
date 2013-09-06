@@ -39,10 +39,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	},
 
 	events: {
-		"dragstart .item-result-row"                :   "gridSetDataTransferObject",
-		"click #publish-next-button-one"            :   "loadPublishScreenTwo",
+		'dragstart .item-result-row'                :   'gridSetDataTransferObject',
+		'click #publish-next-button-one'            :   'loadPublishScreenTwo',
 		'click .publish-cancel'                     :   'cancelPublish',
-		'click #medley-publish-button'              :   'publishMedley'
+		'click #medley-publish-button'              :   'publishMedley',
+		'keyup .tag-field'      	                :   'reformatTag',
+		'click #publish-next-button-two'            :   'validateAllTags'
 	},
 
 	gridSetDataTransferObject: function(e) {
@@ -80,6 +82,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
                     thisMedley.items.push( thisItem );
             });
             console.log(thisMedley);
+            this.options.thisMedley = thisMedley
             $('#tags-screen').hide();
 	        $('#publish-medley-modal').modal()
 	        $('#publish-medley-modal').modal('show')
@@ -92,7 +95,11 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
         };
     },
 
+	loadPublishScreenOne: function() {
+		$('#category-screen').fadeIn(200)
+	},
 	loadPublishScreenTwo: function() {
+		this.options.thisMedley.category = $('input[name=optionsRadios]:checked').attr('value');
 		if($('input:radio:checked').length > 0){
 				$('#category-screen').fadeOut(200, function() {
 				    $('#tags-screen').fadeIn(200);
@@ -101,9 +108,53 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		    	alert("Please select a Category for your Medley");
 		 }
 	},
+	loadPublishScreenThree: function() {
+		$('#tags-screen').fadeOut(200)
+		console.log(this.options.thisMedley);
+	},
 
-	loadPublishScreenOne: function() {
-		$('#category-screen').fadeIn(200)
+	reformatTag: function(e) {
+		var tag = $(e.currentTarget).val();
+		tag = tag.replace(/[_\W]/g, '').toLowerCase()
+		$(e.currentTarget).val(tag);
+	},
+
+	validateAllTags: function() {
+		var validation = []
+		$(".tag-field").each(function(index, elem) {
+				var tag = $(elem).val();
+			    if (tag.length === 0) {
+				      var error = "Tag can't be blank"
+				      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
+				      $(errorContainer).text(error);
+				      $(elem).removeClass('valid-tag')
+				      $(elem).addClass('invalid-tag')
+			    } else if (tag.length < 3) {
+			      	  var error = "Tag must be at least 3 characters long"
+				      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
+				      $(errorContainer).text(error);
+				      $(elem).removeClass('valid-tag')
+				      $(elem).addClass('invalid-tag')
+			    } else if ( tag.match(/[^0-9a-z]/i) ) {
+			      	  var error = "Letters, numbers and single words only"
+				      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
+				      $(errorContainer).text(error);
+				      $(elem).removeClass('valid-tag')
+				      $(elem).addClass('invalid-tag')
+			    } else {
+			      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
+				  $(errorContainer).hide();
+			      $(elem).removeClass('invalid-tag')
+			      $(elem).addClass('valid-tag')
+			    }
+		});
+		if ($('.invalid-tag').length) {
+		} else {
+			this.options.thisMedley.tag_one   = $('.tag-field-one').val().toLowerCase()
+			this.options.thisMedley.tag_two   = $('.tag-field-two').val().toLowerCase()
+			this.options.thisMedley.tag_three = $('.tag-field-three').val().toLowerCase()
+			this.loadPublishScreenThree();
+		}
 	},
 
 	cancelPublish: function() {
