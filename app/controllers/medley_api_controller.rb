@@ -105,4 +105,13 @@ class MedleyApiController < ApplicationController
 		end
 	end
 
+	def check_medley_uniqueness
+		# TODO - Finish this...
+		@existing_medleys = Medley.advanced_search('Street|Fantasy')
+	end
+
+	def publish_medley
+		
+	end
+
 end

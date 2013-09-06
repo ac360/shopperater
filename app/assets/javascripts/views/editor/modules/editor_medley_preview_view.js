@@ -15,8 +15,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	events: {
 		'dragleave #medley-container' 		       : 'gridUnhighlightDropZone',
 		'drop #medley-container'      		       : 'gridAddItemToGrid',
-	    'dragover #medley-container'  		       : 'gridHighlightDropzone',
-        'click #medley-publish-button'             : 'publishMedley'
+	    'dragover #medley-container'  		       : 'gridHighlightDropzone'
     },
 
     render: function () {
@@ -138,30 +137,6 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 
     instantiateGridster: function() {
         M.instantiateGridster();
-    },
-
-    publishMedley: function() {
-        var thisMedley              = {};
-        thisMedley.title            = $('#medley-title').text();
-        thisMedley.description      = $('#description').text();
-        thisMedley.items            = [];
-        $('.medley-grid-item').each(function(index, elem) {
-                var thisItem = {};
-                thisItem.row        = $(elem).attr('data-row')
-                thisItem.col        = $(elem).attr('data-col')
-                thisItem.sizex      = $(elem).attr('data-sizex')
-                thisItem.sizey      = $(elem).attr('data-sizey')
-                thisItem.id         = $(elem).attr('data-id')
-                thisItem.title      = $(elem).attr('data-title')
-                thisItem.price      = $(elem).attr('data-price')
-                thisItem.imagesmall = $(elem).attr('data-imagesmall')
-                thisItem.imagelarge = $(elem).attr('data-imagelarge')
-                thisItem.category   = $(elem).attr('data-category')
-                thisItem.source     = $(elem).attr('data-source')
-                thisItem.link       = $(elem).attr('data-link')
-                thisMedley.items.push( thisItem );
-        });
-        console.log(thisMedley);
     },
 
 	openRemixModal: function(e) {

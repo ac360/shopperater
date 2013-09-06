@@ -1,6 +1,6 @@
 <div id="dashboard-container" class="row">
 	<div id="module-product-results-container" class="col-lg-4 visible-lg">
-		<h6 class="s-grey s-font-bold s-centered" style="letter-spacing:3px;color:#999999;font-size:10px">PRODUCTS</h6>
+		<h6 class="s-grey s-font-bold s-centered" style="letter-spacing:3px;color:#444444;font-size:11px">PRODUCTS</h6>
 		<div class="row">
 			<div id="module-product-results" class="col-lg-12">
 			</div>
@@ -8,14 +8,245 @@
 	</div>
 	<div id="module-medley-editor" class="col-lg-8">
 	</div>
-</div>
+
 
 <!-- Modals -->
+
+<!-- Publish Medley Modal -->
+<div id="publish-medley-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    	<div id="category-screen" style="display:none;">
+		    	<div class="row">
+		    		<div class="col-lg-12">
+		    			<h6 class="m-centered m-font-two m-grey">Step 1 of 2</h6>
+		    			<h3 class="m-centered m-font-two">Publish Medley</h3>
+		    			<h5 class="m-centered m-font-two">Select a Category for your Medley</h5>
+		    		</div>
+		    	</div>
+		    	<div class="row">
+		    		<div class="col-lg-12">
+					  <div id="category-list" class="m-box-shadow-one">
+					  	  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="1">
+							    	Appliances
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="2">
+							    	Arts, Crafts &amp; Sewing
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="3">
+							    	Automotive
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="4">
+							    	Baby
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="5">
+							    	Beauty
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="6">
+							    	Books
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="7">
+							    	Cell Phones &amp; Accessories
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="8">
+							    	Clothing &amp; Accessories
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="9">
+							    	Collectibles
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="10">
+							    	Computers
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="11">
+							    	Electronics
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="12">
+							    	Grocery &amp; Gourmet Foods
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="13">
+							    	Health &amp; Personal Care
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="14">
+							    	Home &amp; Kitchen
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="15">
+							    	Industrial &amp; Scientific
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="16">
+							    	Jewelry
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="17">
+							    	Movies &amp; TV
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="18">
+							    	Music
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="19">
+							    	Musical Instruments
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="20">
+							    	Patio, Lawn &amp; Garden
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="21">
+							    	Pet Supplies
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="22">
+							    	Shoes
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="23">
+							    	Software
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="24">
+							    	Sports &amp; Outdoors
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="25">
+							    	Tools &amp; Home Improvement
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="26">
+							    	Toys &amp; Games
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="27">
+							    	Video Games
+							  </label>
+						  </div>
+						  <div class="radio">
+							  <label>
+							    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="28">
+							    	Watches
+							  </label>
+						  </div>
+					  </div> <!-- #cateogry-list -->
+					</div> <!-- col-lg-12 -->
+				</div> <!-- row -->
+				<div class="row">
+		    		<div class="col-lg-12" style="padding-top:10px;">
+		    			<center><button id="publish-next-button-one" class="btn btn-primary btn-publish">Next</button></center>
+		    			<center><a href="#" id="publish-cancel" class="m-font-light m-centered publish-cancel">Cancel</a></center>
+		    		</div>
+		    	</div><!-- row -->
+    	</div> <!-- #category-screen -->
+    	<div id="tags-screen">
+    		<div class="row">
+	    		<div class="col-lg-12">
+	    			<h6 class="m-centered m-font-two m-grey">Step 2 of 2</h6>
+					<h3 class="m-centered m-font-two">Publish Medley</h3>
+	    			<h5 class="m-centered m-font-two">Type 3 Tags for your Medley</h5>
+	    		</div>
+		    </div>
+		    <div class="row">
+	    		<div class="col-offset-4 col-lg-4">
+	    			<input type="text" class="form-control tag-field m-centered" id="tagOne" placeholder="Shoes">
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-offset-4 col-lg-4">
+	    			<input type="text" class="form-control tag-field m-centered" id="tagOne" placeholder="Sandals">
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-offset-4 col-lg-4">
+	    			<input type="text" class="form-control tag-field m-centered" id="tagOne" placeholder="Beach">
+	    		</div>
+	    	</div>
+	    	<div class="row">
+		    		<div class="col-lg-12" style="padding-top:10px;">
+		    			<center><button id="publish-next-button-two" class="btn btn-primary btn-publish">Next</button></center>
+		    			<center><a href="#" id="publish-cancel" class="m-font-light m-centered publish-cancel">Cancel</a></center>
+		    		</div>
+		    	</div><!-- row -->
+    	</div> <!-- #tag-screen -->
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Shopping Cart Modal -->
 <div id="cart-items-modal" class="modal fade">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content m-box-shadow-one">
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+</div> <!-- #dashboard-container -->
+

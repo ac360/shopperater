@@ -54,8 +54,6 @@
  #primary-search-field {background:#111111;border:none;margin:0px auto;width:300px;border-radius:0px;text-align:center;color:#ffffff;text-transform:uppercase;letter-spacing:4px;}
  #primary-search-field:focus {border:none;outline: 0;-webkit-box-shadow:none;box-shadow: none;}
  #primary-search-instructions {font-size:9px;color:#555;letter-spacing:4px;text-transform:uppercase;margin-bottom:4px;}
- #primary-category-dropdown li a {padding:2px 10px;font-size:11px;color:#666666;}
- #primary-category-dropdown li a:hover {color:#ffffff;}
  #cart-popover-trigger:hover {color:#888888;cursor:pointer;}
  #module-primary-search {height:60px;}
  #menu-button-container {text-align:right;height:60px;padding-top:40px;}
@@ -111,6 +109,9 @@
  #other-information {color:#fff;}
  #created-by {font-size:10px;color:#999;}
  #created-by-username {margin:5px auto;color:#fff;}
+ #publish-medley-modal .modal-content {background:#eaeaea;min-height:380px;}
+ #category-list {height:150px;width:40%;margin:0 auto;background:#fff;padding:10px 20px;overflow:hidden;}
+ .tag-field {margin:3px 0px;}
 
  /* Registration/Log In Page */
  #user-actions-box {background:#444444;padding-top:15px;padding-bottom:35px;}
@@ -122,7 +123,7 @@
  /* Modals */
 .animated {-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:0.9s;-moz-animation-duration:0.9s;-ms-animation-duration:0.9s;-o-animation-duration:0.9s;animation-duration:0.9s;}.animated.hinge{-webkit-animation-duration:0.5s;-moz-animation-duration:0.5s;-ms-animation-duration:0.5s;-o-animation-duration:0.5s;animation-duration:0.5s;}@-webkit-keyframes wobble {0% { -webkit-transform: translateX(0%); } 15% { -webkit-transform: translateX(-25%) rotate(-5deg); } 30% { -webkit-transform: translateX(20%) rotate(3deg); } 45% { -webkit-transform: translateX(-15%) rotate(-3deg); } 60% { -webkit-transform: translateX(10%) rotate(2deg); } 75% { -webkit-transform: translateX(-5%) rotate(-1deg); } 100% { -webkit-transform: translateX(0%); } } @-moz-keyframes wobble {0% { -moz-transform: translateX(0%); } 15% { -moz-transform: translateX(-25%) rotate(-5deg); } 30% { -moz-transform: translateX(20%) rotate(3deg); } 45% { -moz-transform: translateX(-15%) rotate(-3deg); } 60% { -moz-transform: translateX(10%) rotate(2deg); } 75% { -moz-transform: translateX(-5%) rotate(-1deg); } 100% { -moz-transform: translateX(0%); } } @-o-keyframes wobble {0% { -o-transform: translateX(0%); } 15% { -o-transform: translateX(-25%) rotate(-5deg); } 30% { -o-transform: translateX(20%) rotate(3deg); } 45% { -o-transform: translateX(-15%) rotate(-3deg); } 60% { -o-transform: translateX(10%) rotate(2deg); } 75% { -o-transform: translateX(-5%) rotate(-1deg); } 100% { -o-transform: translateX(0%); } } @keyframes wobble {0% { transform: translateX(0%); } 15% { transform: translateX(-25%) rotate(-5deg); } 30% { transform: translateX(20%) rotate(3deg); } 45% { transform: translateX(-15%) rotate(-3deg); } 60% { transform: translateX(10%) rotate(2deg); } 75% { transform: translateX(-5%) rotate(-1deg); } 100% { transform: translateX(0%); } } 
 .remixed  {-webkit-animation-name: wobble; -moz-animation-name: wobble; -o-animation-name: wobble; animation-name: wobble; }
-.modal-content {min-height:300px;padding:20px 0px 30px 0px;}
+.modal-content {min-height:300px;padding:10px 10px 30px 10px;}
 .modal-body {}
 .modal-body ul {margin-bottom:0px;}
 

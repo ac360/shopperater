@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130818144107) do
+ActiveRecord::Schema.define(:version => 20130906083608) do
 
   create_table "cart_items", :force => true do |t|
     t.string   "product_name"
@@ -31,9 +31,6 @@ ActiveRecord::Schema.define(:version => 20130818144107) do
     t.integer  "user_id"
     t.text     "description"
     t.string   "category"
-    t.string   "tag_1"
-    t.string   "tag_2"
-    t.string   "tag_3"
     t.integer  "votes"
     t.string   "i1_id"
     t.string   "i1_source"
@@ -245,6 +242,16 @@ ActiveRecord::Schema.define(:version => 20130818144107) do
     t.integer  "i16_r"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "remix_of"
+    t.integer  "tag_1_id"
+    t.integer  "tag_2_id"
+    t.integer  "tag_3_id"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string   "tag"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

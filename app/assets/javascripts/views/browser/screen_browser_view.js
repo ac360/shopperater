@@ -3,7 +3,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	tagName: "div",
     id: "",
     className: "",
-	template: JST['screens/browse_medlies'],
+	template: JST['screens/browse/browse_medlies'],
 
 	initialize: function() {
 		_.bindAll(this);
