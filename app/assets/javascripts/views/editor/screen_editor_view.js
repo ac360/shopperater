@@ -111,6 +111,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	loadPublishScreenThree: function() {
 		$('#tags-screen').fadeOut(200)
 		console.log(this.options.thisMedley);
+		var editorPublishView = new Medley.Views.EditorPublish({ model: this.options.thisMedley })
+		$('.modal-content').html(editorPublishView.render().$el); 
 	},
 
 	reformatTag: function(e) {
