@@ -1,23 +1,63 @@
+<% _.each(collection, function(medley) { %>
+			<div class="row">
+				<div class="medley-result-box m-box-shadow-one">
+					
+					<div class="row">
+							<%  if (medley.i1_img_small) { %>
+									<div class="col-offset-2 col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.i1_img_small %>"></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
 
-	<% _.each(collection, function(medley) { %>
-			
-			<div class="row item-result-row">
-				<div class="col-offset-1 col-lg-10 product-result-container s-box-shadow-one">
+							<%  if (medley.i2_img_small) { %>
+									<div class="col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.i2_img_small %>" draggable="false" class=""></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
+					</div>
+					<div class="row">
+							<%  if (medley.i3_img_small) { %>
+									<div class="col-offset-2 col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.i3_img_small %>" draggable="false" class=""></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-offset-2 col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
 
-					<%  // Check for Image 
-						if (medley.i1_img_small) { %>
-						<center><img src="<%= medley.i1_img_small %>" draggable="false" class=""></center>
-					<%  } else {  %>
-						<p class="s-centered">No Image</p>
-					<%	}  %>
+							<%  if (medley.i4_img_small) { %>
+									<div class="col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.i4_img_small %>" draggable="false" class=""></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
+					</div>
 
-					<p class="result-title" ><%= medley.title %></p>
 
-					<p class="result-category">
-						<%= medley.category %>
-					</p> 
+					<div class="row">
+						<div class="col-offset-1 col-lg-10">
 
-				</div>
-			</div>
+							<p class="result-title m-centered" style="font-size:12px;line-height:16px;letter-spacing:0.5px;"><%= medley.title %></p>
 
-	<% }); %>
+							<p class="result-category m-centered">
+								<%= medley.category %>
+							</p> 
+
+						</div> <!-- .col-offset-1 -->
+					</div> <!-- .row -->
+
+				</div> <!-- .col-offset-1 col-lg-10 -->
+			</div> <!-- .row -->
+		<% }); %>
