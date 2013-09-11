@@ -79,7 +79,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
     },
 
 	render: function () {
-		this.$el.html(this.template({ })).fadeIn(1000);
+		this.$el.html(this.template({ model: this.model })).fadeIn(1000);
         
         // Defer the instantiation of Gridster so that it happens at the end of everything else
 		_(this.instantiateGridster).defer();

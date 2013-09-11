@@ -26,7 +26,7 @@ Medley.Views.ModuleBrowseMedleySearch = Backbone.View.extend({
                 console.log(results)
                 var medleySearchResults = new Medley.Views.MedleySearchResults({ collection: results })
                 $('#medley-results-container').html(medleySearchResults.render().$el);
-                var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({})
+                var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: results[0] })
                 $('#module-medley-browser').html(moduleMedley.render().$el);
 
                 if (results.length < 15) {

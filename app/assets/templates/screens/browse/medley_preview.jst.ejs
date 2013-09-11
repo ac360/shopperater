@@ -1,15 +1,348 @@
 
-	<h2 id="medley-title" class="s-grey s-font-bold s-centered">UNTITLED MEDLEY</h2>
+	<h2 id="medley-title" class="s-grey s-font-bold s-centered"><%= model.title %></h2>
 	<div class="row">
 		<div id="medley-container" class="col-offset-2 col-lg-8">
 
 			<div class="gridster">
 	    		<ul id="medley-grid" class="list-unstyled">
-	    			<li class="medley-grid-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1"></li>
-			        <li class="medley-grid-item" data-row="2" data-col="1" data-sizex="1" data-sizey="1"></li>
-			        <li class="medley-grid-item" data-row="3" data-col="1" data-sizex="1" data-sizey="1"></li>
-			        <li class="medley-grid-item" data-row="1" data-col="2" data-sizex="2" data-sizey="1"></li>
-			        <li class="medley-grid-item" data-row="2" data-col="2" data-sizex="2" data-sizey="2"></li>
+	    			
+	    			<% if ( model.i1_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i1_r %>" data-col="<%= model.i1_c %>" data-sizex="<%= model.i1_x %>" data-sizey="<%= model.i1_y %>" data_id="<%= model.i1_id %>" data-title="<%= model.i1_title %>" data-price="<%= model.i1_price %>" data-imagesmall="<%= model.i1_img_small %>" data-imagelarge="<%= model.i1_img_big %>" data-category="<%= model.i1_category %>" data-source="<%= model.i1_source %>" data-link="<%= model.i1_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i1_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i1_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i2_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i2_r %>" data-col="<%= model.i2_c %>" data-sizex="<%= model.i2_x %>" data-sizey="<%= model.i2_y %>" data_id="<%= model.i2_id %>" data-title="<%= model.i2_title %>" data-price="<%= model.i2_price %>" data-imagesmall="<%= model.i2_img_small %>" data-imagelarge="<%= model.i2_img_big %>" data-category="<%= model.i2_category %>" data-source="<%= model.i2_source %>" data-link="<%= model.i2_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i2_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i2_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i3_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i3_r %>" data-col="<%= model.i3_c %>" data-sizex="<%= model.i3_x %>" data-sizey="<%= model.i3_y %>" data_id="<%= model.i3_id %>" data-title="<%= model.i3_title %>" data-price="<%= model.i3_price %>" data-imagesmall="<%= model.i3_img_small %>" data-imagelarge="<%= model.i3_img_big %>" data-category="<%= model.i3_category %>" data-source="<%= model.i3_source %>" data-link="<%= model.i3_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i3_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i3_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+
+	    			<% if ( model.i4_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i4_r %>" data-col="<%= model.i4_c %>" data-sizex="<%= model.i4_x %>" data-sizey="<%= model.i4_y %>" data_id="<%= model.i4_id %>" data-title="<%= model.i4_title %>" data-price="<%= model.i4_price %>" data-imagesmall="<%= model.i4_img_small %>" data-imagelarge="<%= model.i4_img_big %>" data-category="<%= model.i4_category %>" data-source="<%= model.i4_source %>" data-link="<%= model.i4_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i4_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i4_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i5_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i5_r %>" data-col="<%= model.i5_c %>" data-sizex="<%= model.i5_x %>" data-sizey="<%= model.i5_y %>" data_id="<%= model.i5_id %>" data-title="<%= model.i5_title %>" data-price="<%= model.i5_price %>" data-imagesmall="<%= model.i5_img_small %>" data-imagelarge="<%= model.i5_img_big %>" data-category="<%= model.i5_category %>" data-source="<%= model.i5_source %>" data-link="<%= model.i5_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i5_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i5_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i6_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i6_r %>" data-col="<%= model.i6_c %>" data-sizex="<%= model.i6_x %>" data-sizey="<%= model.i6_y %>" data_id="<%= model.i6_id %>" data-title="<%= model.i6_title %>" data-price="<%= model.i6_price %>" data-imagesmall="<%= model.i6_img_small %>" data-imagelarge="<%= model.i6_img_big %>" data-category="<%= model.i6_category %>" data-source="<%= model.i6_source %>" data-link="<%= model.i6_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i6_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i6_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i7_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i7_r %>" data-col="<%= model.i7_c %>" data-sizex="<%= model.i7_x %>" data-sizey="<%= model.i7_y %>" data_id="<%= model.i7_id %>" data-title="<%= model.i7_title %>" data-price="<%= model.i7_price %>" data-imagesmall="<%= model.i7_img_small %>" data-imagelarge="<%= model.i7_img_big %>" data-category="<%= model.i7_category %>" data-source="<%= model.i7_source %>" data-link="<%= model.i7_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i7_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i7_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i8_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i8_r %>" data-col="<%= model.i8_c %>" data-sizex="<%= model.i8_x %>" data-sizey="<%= model.i8_y %>" data_id="<%= model.i8_id %>" data-title="<%= model.i8_title %>" data-price="<%= model.i8_price %>" data-imagesmall="<%= model.i8_img_small %>" data-imagelarge="<%= model.i8_img_big %>" data-category="<%= model.i8_category %>" data-source="<%= model.i8_source %>" data-link="<%= model.i8_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i8_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i8_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i9_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i9_r %>" data-col="<%= model.i9_c %>" data-sizex="<%= model.i9_x %>" data-sizey="<%= model.i9_y %>" data_id="<%= model.i9_id %>" data-title="<%= model.i9_title %>" data-price="<%= model.i9_price %>" data-imagesmall="<%= model.i9_img_small %>" data-imagelarge="<%= model.i9_img_big %>" data-category="<%= model.i9_category %>" data-source="<%= model.i9_source %>" data-link="<%= model.i9_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i9_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i9_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i10_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i10_r %>" data-col="<%= model.i10_c %>" data-sizex="<%= model.i10_x %>" data-sizey="<%= model.i10_y %>" data_id="<%= model.i10_id %>" data-title="<%= model.i10_title %>" data-price="<%= model.i10_price %>" data-imagesmall="<%= model.i10_img_small %>" data-imagelarge="<%= model.i10_img_big %>" data-category="<%= model.i10_category %>" data-source="<%= model.i10_source %>" data-link="<%= model.i10_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i10_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i10_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i11_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i11_r %>" data-col="<%= model.i11_c %>" data-sizex="<%= model.i11_x %>" data-sizey="<%= model.i11_y %>" data_id="<%= model.i11_id %>" data-title="<%= model.i11_title %>" data-price="<%= model.i11_price %>" data-imagesmall="<%= model.i11_img_small %>" data-imagelarge="<%= model.i11_img_big %>" data-category="<%= model.i11_category %>" data-source="<%= model.i11_source %>" data-link="<%= model.i11_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i11_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i11_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i12_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i12_r %>" data-col="<%= model.i12_c %>" data-sizex="<%= model.i12_x %>" data-sizey="<%= model.i12_y %>" data_id="<%= model.i12_id %>" data-title="<%= model.i12_title %>" data-price="<%= model.i12_price %>" data-imagesmall="<%= model.i12_img_small %>" data-imagelarge="<%= model.i12_img_big %>" data-category="<%= model.i12_category %>" data-source="<%= model.i12_source %>" data-link="<%= model.i12_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i12_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i12_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i13_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i13_r %>" data-col="<%= model.i13_c %>" data-sizex="<%= model.i13_x %>" data-sizey="<%= model.i13_y %>" data_id="<%= model.i13_id %>" data-title="<%= model.i13_title %>" data-price="<%= model.i13_price %>" data-imagesmall="<%= model.i13_img_small %>" data-imagelarge="<%= model.i13_img_big %>" data-category="<%= model.i13_category %>" data-source="<%= model.i13_source %>" data-link="<%= model.i13_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i13_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i13_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i14_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i14_r %>" data-col="<%= model.i14_c %>" data-sizex="<%= model.i14_x %>" data-sizey="<%= model.i14_y %>" data_id="<%= model.i14_id %>" data-title="<%= model.i14_title %>" data-price="<%= model.i14_price %>" data-imagesmall="<%= model.i14_img_small %>" data-imagelarge="<%= model.i14_img_big %>" data-category="<%= model.i14_category %>" data-source="<%= model.i14_source %>" data-link="<%= model.i14_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i14_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i14_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i15_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i15_r %>" data-col="<%= model.i15_c %>" data-sizex="<%= model.i15_x %>" data-sizey="<%= model.i15_y %>" data_id="<%= model.i15_id %>" data-title="<%= model.i15_title %>" data-price="<%= model.i15_price %>" data-imagesmall="<%= model.i15_img_small %>" data-imagelarge="<%= model.i15_img_big %>" data-category="<%= model.i15_category %>" data-source="<%= model.i15_source %>" data-link="<%= model.i15_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i15_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i15_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
+	    			<% if ( model.i16_id !== null ) { %>
+			    				<li class="medley-grid-item" data-row="<%= model.i16_r %>" data-col="<%= model.i16_c %>" data-sizex="<%= model.i16_x %>" data-sizey="<%= model.i16_y %>" data_id="<%= model.i16_id %>" data-title="<%= model.i16_title %>" data-price="<%= model.i16_price %>" data-imagesmall="<%= model.i16_img_small %>" data-imagelarge="<%= model.i16_img_big %>" data-category="<%= model.i16_category %>" data-source="<%= model.i16_source %>" data-link="<%= model.i16_link %>">
+
+				    					<div id="medley-item-image-container">
+											<img src="<%= model.i16_img_small %>" class="product-image">
+										</div>
+
+										<div id="medley-item-title-container">
+											<h1 class="m-font-two product-title" contenteditable="true">
+												<%= model.i16_title %>
+											</h1>
+											<div class="product-option-icons">
+												<i class="glyphicon glyphicon-search"></i>
+												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
+												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
+												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+											</div>
+										</div>
+			    				</li>
+	    			<% } %>
+
 	    		</ul>
 	    	</div>
 
@@ -18,7 +351,7 @@
 
 	<div class="row">
 		<div id="medley-description" class="col-offset-2 col-lg-8">
-			This is a sample description.  This is a sample description.  This is a sample description.
+			<%= model.description %>
 		</div>
 	</div>
 
