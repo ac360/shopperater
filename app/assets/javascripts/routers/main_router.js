@@ -14,7 +14,6 @@ Medley.Routers.Main = Backbone.Router.extend({
     browser: function() {
         var header = new Medley.Views.Header();
         var screenBrowser = new Medley.Views.ScreenBrowser();
-        $('#dashboard-container').html(screenBrowser.render().$el); 
     }, // /home
 
     editor: function() {
