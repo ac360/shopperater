@@ -1,5 +1,5 @@
 Medley.Collections.Medlies = Backbone.Collection.extend({
 
-  url: 'medley/medlies'
+  url: 'api/medleys'
 
 }); // End Collection

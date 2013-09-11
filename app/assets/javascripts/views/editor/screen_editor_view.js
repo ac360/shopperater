@@ -42,13 +42,14 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'dragstart .item-result-row'                :   'gridSetDataTransferObject',
 		'click #publish-next-button-one'            :   'loadPublishScreenTwo',
 		'click .publish-cancel'                     :   'cancelPublish',
-		'click #medley-publish-button'              :   'publishMedley',
+		'click #medley-publish-button'              :   'openPublishArea',
 		'keyup .tag-field'      	                :   'reformatTag',
-		'click #publish-next-button-two'            :   'validateAllTags'
+		'click #publish-next-button-two'            :   'validateAllTags',
+		'click #publish-confirm-button'			    :   'publishMedley'
 	},
 
 	gridSetDataTransferObject: function(e) {
-	    e.originalEvent.dataTransfer.setData("productID", $(e.currentTarget).attr('data-id'));
+	    e.originalEvent.dataTransfer.setData("productID", 	 $(e.currentTarget).attr('data-id'));
 	    e.originalEvent.dataTransfer.setData("productTitle", $(e.currentTarget).attr('data-title'));
 	    e.originalEvent.dataTransfer.setData("productPrice", $(e.currentTarget).attr('data-price'));
 	    e.originalEvent.dataTransfer.setData("productImageSmall", $(e.currentTarget).attr('data-image-small'));
@@ -59,6 +60,21 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	},
 
 	publishMedley: function() {
+		console.log("this is the Medley about to be published", this.options.thisMedley);
+
+		var thisMedley = new Medley.Collections.Medlies()
+    	thisMedley.create(this.options.thisMedley, {
+		          success: function () {
+		          	$('#publish-medley-modal').modal('hide')
+		          },
+		          error: function (model, xhr) {
+		            var errors = $.parseJSON(xhr.responseText).errors
+		            console.log(errors)
+		          }
+		}) // End of thisMedley.save
+	},
+
+	openPublishArea: function() {
         var medleyItemsCount = $("#medley-grid li").size()
         if (medleyItemsCount > 1) {
             var thisMedley              = {};

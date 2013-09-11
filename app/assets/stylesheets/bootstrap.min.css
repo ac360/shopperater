@@ -68,7 +68,9 @@
 
  /* Screen - Browse */
  #module-product-results-container {background:#eaeaea;height:565px;}
+ #medley-results-container {height:520px;}
  #module-product-results {height:520px;}
+ #medley-search-results {height:800px;}
  .product-result-container {padding:13px;background:#ffffff;border:none;margin-bottom:10px;cursor: -webkit-grab;overflow:hidden;}
  .product-result-container img {max-width:90%;max-height:100px;margin-bottom:10px;}
   #module-item-results {min-height:400px;background:#f2f2f2;margin-top:20px;padding-top:10px;padding-bottom:10px;}

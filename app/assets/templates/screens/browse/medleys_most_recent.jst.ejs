@@ -1,0 +1,23 @@
+
+	<% _.each(collection, function(medley) { %>
+			
+			<div class="row item-result-row">
+				<div class="col-offset-1 col-lg-10 product-result-container s-box-shadow-one">
+
+					<%  // Check for Image 
+						if (medley.i1_img_small) { %>
+						<center><img src="<%= medley.i1_img_small %>" draggable="false" class=""></center>
+					<%  } else {  %>
+						<p class="s-centered">No Image</p>
+					<%	}  %>
+
+					<p class="result-title" ><%= medley.title.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase() }) %></p>
+
+					<p class="result-category">
+						<%= medley.category %>
+					</p> 
+
+				</div>
+			</div>
+
+	<% }); %>
