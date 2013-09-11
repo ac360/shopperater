@@ -26,9 +26,12 @@ Medley.Views.ModuleBrowseMedleySearch = Backbone.View.extend({
                 console.log(results)
                 var medleySearchResults = new Medley.Views.MedleySearchResults({ collection: results })
                 $('#medley-results-container').html(medleySearchResults.render().$el);
-                var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: results[0] })
-                $('#module-medley-browser').html(moduleMedley.render().$el);
-
+                // If there are results, show the first in the preview area...
+                if (results.length > 0) {
+                  var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: results[0] })
+                  $('#module-medley-browser').html(moduleMedley.render().$el);
+                }
+                // If there are less than 15 results, bring up the Most Recent Medleys
                 if (results.length < 15) {
                         // Get Most Recent Medleys
                         var medleysMostRecent = new Medley.Collections.MedleysMostRecent();
@@ -41,7 +44,7 @@ Medley.Views.ModuleBrowseMedleySearch = Backbone.View.extend({
                               var medleysMostRecent = new Medley.Views.MedleysMostRecent({ collection: results });
                               $('#medleys-most-recent').html(medleysMostRecent.render().$el);
 
-                              // Search Products
+                              // Search Products on callback to keep page loading orderly and not all at once
                               var searchItems = new Medley.Collections.ProductSearch();
                               searchItems.fetch({
                                       data: { keywords: searchKeywords, category: searchCategory },
@@ -70,8 +73,10 @@ Medley.Views.ModuleBrowseMedleySearch = Backbone.View.extend({
                                   var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: results })
                                   $('#module-product-results').html(moduleItemResultsView.render().$el);
                               } // End Success
-                            }); // End searchItems.fetch
+                      }); // End searchItems.fetch
+
                 }; // /if results.length < 15
+                
           } // End Success searchMedlies 
       }); // End searchMedlies.fetch
 
