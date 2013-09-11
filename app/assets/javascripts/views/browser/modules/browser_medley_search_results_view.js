@@ -2,7 +2,7 @@ Medley.Views.MedleySearchResults = Backbone.View.extend({
 	 
     tagName: "div",
     id: "medley-search-results",
-    className: "",
+    className: "row",
     template: JST['screens/browse/medley_search_results'],
 
 	initialize: function() {
@@ -13,7 +13,10 @@ Medley.Views.MedleySearchResults = Backbone.View.extend({
     },
 
     instantiateNiceScroll: function() {
-    	$('#medley-results-container').niceScroll({cursorcolor:"#999999"})
+    	$('#medley-results-container').niceScroll({
+            cursorcolor:"#999999",
+            horizrailenabled: false
+        })
     },
 
 	render: function () {

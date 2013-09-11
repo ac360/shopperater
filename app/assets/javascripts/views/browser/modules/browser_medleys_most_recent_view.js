@@ -13,7 +13,10 @@ Medley.Views.MedleysMostRecent = Backbone.View.extend({
     },
 
     instantiateNiceScroll: function() {
-        $('#medley-results-container').niceScroll({cursorcolor:"#999999"})
+        $('#medley-results-container').niceScroll({
+            cursorcolor:"#999999",
+            horizrailenabled: false
+        })
     },
 
 	render: function () {

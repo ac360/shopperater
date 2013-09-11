@@ -148,7 +148,7 @@ class MedleyApiController < ApplicationController
 			@medley.user_id = 0
 		end
 		@medley.remix_of 					= params[:remix_of]           					if params[:remix_of].present?
-		@medley.title 						= params[:title]           						if params[:title].present?
+		@medley.title 						= params[:title].downcase.titleize         		if params[:title].present?
 		@medley.description			    	= params[:description].mb_chars.strip.normalize if params[:description].present?
 		@medley.category			    	= params[:category]        						if params[:category].present?
 		@medley.tag_1_id		        	= @tag_one.id

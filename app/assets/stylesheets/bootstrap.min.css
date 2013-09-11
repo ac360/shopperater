@@ -18,6 +18,7 @@
  /* Custom Shopperater Styles */
  a {color:#444;}
  a:hover {cursor:pointer;text-decoration:none;}
+ .m-nine {font-size:9px;}
  .s-no-margin, .m-no-margin {margin:0px;}
  .s-grey, .m-grey {color: #bbbbbb}
  .m-white {color:#ffffff;}
@@ -73,7 +74,11 @@
  #medley-search-results {height:800px;}
  .product-result-container {padding:13px;background:#ffffff;border:none;margin-bottom:10px;cursor: -webkit-grab;overflow:hidden;}
  .product-result-container img {max-width:90%;max-height:100px;margin-bottom:10px;}
-  #module-item-results {min-height:400px;background:#f2f2f2;margin-top:20px;padding-top:10px;padding-bottom:10px;}
+ .medley-result-img-container {padding:0px;border:none;margin-bottom:0px;cursor:pointer;overflow:hidden;height:40px;}
+ .medley-result-img-container img {max-height:80%;max-width:80%;}
+ .medley-result-box {padding:15px 0px 8px 0px;width:80%;margin: 0px auto 10px auto;background:#fff;cursor:pointer;}
+ .medley-result-box:hover {}
+ #module-item-results {min-height:400px;background:#f2f2f2;margin-top:20px;padding-top:10px;padding-bottom:10px;}
  .result-title {font-weight:normal;color:#777777;margin-bottom:5px;margin-top:5px;font-size:10px;line-height:15px;}
  .result-category {color:#bbbbbb;margin-bottom:0px;font-size:9px;}
  .result-price {font-weight:normal;font-size:9px;color:#bbbbbb;}
