@@ -3,9 +3,9 @@
 				<div class="medley-most-recent-box m-box-shadow-one" data-id="<%= medley.id %>">
 					
 					<div class="row">
-							<%  if (medley.i1_img_small) { %>
+							<%  if (medley.items[0].img_small) { %>
 									<div class="col-offset-2 col-lg-4 medley-result-img-container">
-										<center><img src="<%= medley.i1_img_small %>"></center>
+										<center><img src="<%= medley.items[0].img_small %>"></center>
 									</div>
 							<%  } else {  %>
 									<div class="col-lg-4 medley-result-img-container">
@@ -13,9 +13,9 @@
 									</div>
 							<%	}  %>
 
-							<%  if (medley.i2_img_small) { %>
+							<%  if (medley.items[1].img_small) { %>
 									<div class="col-lg-4 medley-result-img-container">
-										<center><img src="<%= medley.i2_img_small %>" draggable="false" class=""></center>
+										<center><img src="<%= medley.items[1].img_small %>" draggable="false" class=""></center>
 									</div>
 							<%  } else {  %>
 									<div class="col-lg-4 medley-result-img-container">
@@ -24,9 +24,9 @@
 							<%	}  %>
 					</div>
 					<div class="row">
-							<%  if (medley.i3_img_small) { %>
+							<%  if (medley.items[2].img_small) { %>
 									<div class="col-offset-2 col-lg-4 medley-result-img-container">
-										<center><img src="<%= medley.i3_img_small %>" draggable="false" class=""></center>
+										<center><img src="<%= medley.items[2].img_small %>" draggable="false" class=""></center>
 									</div>
 							<%  } else {  %>
 									<div class="col-offset-2 col-lg-4 medley-result-img-container">
@@ -34,9 +34,9 @@
 									</div>
 							<%	}  %>
 
-							<%  if (medley.i4_img_small) { %>
+							<%  if (medley.items[3].img_small) { %>
 									<div class="col-lg-4 medley-result-img-container">
-										<center><img src="<%= medley.i4_img_small %>" draggable="false" class=""></center>
+										<center><img src="<%= medley.items[3].img_small %>" draggable="false" class=""></center>
 									</div>
 							<%  } else {  %>
 									<div class="col-lg-4 medley-result-img-container">

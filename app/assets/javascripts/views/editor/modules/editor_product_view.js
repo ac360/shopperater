@@ -7,6 +7,8 @@ Medley.Views.EditorProduct = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+        this.setModelSize();
+        console.log("This Product has been loaded into the Medley: ", this.model)
 	},
 
 	events: {  
@@ -51,11 +53,10 @@ Medley.Views.EditorProduct = Backbone.View.extend({
     gridMakeItemSmaller: function(e) {
         if (this.model.size > 1) { 
         	this.model.size = this.model.size - 1 
-        }
-        
+        };
         this.gridSaveItemSizes();
         var gridster = M.instantiateGridster();
-        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), this.model.sizex, this.model.sizey);
+        gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), this.model.x, this.model.y);
     },
 
     gridMakeItemBigger: function(e) {
@@ -70,57 +71,68 @@ Medley.Views.EditorProduct = Backbone.View.extend({
             }
             this.gridSaveItemSizes();
             var gridster = M.instantiateGridster();
-            gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), this.model.sizex, this.model.sizey);
+            gridster.resize_widget($(e.currentTarget).closest('.medley-grid-item'), this.model.x, this.model.y);
         } else {
             alert("This Item has no where to grow!  Move it one column to the left, and then resize it.");
         };
     },
 
+    setModelSize: function() {
+        if (this.model.size === undefined) {
+            if (this.model.x == 1 && this.model.y == 1) {
+                this.model.size = 1
+            } else if (this.model.x == 2 && this.model.y == 1) {
+                this.model.size = 2
+            } else if (this.model.x == 2 && this.model.y == 2) {
+                this.model.size = 3
+            }
+        }
+    },
+
     gridSaveItemSizes: function() {
-    	switch(this.model.size)
-			{
+    	switch(this.model.size) {
 			case 1:
-			  this.model.sizex = 1
-			  this.model.sizey = 1
+			  this.model.x = 1
+			  this.model.y = 1
 			  break;
 			case 2:
-			  this.model.sizex = 2
-			  this.model.sizey = 1
+			  this.model.x = 2
+			  this.model.y = 1
 			  break;
 			case 3:
-			  this.model.sizex = 2
-			  this.model.sizey = 2
-			}
+			  this.model.x = 2
+			  this.model.y = 2
+		}
     },
 
     gridRemoveItemFromGrid: function(e) {
         var verifyRemoval = confirm("Remove this item from your Medley?")
-            if (verifyRemoval == true) {
-                var gridster = M.instantiateGridster();
-                gridster.remove_widget($(e.currentTarget).closest('.medley-grid-item'));
-            }
+        if (verifyRemoval == true) {
+            var gridster = M.instantiateGridster();
+            gridster.remove_widget($(e.currentTarget).closest('.medley-grid-item'));
+        };
     },
 
     mouseOver: function(e) {
-	    	var self = this;
-	    	var target = $(e.currentTarget).find('#medley-item-image-container');
-	    	$(target).fadeOut(50, function(){
-	    		$($(e.currentTarget).find('#medley-item-title-container')).removeClass('hide')
-	    		$($(e.currentTarget).find('#medley-item-title-container')).fadeIn(50);
-	    		$(target).addClass('hide')
+    	var self = this;
+    	var target = $(e.currentTarget).find('#medley-item-image-container');
+    	$(target).fadeOut(50, function(){
+    		$($(e.currentTarget).find('#medley-item-title-container')).removeClass('hide')
+    		$($(e.currentTarget).find('#medley-item-title-container')).fadeIn(50);
+    		$(target).addClass('hide')
 
-	    		// The mouseLeave event doesn't always fire, so you had to write a timeout to check if the mouse is still hovering.
-	    		setTimeout(function(){
-	    			if($(e.currentTarget).is(":hover")) {
-		    		} else {
-			    			$($(e.currentTarget).find('#medley-item-title-container')).fadeOut(300, function(){
-					    		$($(e.currentTarget).find('#medley-item-image-container')).removeClass('hide')
-					    		$($(e.currentTarget).find('#medley-item-image-container')).fadeIn(300);
-					    		$($(e.currentTarget).find('#medley-item-title-container')).addClass('hide')
-					    	});
-		    		}
-	    		}, 500)
-	    	}); // fadeOut callback
+    		// The mouseLeave event doesn't always fire, so you had to write a timeout to check if the mouse is still hovering.
+    		setTimeout(function(){
+    			if($(e.currentTarget).is(":hover")) {
+	    		} else {
+		    			$($(e.currentTarget).find('#medley-item-title-container')).fadeOut(300, function(){
+				    		$($(e.currentTarget).find('#medley-item-image-container')).removeClass('hide')
+				    		$($(e.currentTarget).find('#medley-item-image-container')).fadeIn(300);
+				    		$($(e.currentTarget).find('#medley-item-title-container')).addClass('hide')
+				    	});
+	    		}
+    		}, 500)
+    	}); // fadeOut callback
     },
 
     mouseLeave: function(e) {

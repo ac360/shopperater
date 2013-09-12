@@ -1,25 +1,58 @@
-<% if (typeof collection === 'undefined'){ %>
-	<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true">Untitled Medley</h2>
+<% if ( params !== undefined && params.referral !== undefined && params.remix === undefined ) { %>
+
+			<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true"><%= decodeURI(params.title) %></h2>
+
+			<div id="medley-container" class="col-offset-2 col-lg-8">
+				<div class="gridster">
+					<ul id="medley-grid" class="list-unstyled">
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div id="description" class="col-offset-2 col-lg-5 m-font-two" contenteditable="true">
+					<%= decodeURI(params.description) %>
+				</div>
+				<div id="user-information" class="col-lg-3 m-font-two">
+				</div>
+			</div>
+	
+<% } else if ( params !== undefined && params.remix !== undefined && params.referral === undefined ) { %> 
+
+			<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true"><%= model.title %></h2>
+
+			<div id="medley-container" class="col-offset-2 col-lg-8">
+				<div class="gridster">
+					<ul id="medley-grid" class="list-unstyled">
+					</ul>
+				</div>
+			</div>
+
+			<div class="row">
+				<div id="description" class="col-offset-2 col-lg-5 m-font-two" contenteditable="true">
+					<%= model.description %>
+				</div>
+				<div id="user-information" class="col-lg-3 m-font-two">
+				</div>
+			</div>
+
 <% } else { %>
-	<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true"><%= decodeURI(collection.title) %></h2>
+
+		<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true">Untitled Medley</h2>
+
+		<div id="medley-container" class="col-offset-2 col-lg-8">
+			<div class="gridster">
+				<ul id="medley-grid" class="list-unstyled">
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="description" class="col-offset-2 col-lg-5 m-font-two" contenteditable="true">
+				Click here to enter or edit a description for the Medley...
+			</div>
+			<div id="user-information" class="col-lg-3 m-font-two">
+			</div>
+		</div>
+
 <% } %>
-
-<div id="medley-container" class="col-offset-2 col-lg-8">
-	<div class="gridster">
-		<ul id="medley-grid" class="list-unstyled">
-			
-		</ul>
-	</div>
-</div>
-
-<div class="row">
-	<div id="description" class="col-offset-2 col-lg-5 m-font-two" contenteditable="true">
-		<% if (typeof collection === 'undefined'){ %>
-			Click here to enter or edit a description for this Medley...
-		<% } else { %>
-			<%= decodeURI(collection.description) %>
-		<% } %>
-	</div>
-	<div id="user-information" class="col-lg-3 m-font-two">
-	</div>
-</div>

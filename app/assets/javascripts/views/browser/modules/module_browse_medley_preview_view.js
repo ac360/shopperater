@@ -1,7 +1,7 @@
 Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 	
 	tagName: "div",
-    className: "row",
+  className: "row",
 	template: JST['screens/browse/medley_preview'],
 
 	initialize: function() {
@@ -9,103 +9,114 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 	},
 
 	events: {
-		'dragenter #medley-container'                : 'addTempItemToGrid',
-		'dragleave #medley-container'                : 'removeTempItemFromGrid',
-		'dragleave #medley-container' 		           : 'unhighlightDropZone',
-		'drop #medley-container'      		           : 'openRemixModal',
-	  'dragover #medley-container'  		           : 'highlightDropZone' 
-    },
+		  'dragenter #medley-container'                : 'addTempItemToGrid',
+		  'dragleave #medley-container'                : 'removeTempItemFromGrid',
+		  'dragleave #medley-container' 		           : 'unhighlightDropZone',
+		  'drop #medley-container'      		           : 'openRemixModal',
+	    'dragover #medley-container'  		           : 'highlightDropZone',
+      'click #editor-button'                       : 'remixMedley'
+  },
 
-    instantiateGridster: function() {
+  remixMedley: function() {
+    // Build Remix Modal's Link to Editor Area with Any Params
+    // var searchKeywords = $('#primary-search-field').val()
+    // var editorLink = '/editor?search=' + searchKeywords
+    // $("#editor-button").attr('href', editorLink );
+    $.jStorage.set("medley_current", this.model);
+    medleyTemp = $.jStorage.get("medley_current")
+  },
+
+  instantiateGridster: function() {
       var self = this;
     	var gridster = $(".gridster ul").gridster({
-                   widget_margins: [5, 5],
-                   widget_base_dimensions: [90, 90],
-                   // Put in callback for drag stop
-                   draggable: {
-                       stop: function () {
-                           self.openRemixModal()
-                       }
-                   }
-               }).data("gridster");
-    },
+         widget_margins: [5, 5],
+         widget_base_dimensions: [90, 90],
+         // Put in callback for drag stop
+         draggable: {
+             stop: function () {
+                 self.openRemixModal()
+             }
+         }
+      }).data("gridster");
+  },
 
-    highlightDropZone: function(e) {
+  highlightDropZone: function(e) {
     	e.preventDefault();
     	$('#medley-container').addClass('drop-zone-highlight')
-    },
+  },
 
-    unhighlightDropZone: function(e) {
-    	$('#medley-container').removeClass('drop-zone-highlight')
-    },
+  unhighlightDropZone: function(e) {
+    $('#medley-container').removeClass('drop-zone-highlight')
+  },
 
-    addTempItemToGrid: function() {
-    	// Check to see if a temporary grid item has already been added...
-    	if (!$("li").hasClass("temp-grid-item")) {
-	    	// Re-instantiate Gridster under a variable that also has access to the API object
-	    	var gridster = $(".gridster ul").gridster({
-                   widget_margins: [5, 5],
-                   widget_base_dimensions: [90, 90],
-                   // Put in callback for drag stop
-                   draggable: {
-                       stop: function () {
-                           self.openRemixModal()
-                       }
-                   }
-               }).data("gridster");
-	    	// Add new item
-	    	gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
-    	}
-    },
+  addTempItemToGrid: function() {
+  	// Check to see if a temporary grid item has already been added...
+  	if (!$("li").hasClass("temp-grid-item")) {
+    	// Re-instantiate Gridster under a variable that also has access to the API object
+    	var gridster = $(".gridster ul").gridster({
+                 widget_margins: [5, 5],
+                 widget_base_dimensions: [90, 90],
+                 // Put in callback for drag stop
+                 draggable: {
+                     stop: function () {
+                         self.openRemixModal()
+                     }
+                 }
+             }).data("gridster");
+    	// Add new item
+    	gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
+  	}
+  },
 
-    removeTempItemFromGrid: function() {
-    	// Check to see if a temporary grid item has already been added...
-    	if ($("li").hasClass("temp-grid-item")) {
-	    	// Re-instantiate Gridster under a variable that also has access to the API object
-	    	var gridster = $(".gridster ul").gridster({
-                   widget_margins: [5, 5],
-                   widget_base_dimensions: [90, 90],
-                   // Put in callback for drag stop
-                   draggable: {
-                       stop: function () {
-                           self.openRemixModal()
-                       }
-                   }
-               }).data("gridster");
-	    	// Add new item
-	    	gridster.remove_widget($('.temp-grid-item'));
-	    	console.log("Item Removed!")
-    	}
-    },
+  removeTempItemFromGrid: function() {
+  	// Check to see if a temporary grid item has already been added...
+  	if ($("li").hasClass("temp-grid-item")) {
+    	// Re-instantiate Gridster under a variable that also has access to the API object
+    	var gridster = $(".gridster ul").gridster({
+                 widget_margins: [5, 5],
+                 widget_base_dimensions: [90, 90],
+                 // Put in callback for drag stop
+                 draggable: {
+                     stop: function () {
+                         self.openRemixModal()
+                     }
+                 }
+             }).data("gridster");
+    	// Add new item
+    	gridster.remove_widget($('.temp-grid-item'));
+    	console.log("Item Removed!")
+  	}
+  },
+
+  openRemixModal: function(e) {
+    this.unhighlightDropZone();
+    // Show Remix Notification Modal
+    $('#remix-modal').modal('show')
+    // Manual Event Listener to Remove Temp Grid Item After Modal Hide
+    var self = this;
+    $('#remix-modal').on('hidden.bs.modal', function () {
+        self.removeTempItemFromGrid();
+        self.unhighlightDropZone();
+    });
+  },
+
+  remixMedley: function() {
+    // Build Remix Modal's Link to Editor Area with Any Params
+    var searchKeywords = $('#primary-search-field').val()
+    var editorLink = '/editor?remix=true&search=' + searchKeywords
+    // $("#editor-button").attr('href', editorLink );
+    $.jStorage.set("medley_current", this.model);
+    medleyTemp = $.jStorage.get("medley_current")
+    window.location = editorLink
+  },
 
 	render: function () {
 		this.$el.html(this.template({ model: this.model })).fadeIn(1000);
-        
-        // Defer the instantiation of Gridster so that it happens at the end of everything else
+    // Defer the instantiation of Gridster so that it happens at the end of everything else
 		_(this.instantiateGridster).defer();
-
-        // Manual Event Binder for Notification Modal Hide
-        var self = this;
-        $('#notification-modal').on('hidden.bs.modal', function () {
-            self.removeTempItemFromGrid();
-            self.unhighlightDropZone();
-        })
-
+    // Manual Event Binder for Notification Modal Hide
+    
 		return this;
-	},
-
-	openRemixModal: function(e) {
-        this.unhighlightDropZone();
-        // Build Editor Link
-        var searchKeywords = $('#primary-search-field').val()
-        var editorLink = '/editor?search=' + searchKeywords
-        $("#editor-button").attr('href', editorLink );
-
-        // Show Remix Notification Modal
-        $('#notification-modal').modal('show')
-
-		var medleyTitle = $('#medley-title').text()
-		var medleyDescription = $('#medley-description').text()
-    },
+	}
 
 });

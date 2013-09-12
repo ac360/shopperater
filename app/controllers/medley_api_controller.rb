@@ -13,6 +13,7 @@ class MedleyApiController < ApplicationController
 		end
 		@formatted_search = @formatted_search.chop
 		@medley_search_results = Medley.advanced_search(@formatted_search).order('votes DESC').limit(15)
+		@empty_array = OpenStruct.new()
 
 		# @tags = Tag.where( :tag => params[:keywords] )
 		# if @tags.count < 1
@@ -56,7 +57,6 @@ class MedleyApiController < ApplicationController
 			@custom_search_results  << @new_response
 		end
 	end
-
 
 	def product_lookup
 		# Check which Retailer this is for
@@ -133,11 +133,11 @@ class MedleyApiController < ApplicationController
 
 	def create_medley
 		# Find or Create Tags used in this Medley
-		@tag_one   =   Tag.find_by_tag(params[:tag_one].downcase.to_s)   || Tag.create(:tag => params[:tag_one].downcase.to_s) 
-		@tag_two   =   Tag.find_by_tag(params[:tag_two].downcase.to_s)   || Tag.create(:tag => params[:tag_two].downcase.to_s)
-		@tag_three =   Tag.find_by_tag(params[:tag_three].downcase.to_s) || Tag.create(:tag => params[:tag_three].downcase.to_s)
+		@tag_one     =   Tag.find_by_tag(params[:tag_one].downcase.to_s)   || Tag.create(:tag => params[:tag_one].downcase.to_s) 
+		@tag_two     =   Tag.find_by_tag(params[:tag_two].downcase.to_s)   || Tag.create(:tag => params[:tag_two].downcase.to_s)
+		@tag_three   =   Tag.find_by_tag(params[:tag_three].downcase.to_s) || Tag.create(:tag => params[:tag_three].downcase.to_s)
+		items_array  =   params[:items]
 
-		items_array = params[:items]
 		# TODO - FINISH THE Medley UNIQUENESS CHECK 
 		# check_medley_uniqueness(items_array)
 

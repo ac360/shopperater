@@ -7,7 +7,7 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
         if ( this.options.params !== undefined ) {
-            console.log("Below are the params passed into this view:")
+            console.log("Below are the params passed into the Preview/Viewer View:")
             console.log(this.options.params)
         }
 	},
@@ -16,45 +16,6 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 		'dragleave #medley-container' 		       : 'gridUnhighlightDropZone',
 		'drop #medley-container'      		       : 'gridAddItemToGrid',
 	    'dragover #medley-container'  		       : 'gridHighlightDropzone'
-    },
-
-    render: function () {
-        var self = this;
-        // Check If REFERRAL by looking for the referral=true parameter
-        if( this.options.params !== undefined && this.options.params.referral !== undefined ){
-                // Perform Product Look-up
-                var referralProducts = new Medley.Collections.ItemLookup();
-                referralProducts.fetch({
-                    data: { 
-                        product_one_retailer: this.options.params.product_one_retailer,
-                        product_one_id: this.options.params.product_one_id
-                    },
-                    processData: true,
-                    success: function (response) {
-                        var collection = response.toJSON();
-                        if (collection.error) {
-                           console.log(collection.error)
-                        } else {
-                            self.$el.html(self.template({ collection: self.options.params })).fadeIn(1000);
-                            // Load in the Referral Medley Items
-                            _(self.loadReferralMedley(collection)).defer();
-                        };
-                    }
-                });
-        // Check If REMIX by looking for the remix=true parameter
-        } else if ( this.options.params !== undefined && this.options.params.remix !== undefined ) {
-                this.$el.html(this.template()).fadeIn(1000)
-                // Defer the instantiation of Gridster so that it happens at the end of everything else
-                _(this.instantiateGridster).defer();
-        // Check if Plain CREATE Mode
-        } else {
-                this.$el.html(this.template()).fadeIn(1000)
-                // Defer the instantiation of Gridster so that it happens at the end of everything else
-                _(this.instantiateGridster).defer();
-        };
-        // Load User Information
-        _(this.loadUserInformation).defer();
-        return this;
     },
 
     loadUserInformation: function() {
@@ -81,9 +42,11 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         }
     },
 
-    loadReferralMedley: function(collection) {
+    loadReferralMedley: function(collection, params) {
+        console.log("running", collection)
         var gridster = M.instantiateGridster();
         _.each(collection, function(product) { 
+            console.log(product)
             // Build New Model Object
             product.size  = 1
             product.sizex = 1
@@ -92,7 +55,19 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
             var itemView = new Medley.Views.EditorProduct({ model: product });
             $('.new-item').html(itemView.render().$el)
             $('.new-item').removeClass('new-item')
-            console.log("Referral Medley Loaded")
+            console.log("Referral Medley Loaded Into Viewer Area")
+        });
+    },
+
+    loadRemixedMedley: function(model) {
+        var gridster = M.instantiateGridster();
+        _.each(model.items, function(product) { 
+            if ( product.id !== null ) {
+                gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', product.x, product.y, product.c, product.r);
+                var itemView = new Medley.Views.EditorProduct({ model: product });
+                $('.new-item').html(itemView.render().$el)
+                $('.new-item').removeClass('new-item')
+            }
         });
     },
 
@@ -139,211 +114,52 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         M.instantiateGridster();
     },
 
-	openRemixModal: function(e) {
+	render: function() {
+        var self = this;
 
-		var medleyTitle = $('#medley-title').text()
-		var medleyDescription = $('#medley-description').text()
+        // Check If REFERRAL by looking for the referral=true parameter
+        if( this.options.params !== undefined && this.options.params.referral !== undefined ){
+            console.log("You Are In Referral Mode:");
+            // Perform Product Look-up
+            var referralProducts = new Medley.Collections.ItemLookup();
+            referralProducts.fetch({
+                data: { 
+                    product_one_retailer: self.options.params.product_one_retailer,
+                    product_one_id: self.options.params.product_one_id
+                },
+                processData: true,
+                success: function (response) {
+                    var collection = response.toJSON();
+                    console.log("Product Lookup Completed...  Results Here:", collection)
+                    self.$el.html(self.template({ params: self.options.params })).fadeIn(1000);
+                    // Load in the Referral Medley Items
+                    _.defer( function() { self.loadReferralMedley(collection); } )
+                } // /success
+            }); // /referralProducts.fetch
 
+        // Check If REMIX by looking for the remix=true parameter
+        } else if ( this.options.params !== undefined && this.options.params.remix !== undefined ) {
+            // Get Medley from local storage, if nothing is in local storage, return false
+            self.model = $.jStorage.get("medley_current", false);
+            if (self.model != false) {
+                console.log("You Are In Remix Mode - Here is the Medley you are remixing: ", self.model);
+                this.$el.html(this.template({ params: self.options.params, model: self.model })).fadeIn(1000);
+                // Defer the instantiation of Gridster so that it happens at the end of everything else
+                _.defer( function() { self.loadRemixedMedley(self.model); } )
+            };
 
-        // This code is used to create new Medlies, but you are no longer using it here
-    	// var newMedley = new Medley.Collections.Medlies();
-        // newMedley.create({ 
-        //        	title: medleyTitle, 
-        //        	description:  ,
-               	
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
+        // Check if Plain CREATE Mode
+        } else {
+            var params = undefined;
+            this.$el.html(this.template({ params: params })).fadeIn(1000)
+            // Defer the instantiation of Gridster so that it happens at the end of everything else
+            _(this.instantiateGridster).defer();
+        };
 
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
+        // Load User Information
+        _(this.loadUserInformation).defer();
 
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  ,
-
-        //        	item_one_id:  ,
-        //        	item_one_title:  ,
-        //        	item_one_price:  ,
-        //        	item_one_image:  ,
-        //        	item_one_category:  ,
-        //        	item_one_source:  ,
-        //        	item_one_affiliate_link:  ,
-        //        	item_one_size_x:  ,
-        //        	item_one_size_y:  ,
-        //        	item_one_column:  ,
-        //        	item_one_row:  
-               	
-        //     });
-    },
+        return this;
+    } // /render
 
 });

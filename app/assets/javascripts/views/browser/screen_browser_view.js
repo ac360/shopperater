@@ -10,8 +10,15 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click #primary-search-button"              :   "search",
 		"keypress #primary-search-field"			:   "detectEnterButton",
 		"click .medley-result-box"					:   "showMedleySearchResult",
-		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
+		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult"
     },
+
+    detectEnterButton: function(event) {
+	  	var keycode = (event.keyCode ? event.keyCode : event.which);
+	  		if(keycode == '13'){
+	  			this.search();	
+	  	}
+	},
 
     search: function() {
     	console.log("New Search Being Executed...")
@@ -94,7 +101,14 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	          } // End Success this.options.medleys
 	      }); // End this.options.medleys.fetch
 
-	}, // end searchProducts
+	}, // end search
+
+	detectEnterButton: function(event) {
+	  	var keycode = (event.keyCode ? event.keyCode : event.which);
+	  		if(keycode == '13'){
+	  			this.search();	
+	  	}
+	},
 
 	showMedleySearchResult: function(e) {
 		var medleyID = $(e.currentTarget).attr('data-id')
@@ -110,13 +124,6 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 		var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: thisMedley.toJSON() })
 	    $('#module-medley-browser').html(moduleMedley.render().$el);
-	},
-
-	detectEnterButton: function(event) {
-	  	  var keycode = (event.keyCode ? event.keyCode : event.which);
-	  		if(keycode == '13'){
-	  			this.search();	
-	  		}
 	},
 
 	render: function () {

@@ -15,20 +15,22 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 				    params[item[0]] = item[1];
 				}
 			};
+
 			// Check for SEARCH Param
 			if ( params !== undefined && params.search !== undefined ){
 					var editorSearch = new Medley.Views.EditorSearch({ params: params });
 			} else {
 					var editorSearch = new Medley.Views.EditorSearch({});
 			}
+
 			// Check for REFERRAL Param
-			if ( params !== undefined && params.referral !== undefined ){
+			if ( params !== undefined && params.referral !== undefined && params.remix === undefined ){
 					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
 
 			// Check for REMIX Param
-			} else if (  params !== undefined && params.remix !== undefined ) {
-					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
+			} else if (  params !== undefined && params.remix !== undefined && params.referral === undefined ) {
+					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
 					$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 			
 			// Check for PLAIN CREATE MODE
