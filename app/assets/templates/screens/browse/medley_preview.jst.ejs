@@ -9,6 +9,7 @@
 	    			<% _.each(model.items, function(model) { %>
 	    			
 		    			<% if ( model.id !== null ) { %>
+		    			<% console.log("this is begin rndered in the view:", model) %>
 			    				<li class="medley-grid-item" data-row="<%= model.r %>" data-col="<%= model.c %>" data-sizex="<%= model.x %>" data-sizey="<%= model.y %>" data_id="<%= model.id %>" data-title="<%= model.title %>" data-price="<%= model.price %>" data-imagesmall="<%= model.img_small %>" data-imagelarge="<%= model.img_big %>" data-category="<%= model.category %>" data-source="<%= model.source %>" data-link="<%= model.link %>">
 
 				    					<div id="medley-item-image-container">
@@ -21,8 +22,6 @@
 											</h1>
 											<div class="product-option-icons">
 												<i class="glyphicon glyphicon-search"></i>
-												<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
-												<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
 												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
 											</div>
 										</div>

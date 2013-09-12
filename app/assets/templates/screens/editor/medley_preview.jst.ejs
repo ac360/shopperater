@@ -19,7 +19,7 @@
 	
 <% } else if ( params !== undefined && params.remix !== undefined && params.referral === undefined ) { %> 
 
-			<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true"><%= model.title %></h2>
+			<h2 id="medley-title" class="s-grey s-font-bold s-centered" contenteditable="true" data-remixof="<%= model.id %>"><%= model.title %></h2>
 
 			<div id="medley-container" class="col-offset-2 col-lg-8">
 				<div class="gridster">

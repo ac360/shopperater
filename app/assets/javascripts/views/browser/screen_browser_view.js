@@ -48,7 +48,6 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                        self.options.medleys_recent = new Medley.Collections.MedleysMostRecent();
 	                        self.options.medleys_recent.fetch({
 	                          success: function (response) {
-
 	                              var medleysRecent = response.toJSON();
 	                              console.log("Here Are The Most Recent Medleys since search results are under 15:")
 	                              console.log(medleysRecent)
@@ -62,8 +61,6 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                  			  // Render Most Recent Medleys
 	                              var medleysMostRecent = new Medley.Views.MedleysMostRecent({ collection: medleysRecent });
 	                              $('#medleys-most-recent').html(medleysMostRecent.render().$el);
-
-
 
 	                              // Search Products on callback to keep page loading orderly and not all at once
 	                              var searchItems = new Medley.Collections.ProductSearch();

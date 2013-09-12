@@ -90,6 +90,9 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             var thisMedley              = {};
             thisMedley.title            = $('#medley-title').text();
             thisMedley.description      = $('#description').text();
+            if ( $('#medley-title').attr('data-remixof') !== undefined ) {
+            	thisMedley.remix_of     = $('#medley-title').attr('data-remixof');
+            }
             thisMedley.items            = [];
             $('.medley-grid-item').each(function(index, elem) {
                     var thisItem = {};

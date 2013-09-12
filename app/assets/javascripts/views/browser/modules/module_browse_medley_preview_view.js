@@ -6,6 +6,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+    console.log("The Current Medley Being Viewed is: ", this.model)
 	},
 
 	events: {
@@ -111,11 +112,11 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
   },
 
 	render: function () {
+    var self = this;
 		this.$el.html(this.template({ model: this.model })).fadeIn(1000);
     // Defer the instantiation of Gridster so that it happens at the end of everything else
-		_(this.instantiateGridster).defer();
+    _.defer( function() { self.instantiateGridster(); } )
     // Manual Event Binder for Notification Modal Hide
-    
 		return this;
 	}
 
