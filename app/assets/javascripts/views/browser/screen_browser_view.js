@@ -14,6 +14,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     },
 
     search: function() {
+    	console.log("New Search Being Executed...")
     	var self = this;
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr('data-category');
@@ -24,29 +25,38 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	          data: { keywords: searchKeywords, category: searchCategory },
 	          processData: true,
 	          success: function (response) {
-	                var results = response.toJSON();
+	                var medleyResults = response.toJSON();
 	                console.log("Here are your Medley search results:")
-	                console.log(results)
-	                var medleySearchResults = new Medley.Views.MedleySearchResults({ collection: results })
+	                console.log(medleyResults)
+	                var medleySearchResults = new Medley.Views.MedleySearchResults({ collection: medleyResults })
 	                $('#medley-results-container').html(medleySearchResults.render().$el);
 	                // If there are results, show the first in the preview area...
-	                if (results.length > 0) {
-	                  var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: results[0] })
+	                if (medleyResults.length > 0) {
+	                  var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: medleyResults[0] })
 	                  $('#module-medley-browser').html(moduleMedley.render().$el);
 	                }
 	                // If there are less than 15 results, bring up the Most Recent Medleys
-	                if (results.length < 15) {
+	                if (medleyResults.length < 15) {
 	                        // Get Most Recent Medleys
 	                        self.options.medleys_recent = new Medley.Collections.MedleysMostRecent();
 	                        self.options.medleys_recent.fetch({
 	                          success: function (response) {
 
-	                              // Render Most Recent Medleys
-	                              var results = response.toJSON();
+	                              var medleysRecent = response.toJSON();
 	                              console.log("Here Are The Most Recent Medleys since search results are under 15:")
-	                              console.log(results)
-	                              var medleysMostRecent = new Medley.Views.MedleysMostRecent({ collection: results });
+	                              console.log(medleysRecent)
+
+	                              // If Medley search results are empty, Show the most recent medley in the preview area
+	                          	  if ( medleyResults.length < 1 ) {
+	                          		  var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: medleysRecent[0] })
+	                  				  $('#module-medley-browser').html(moduleMedley.render().$el);
+	                  			  };
+
+	                  			  // Render Most Recent Medleys
+	                              var medleysMostRecent = new Medley.Views.MedleysMostRecent({ collection: medleysRecent });
 	                              $('#medleys-most-recent').html(medleysMostRecent.render().$el);
+
+
 
 	                              // Search Products on callback to keep page loading orderly and not all at once
 	                              var searchItems = new Medley.Collections.ProductSearch();
@@ -54,10 +64,10 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                                      data: { keywords: searchKeywords, category: searchCategory },
 	                                      processData: true,
 	                                      success: function (response) {
-	                                          var results = response.toJSON();
+	                                          var productResults = response.toJSON();
 	                                          console.log("Here are your product search results:")
-	                                          console.log(results)
-	                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: results })
+	                                          console.log(productResults)
+	                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
 	                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
 	                                      } // End Success
 	                              }); // End searchItems.fetch
@@ -71,10 +81,10 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                              data: { keywords: searchKeywords, category: searchCategory },
 	                              processData: true,
 	                              success: function (response) {
-	                                  var results = response.toJSON();
+	                                  var productResults = response.toJSON();
 	                                  console.log("Here are your product search results:")
-	                                  console.log(results)
-	                                  var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: results })
+	                                  console.log(productResults)
+	                                  var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
 	                                  $('#module-product-results').html(moduleItemResultsView.render().$el);
 	                              } // End Success
 	                      }); // End searchItems.fetch
