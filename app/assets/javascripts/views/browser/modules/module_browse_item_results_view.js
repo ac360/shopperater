@@ -14,7 +14,6 @@ Medley.Views.ModuleBrowseItemResults = Backbone.View.extend({
     },
 
     addItemToCart: function(e) {
-    	
     	// If Guest Session
     	var guestCartItems = $.jStorage.get("MedleyGuestCart");
 		if(!guestCartItems){

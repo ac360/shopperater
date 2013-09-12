@@ -5,39 +5,39 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 	    
-			// Fetch Parameters, if any...
-			var query = location.search.substr(1);
-			if(query){
-				var data = query.split("&");
-		    	var params = {};
-				for(var i=0; i<data.length; i++) {
-				    var item = data[i].split("=");
-				    params[item[0]] = item[1];
-				}
-			};
-
-			// Check for SEARCH Param
-			if ( params !== undefined && params.search !== undefined ){
-					var editorSearch = new Medley.Views.EditorSearch({ params: params });
-			} else {
-					var editorSearch = new Medley.Views.EditorSearch({});
+		// Fetch Parameters, if any...
+		var query = location.search.substr(1);
+		if(query){
+			var data = query.split("&");
+	    	var params = {};
+			for(var i=0; i<data.length; i++) {
+			    var item = data[i].split("=");
+			    params[item[0]] = item[1];
 			}
+		};
 
-			// Check for REFERRAL Param
-			if ( params !== undefined && params.referral !== undefined && params.remix === undefined ){
-					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
-					$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
+		// Check for SEARCH Param
+		if ( params !== undefined && params.search !== undefined ){
+				var editorSearch = new Medley.Views.EditorSearch({ params: params });
+		} else {
+				var editorSearch = new Medley.Views.EditorSearch({});
+		}
 
-			// Check for REMIX Param
-			} else if (  params !== undefined && params.remix !== undefined && params.referral === undefined ) {
-					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
-					$('#module-medley-editor').html(editorMedleyPreview.render().$el);
-			
-			// Check for PLAIN CREATE MODE
-			} else {
-					var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
-					$('#module-medley-editor').html(editorMedleyPreview.render().$el);
-			};
+		// Check for REFERRAL Param
+		if ( params !== undefined && params.referral !== undefined && params.remix === undefined ){
+				var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
+				$('#module-medley-editor').html(editorMedleyPreview.render().$el); 
+
+		// Check for REMIX Param
+		} else if (  params !== undefined && params.remix !== undefined && params.referral === undefined ) {
+				var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({ params: params });
+				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
+		
+		// Check for PLAIN CREATE MODE
+		} else {
+				var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
+				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
+		};
 	},
 
 	events: {
@@ -47,7 +47,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'click #medley-publish-button'              :   'openPublishArea',
 		'keyup .tag-field'      	                :   'reformatTag',
 		'click #publish-next-button-two'            :   'validateAllTags',
-		'click #publish-confirm-button'			    :   'publishMedley'
+		'click #publish-confirm-button'			    :   'publishMedley',
+		'click #medley-reset-link'					:   'deleteMedley'
 	},
 
 	gridSetDataTransferObject: function(e) {
@@ -74,6 +75,13 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		            console.log(errors)
 		          }
 		}) // End of thisMedley.save
+	},
+
+	deleteMedley: function() {
+		$.jStorage.deleteKey("medley_current")
+		var searchKeywords = $('#primary-search-field').val();
+		var editorLink = '/editor?search=' + searchKeywords
+		window.location = editorLink
 	},
 
 	openPublishArea: function() {
