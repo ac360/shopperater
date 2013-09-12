@@ -9,7 +9,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	events: {
 		"click #primary-search-button"              :   "search",
 		"keypress #primary-search-field"			:   "detectEnterButton",
-		"click .medley-result-box"					:   "showMedley"
+		"click .medley-result-box"					:   "showMedleySearchResult",
+		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
     },
 
     search: function() {
@@ -18,8 +19,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	var searchCategory = $('#category-button-text').attr('data-category');
 
 	      // Search Medleys
-	      this.options.medleys = new Medley.Collections.Medlies();
-	      this.options.medleys.fetch({
+	      self.options.medleys = new Medley.Collections.Medlies();
+	      self.options.medleys.fetch({
 	          data: { keywords: searchKeywords, category: searchCategory },
 	          processData: true,
 	          success: function (response) {
@@ -36,9 +37,10 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                // If there are less than 15 results, bring up the Most Recent Medleys
 	                if (results.length < 15) {
 	                        // Get Most Recent Medleys
-	                        var medleysMostRecent = new Medley.Collections.MedleysMostRecent();
-	                        medleysMostRecent.fetch({
+	                        self.options.medleys_recent = new Medley.Collections.MedleysMostRecent();
+	                        self.options.medleys_recent.fetch({
 	                          success: function (response) {
+
 	                              // Render Most Recent Medleys
 	                              var results = response.toJSON();
 	                              console.log("Here Are The Most Recent Medleys since search results are under 15:")
@@ -84,9 +86,17 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	}, // end searchProducts
 
-	showMedley: function(e) {
+	showMedleySearchResult: function(e) {
 		var medleyID = $(e.currentTarget).attr('data-id')
 		var thisMedley = this.options.medleys.get(medleyID);
+
+		var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: thisMedley.toJSON() })
+	    $('#module-medley-browser').html(moduleMedley.render().$el);
+	},
+
+	showMedleyMostRecentResult: function(e) {
+		var medleyID = $(e.currentTarget).attr('data-id')
+		var thisMedley = this.options.medleys_recent.get(medleyID);
 
 		var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: thisMedley.toJSON() })
 	    $('#module-medley-browser').html(moduleMedley.render().$el);
