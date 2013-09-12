@@ -31,8 +31,8 @@
  .btn {border-radius:0px;}
  .btn-primary {background:#000000;border:0px;font-family:nexa_boldregular;text-transform: uppercase;letter-spacing:3px;}
  .btn-primary:hover {background:#333;}
- .btn-publish {background:#000000;border:0px;min-width:140px;height:40px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
- .btn-publish:hover {background:#777;}
+ .btn-publish {background:#777777;border:0px;min-width:140px;height:40px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
+ .btn-publish:hover {background:#aaaaaa;}
  :focus {outline: 0!important; }
  .modal-content, .form-control {border-radius:0px;}
  .form-control {border:none;}
@@ -119,7 +119,7 @@
  #description {color:#fff;}
  #other-information {color:#fff;}
  #created-by {font-size:10px;color:#999;}
- #created-by-username {margin:5px auto;color:#fff;}
+ #created-by-username {margin:0px auto 5px auto;color:#fff;}
  #publish-medley-modal .modal-content {background:#eaeaea;min-height:380px;}
  #category-list {height:150px;width:40%;margin:0 auto;background:#fff;padding:10px 20px;overflow:hidden;}
  .tag-field {margin:3px 0px;}
