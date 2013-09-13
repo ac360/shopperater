@@ -71,45 +71,6 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
         });
     },
 
-    gridHighlightDropzone: function(e) {
-    	e.preventDefault();
-    	$('#medley-container').addClass('drop-zone-highlight')
-    },
-
-    gridUnhighlightDropZone: function(e) {
-    	$('#medley-container').removeClass('drop-zone-highlight')
-    },
-
-    gridAddItemToGrid: function(e) {
-        //  Run Helper function to check how many Medley items are curerntly in the Medley
-        if(M.checkMedleyItemCount()) {
-            // Get Product from DataTransferObject that was set on dragstart
-            var product = {}
-            product.id           = e.originalEvent.dataTransfer.getData("productID");
-            product.title        = e.originalEvent.dataTransfer.getData("productTitle");
-            product.price        = e.originalEvent.dataTransfer.getData("productPrice");
-            product.img_small    = e.originalEvent.dataTransfer.getData("productImageSmall");
-            product.img_large    = e.originalEvent.dataTransfer.getData("productImageLarge");
-            product.category     = e.originalEvent.dataTransfer.getData("productCategory");
-            product.source       = e.originalEvent.dataTransfer.getData("productSource");
-            product.link         = e.originalEvent.dataTransfer.getData("productLink");
-            product.sizex        = 1;
-            product.sizey        = 1;
-            product.size         = 1;
-            console.log("You just added the Product below:");
-            console.log(product);
-            // Re-instantiate Gridster
-            var gridster = M.instantiateGridster();
-            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_small + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
-            var itemView = new Medley.Views.EditorProduct({ model: product });
-            $('.new-item').html(itemView.render().$el)
-            $('.new-item').removeClass('new-item')
-        } else {
-            alert("Sorry, Medlies can contain only 16 Items");
-        };
-        this.gridUnhighlightDropZone();
-    },
-
     instantiateGridster: function() {
         M.instantiateGridster();
     },
@@ -150,8 +111,13 @@ Medley.Views.EditorMedleyPreview = Backbone.View.extend({
 
         // Check if Plain CREATE Mode
         } else {
-            var params = undefined;
-            this.$el.html(this.template({ params: params })).fadeIn(1000)
+            existingMedley = $.jStorage.get("medley_current", false)
+            if ( existingMedley !== false ) {
+                this.$el.html(this.template({ params: existingMedley })).fadeIn(1000)
+            } else {
+                var params = undefined;
+                this.$el.html(this.template({ params: params })).fadeIn(1000)
+            }
             // Defer the instantiation of Gridster so that it happens at the end of everything else
             _(this.instantiateGridster).defer();
         };

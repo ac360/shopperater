@@ -18,15 +18,6 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
       'click #editor-button'                       : 'remixMedley'
   },
 
-  remixMedley: function() {
-    // Build Remix Modal's Link to Editor Area with Any Params
-    // var searchKeywords = $('#primary-search-field').val()
-    // var editorLink = '/editor?search=' + searchKeywords
-    // $("#editor-button").attr('href', editorLink );
-    $.jStorage.set("medley_current", this.model);
-    medleyTemp = $.jStorage.get("medley_current")
-  },
-
   instantiateGridster: function() {
       var self = this;
     	var gridster = $(".gridster ul").gridster({
@@ -104,10 +95,10 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
   remixMedley: function() {
     // Build Remix Modal's Link to Editor Area with Any Params
     var searchKeywords = $('#primary-search-field').val()
-    var editorLink = '/editor?remix=true&search=' + searchKeywords
+    var editorLink = '/editor'
+    this.model.search = searchKeywords;
     // $("#editor-button").attr('href', editorLink );
     $.jStorage.set("medley_current", this.model);
-    medleyTemp = $.jStorage.get("medley_current")
     window.location = editorLink
   },
 

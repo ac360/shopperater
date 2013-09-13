@@ -4,10 +4,10 @@ Medley.Views.EditorSearch = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
-    // Check for search parameter in URL, if it exists, input it and run a search
-    if(this.options.params && this.options.params.search) {
-      _(this.searchParameter).defer();
-    }
+    // Check if a search can be pre-loaded from Local Storage
+    if (this.model !== undefined && this.model.search !== undefined) {
+      _(this.searchPreLoad).defer();
+    };
 	},
 
 	events: {
@@ -15,15 +15,20 @@ Medley.Views.EditorSearch = Backbone.View.extend({
 		 "keypress #primary-search-field"			       :   "detectEnterButton"
   },
 
-  searchParameter: function() {
-    var searchKeywords = decodeURI(this.options.params.search)
+  searchPreLoad: function() {
+    var searchKeywords = decodeURI(this.model.search)
     $('#primary-search-field').val(searchKeywords);
     this.searchProducts();
   },
 
   searchProducts: function() {
+      // Get Search Information
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr( 'data-category' );
+
+      // Put Search Information into Attribute on the Search Bar for Auto-Save to access...
+
+      $('#primary-search-field').attr( 'data-search', searchKeywords );
 
     	var searchItem = new Medley.Collections.ProductSearch();
       	searchItem.fetch({
