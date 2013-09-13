@@ -43,4 +43,126 @@ M.validateEmailAddress = function(emailAddress) {
     return pattern.test(emailAddress);
 };
 
+M.getCategory = function(number) {
+  number = parseInt(number) 
+  switch (number) {
+    case 1:
+      var category = "Appliances"
+      return category;
+      break;
+    case 2:
+      var category = "Arts, Crafts & Sewing"
+      return category;
+      break;
+    case 3:
+      var category = "Automotive"
+      return category;
+      break;
+    case 4:
+      var category = "Baby"
+      return category;
+      break;
+    case 5:
+      var category = "Beauty"
+      return category;
+      break;
+    case 6:
+      var category = "Books"
+      return category;
+      break;
+    case 7:
+      var category = "Cell Phones & Accessories"
+      return category;
+      break;
+    case 8:
+      var category = "Clothing & Accessories"
+      return category;
+      break;
+    case 9:
+      var category = "Collectibles"
+      return category;
+      break;
+    case 10:
+      var category = "Computers"
+      return category;
+      break;
+    case 11:
+      var category = "Electronics"
+      return category;
+      break;
+    case 12:
+      var category = "Grocery & Gourmet Foods"
+      return category;
+      break;
+    case 13:
+      var category = "Health & Personal Care"
+      return category;
+      break;
+    case 14:
+      var category = "Home & Kitchen"
+      return category;
+      break;
+    case 15:
+      var category = "Industrial & Scientific"
+      return category;
+      break;
+    case 16:
+      var category = "Jewelry"
+      return category;
+      break;
+    case 17:
+      var category = "Movies & TV"
+      return category;
+      break;
+    case 18:
+      var category = "Music"
+      return category;
+      break;
+    case 19: 
+      var category = "Musical Instruments"
+      return category;
+      break;
+    case 20:
+      var category = "Patio, Lawn & Garden"
+      return category;
+      break;
+    case 21:  
+      var category = "Pet Supplies"
+      return category;
+      break;
+    case 22:  
+      var category = "Shoes"
+      return category;
+      break;
+    case 23:  
+      var category = "Software"
+      return category;
+      break;
+    case 24:  
+      var category = "Sports & Outdoors"
+      return category;
+      break;
+    case 25:  
+      var category = "Tools & Home Improvement"
+      return category;
+      break;
+    case 26:  
+      var category = "Toys & Games"
+      return category;
+      break;
+    case 27:  
+      var category = "Video Games"
+      return category;
+      break;
+    case 28:  
+      var category = "Watches"
+      return category;
+      break;
+    default:
+      var category = "Uncategorized"
+      return category;
+      break;
+  }
+}
+
 
