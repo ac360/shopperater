@@ -127,7 +127,13 @@ class MedleyApiController < ApplicationController
 	end
 
 	def check_medley_uniqueness(items_array)
-		# TODO - Finish this...
+		
+		if items_array[0].present?
+			items_array[0].i1_id
+		end
+
+		if JSON.parse(items_array).first.keys.include?("last_visit_at")
+
 		@existing_medleys = Medley.advanced_search('Street|Fantasy')
 	end  
 
