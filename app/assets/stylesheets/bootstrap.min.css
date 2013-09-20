@@ -116,8 +116,7 @@
  #medley-reset-link:hover {color:#fff;}
 
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
- #medley-title       {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;border:1px solid #252525;line-height: 20px;}
- #medley-title:focus {border:1px solid #888;}
+ #medley-title-browser  {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;line-height: 20px;}
  #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background:url('crisscross.png') #111111;background-size:200px 200px;padding-top:10px;padding-bottom:10px;-webkit-box-shadow: inset 0px 0px 8px 0px #050505;box-shadow: inset 0px 0px 8px 0px #050505;border:1px solid #191919;}
  .drop-zone-highlight {border:1px solid #555!important;}
  #medley-grid { margin:0 auto;width:405px;}
@@ -127,6 +126,8 @@
  #module-medley-results {background:#eaeaea;min-height:565px;}
 
  /* Screen - Editor */
+ #medley-title       {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;border:1px solid #252525;line-height: 20px;}
+ #medley-title:focus {border:1px solid #888;}
  .medley-grid-item  {background:#ffffff;-webkit-box-shadow: 0px 0px 8px 0px #050505;box-shadow:0px 0px 8px 0px #050505;border:1px solid #000;}
  .medley-grid-item-view {min-height:100%;}
  #medley-item-image-container {text-align:center;}
@@ -249,7 +250,6 @@
             border-radius: 100%;
         }
 
-
         .loading-container { margin: 40px auto }
 
         .loading {
@@ -266,7 +266,7 @@
         }
 
         .loading-container:hover .loading {
-            border-color: transparent #E45635 transparent #E45635;
+            border-color: transparent #ff6b6b transparent #ff6b6;
         }
 
         .loading-container:hover .loading,
