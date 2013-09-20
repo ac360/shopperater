@@ -4,6 +4,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+
+		var self = this;
 	    
 		// Get Parameters, if any...
 		var query = location.search.substr(1);
@@ -46,7 +48,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 
 		// Check for PLAIN CREATE MODE
 		} else {
-				var editorMedleyPreview = new Medley.Views.EditorMedleyPreview({});
+				var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewPlainMode({});
 				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 		};
 
@@ -58,12 +60,18 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		}
 
 		// Call Auto-Save Function Every 6 Seconds
-		var self = this;
 		window.setInterval(function(){
 		   self.autoSaveMedley();
 		}, 6000);
 
-	},
+		// Manual Event Binders
+		$('#medley-title').typing({
+		    stop: function (event, $elem) {
+		        self.validateMedleyTitle();
+		    },
+		    delay: 400
+		});
+	}, // initialize
 
 	events: {
 		'dragleave #medley-container' 		        :   'gridUnhighlightDropZone',
@@ -71,12 +79,13 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	    'dragover #medley-container'  		        :   'gridHighlightDropzone',
 		'dragstart .item-result-row'                :   'gridSetDataTransferObject',
 		'click #publish-next-button-one'            :   'loadPublishScreenTwo',
-		'click .publish-cancel'                     :   'cancelPublish',
+		'click .publish-cancel'                     :   'hidePublishModal',
 		'click #medley-publish-button'              :   'openPublishArea',
 		'keyup .tag-field'      	                :   'reformatTag',
 		'click #publish-next-button-two'            :   'validateAllTags',
 		'click #publish-confirm-button'			    :   'publishMedley',
-		'click #medley-reset-link'					:   'deleteMedley'
+		'click #medley-reset-link'					:   'deleteMedley',
+		'click #try-again-btn'                      :   'hidePublishModal'
 	},
 
 	gridHighlightDropzone: function(e) {
@@ -129,21 +138,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	    e.originalEvent.dataTransfer.setData("productLink", $(e.currentTarget).attr('data-link'));
 	},
 
-	publishMedley: function() {
-		console.log("this is the Medley about to be published", this.options.thisMedley);
-
-		var thisMedley = new Medley.Collections.Medlies()
-    	thisMedley.create(this.options.thisMedley, {
-		          success: function () {
-		          	$('#publish-medley-modal').modal('hide')
-		          },
-		          error: function (model, xhr) {
-		            var errors = $.parseJSON(xhr.responseText).errors
-		            console.log(errors)
-		          }
-		}) // End of thisMedley.save
-	},
-
 	deleteMedley: function() {
 		$.jStorage.deleteKey("medley_current")
 		var searchKeywords = $('#primary-search-field').val();
@@ -182,7 +176,39 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
         $.jStorage.set("medley_current", thisMedley);
 	},
 
+	validateMedleyTitle: function() {
+
+		var title = $('#medley-title').text();
+		var uniqueness = new Medley.Models.TitleValidation();
+		uniqueness.fetch({ 
+		    data: { 
+		    	title: title
+		    },
+		    processData: true,
+		    success: function (response) {
+		    	var result = response.toJSON();
+				if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
+						$('#editor-title-error').slideDown(120);
+				} else if ( title.length > 40) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Titles can only be 40 characters long');
+						$('#editor-title-error').slideDown(120);
+				} else if (result.valid == false)  {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
+						$('#editor-title-error').slideDown(120);
+				} else {
+						$('#medley-title').removeClass('red-border');
+						$('#editor-title-error').slideUp(120);
+				}
+		    }
+		}); // uniquenuess.fetch
+	},
+
 	openPublishArea: function() {
+		var self = this;
         var medleyItemsCount = $("#medley-grid li").size()
         if (medleyItemsCount > 1) {
             var thisMedley              = {};
@@ -216,18 +242,46 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	        $('#publish-medley-modal').modal('show')
 	        $('#publish-medley-modal').on('shown.bs.modal', function () {
 	            $('#category-list').niceScroll({cursorcolor:"#999999"});
-	            $('#category-screen').fadeIn(400)
+	            self.loadPublishScreenOne();
 	        })
         } else {
             alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
         };
     },
 
-	loadPublishScreenOne: function() {
-		$('#category-screen').fadeIn(200)
-	},
+    loadPublishScreenOne: function() {
+    	self = this;
+    	$('#uniqueness-screen').fadeIn(400);
+    	var unique = new Medley.Models.MedleyUniquenessValidation();
+    	unique.fetch({ 
+		    data: { 
+		    	title: this.options.thisMedley.title,
+		  		items: this.options.thisMedley.items
+		    },
+		    processData: true,
+		    success: function (response) {
+		    	var valid = response.toJSON();
+		    	console.log(valid)
+		    	if (valid == true) {
+			        $('#uniqueness-screen').delay(1200).fadeOut(400, function() {
+					    $('#uniqueness-valid-screen').fadeIn(400).delay(800).fadeOut(300, function() {
+						    self.loadPublishScreenTwo();
+						});
+					});
+				} else {
+					$('#uniqueness-screen').delay(1200).fadeOut(400, function() {
+					    $('#uniqueness-invalid-screen').fadeIn(400);
+					});
+				};
+		    }
+		});
+    },
 
 	loadPublishScreenTwo: function() {
+		$('#category-screen').fadeIn(300)
+	},
+
+	loadPublishScreenThree: function() {
 		this.options.thisMedley.category = $('input[name=optionsRadios]:checked').attr('value');
 		if($('input:radio:checked').length > 0){
 				$('#category-screen').fadeOut(200, function() {
@@ -238,11 +292,36 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		 }
 	},
 
-	loadPublishScreenThree: function() {
+	loadPublishScreenFour: function() {
 		$('#tags-screen').fadeOut(200)
 		console.log(this.options.thisMedley);
 		var editorPublishView = new Medley.Views.EditorPublish({ model: this.options.thisMedley })
 		$('.modal-content').html(editorPublishView.render().$el); 
+	},
+
+	hidePublishModal: function() {
+		$('#uniqueness-screen').fadeOut(100);
+		$('#uniqueness-valid-screen').fadeOut(100);
+		$('#uniqueness-invalid-screen').fadeOut(100);
+		$('#category-screen').fadeOut(100);
+		$('#tags-screen').fadeOut(100);
+
+		$('#publish-medley-modal').modal('hide')
+	},
+
+	publishMedley: function() {
+		console.log("this is the Medley about to be published", this.options.thisMedley);
+
+		var thisMedley = new Medley.Collections.Medlies()
+    	thisMedley.create(this.options.thisMedley, {
+		          success: function () {
+		          	$('#publish-medley-modal').modal('hide')
+		          },
+		          error: function (model, xhr) {
+		            var errors = $.parseJSON(xhr.responseText).errors
+		            console.log(errors)
+		          }
+		}) // End of thisMedley.save
 	},
 
 	reformatTag: function(e) {
@@ -288,10 +367,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 			this.loadPublishScreenThree();
 		}
 	},
-
-	cancelPublish: function() {
-        $('#publish-medley-modal').modal('hide')
-    },
 
 	render: function () {
 		return this;

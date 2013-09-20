@@ -9,13 +9,47 @@
 	<div id="module-medley-editor" class="col-lg-8">
 	</div>
 
-
 <!-- Modals -->
 
 <!-- Publish Medley Modal -->
 <div id="publish-medley-modal" class="modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
+    	
+    	<div id="uniqueness-screen" style="display:none;">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<h4 class="m-centered" style="margin-top:80px;">Checking if a Medley like this already exists</h4>
+	    			<div class="loading-container">
+					    <div class="loading"></div>
+					    <div id="loading-text">Checking</div>
+					</div>
+		    	</div>
+			</div>
+		</div>
+		<div id="uniqueness-valid-screen" style="display:none;">
+	    	<div class="row">
+	    		<div class="col-lg-12">
+	    			<h4 class="m-centered" style="margin-top:150px;"><i style="font-size:17px;padding-right:5px;" class="glyphicon glyphicon-ok"></i> Looks Good!</h4>
+		    	</div>
+			</div>
+		</div>
+		<div id="uniqueness-invalid-screen" style="display:none;">
+	    	<div class="row">
+	    		<div class="col-lg-12 m-centered">
+	    			
+	    			<p class="m-centered" style="margin-top:80px">	
+	    				<i style="font-size:30px;" class="glyphicon glyphicon-warning-sign"></i> 
+	    			</p>
+	    			<h4 class="m-centered" style="margin:15px 0px 0px 0px">
+	    				A Medley like this exists already.
+	    			</h4>
+	    			<h4 class="m-centered" style="margin:10px 0px 15px 0px">Try Something else.</h4>
+	    			<button id="try-again-btn" class="btn btn-primary btn-publish">Ok</button>
+		    	</div>
+			</div>
+		</div>
+		    		
     	<div id="category-screen" style="display:none;">
 		    	<div class="row">
 		    		<div class="col-lg-12">

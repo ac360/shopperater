@@ -126,15 +126,25 @@ class MedleyApiController < ApplicationController
 		end
 	end
 
-	def check_medley_uniqueness(items_array)
-		
+	def medley_title_validation
+		@title  = params[:title]
+		@medley = Medley.where('LOWER(title) = ?', @title.downcase)
+		if @medley.present?
+			@result = OpenStruct.new(
+				:valid => false,
+				:message => 'This title is already taken.  Try something else.')
+		else
+			@result = OpenStruct.new(:valid => true)
+		end
+
 		# if items_array[0].present?
 		# 	items_array[0].i1_id
 		# end
 
 		# if JSON.parse(items_array).first.keys.include?("last_visit_at")
 
-		# @existing_medleys = Medley.advanced_search('Street|Fantasy')
+		# @existing_medleys = Medley.advanced_search('B0066AJ5TK&B0041KJSL2')
+		
 	end  
 
 	def create_medley

@@ -15,7 +15,7 @@
  @font-face {font-family: 'nexa_lightregular'; src: url('Nexa_Free_Light-webfont.eot'); src: url('Nexa_Free_Light-webfont.eot?#iefix') format('embedded-opentype'), url('Nexa_Free_Light-webfont.woff') format('woff'), url('Nexa_Free_Light-webfont.ttf') format('truetype'), url('Nexa_Free_Light-webfont.svg#nexa_boldregular') format('svg'); font-weight: normal; font-style: normal; }
 
 
- /* Custom Shopperater Styles */
+ /* Custom Medley Styles */
  a {color:#444;}
  a:hover {color:#666;cursor:pointer;text-decoration:none;}
  .m-nine {font-size:9px;}
@@ -39,7 +39,28 @@
  .alert {border-radius:0px;padding:5px 35px 5px 15px;}
  .tooltip-inner {padding:10px;}
  .glyphicon-heart-empty {color: #ec5c5c;font-size:8px;padding-right:3px;}
+ .red-border {border: 1px solid #ff6b6b!important;}
  /* Style Placeholder Text --> */ ::-webkit-input-placeholder { text-align:center!important; } :-moz-placeholder { /* Firefox 18- */ text-align:center!important; } ::-moz-placeholder {  /* Firefox 19+ */ text-align:center!important; } :-ms-input-placeholder { text-align:center!important; } .form-control:focus {border: none; outline: 0; -webkit-box-shadow:none; box-shadow:none; }
+ /* Animations */
+ @-webkit-keyframes rotating {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.rotating {
+
+  -webkit-transform:rotate(120deg);
+  -moz-transform:rotate(120deg);
+  -o-transform:rotate(120deg);
+  /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
+  -ms-transform:rotate(120deg); 
+}
+
+
 
  /* Body */
  body {background:url('crisscross.png') #212121;background-size:200px 200px;}
@@ -95,7 +116,8 @@
  #medley-reset-link:hover {color:#fff;}
 
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
- #medley-title {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;}
+ #medley-title       {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;border:1px solid #252525;line-height: 20px;}
+ #medley-title:focus {border:1px solid #888;}
  #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background:url('crisscross.png') #111111;background-size:200px 200px;padding-top:10px;padding-bottom:10px;-webkit-box-shadow: inset 0px 0px 8px 0px #050505;box-shadow: inset 0px 0px 8px 0px #050505;border:1px solid #191919;}
  .drop-zone-highlight {border:1px solid #555!important;}
  #medley-grid { margin:0 auto;width:405px;}
@@ -117,7 +139,8 @@
  #size-minus-button {width:60px;}
  #size-plus-button {width:60px;}
  #save-options-button {width:125px;}
- #description {color:#fff;}
+ #description {color:#fff;padding:15px;border:1px solid #252525;}
+ #description:focus {border:1px solid #888;}
  #other-information {color:#fff;}
  #created-by {font-size:10px;color:#999;}
  #created-by-username {margin:0px auto 5px auto;color:#fff;}
@@ -128,6 +151,7 @@
  .valid-tag   {background: #f0f9ea!important;}
  .invalid-tag {background:#f6e0e0!important;}
  #publish-confirm-title {color:#444;}
+ .editor-error-text {color: #ff6b6b;font-size:13px;}
 
  /* Registration/Log In Page */
  #user-actions-box {background:#444444;padding-top:15px;padding-bottom:35px;}
@@ -149,3 +173,125 @@
 /*! gridster.js - v0.1.0 - 2013-06-14 - * http://gridster.net/ - Copyright (c) 2013 ducksboard; Licensed MIT */ 
 .gridster{position:relative}.gridster>*{margin:0 auto;-webkit-transition:height .4s;-moz-transition:height .4s;-o-transition:height .4s;-ms-transition:height .4s;transition:height .4s}.gridster .gs_w{z-index:2;position:absolute}.ready .gs_w:not(.preview-holder){-webkit-transition:opacity .3s,left .3s,top .3s;-moz-transition:opacity .3s,left .3s,top .3s;-o-transition:opacity .3s,left .3s,top .3s;transition:opacity .3s,left .3s,top .3s}.ready .gs_w:not(.preview-holder){-webkit-transition:opacity .3s,left .3s,top .3s,width .3s,height .3s;-moz-transition:opacity .3s,left .3s,top .3s,width .3s,height .3s;-o-transition:opacity .3s,left .3s,top .3s,width .3s,height .3s;transition:opacity .3s,left .3s,top .3s,width .3s,height .3s}.gridster .preview-holder{z-index:1;position:absolute;background-color:#fff;border-color:#fff;opacity:.3}.gridster .player-revert{z-index:10!important;-webkit-transition:left .3s,top .3s!important;-moz-transition:left .3s,top .3s!important;-o-transition:left .3s,top .3s!important;transition:left .3s,top .3s!important}.gridster .dragging{z-index:10!important;-webkit-transition:all 0s!important;-moz-transition:all 0s!important;-o-transition:all 0s!important;transition:all 0s!important}
 
+/* Loading Icon */
+@keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @-moz-keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @-webkit-keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @-o-keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @-moz-keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @-webkit-keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @-o-keyframes rotate-loading {
+            0%  {transform: rotate(0deg);-ms-transform: rotate(0deg); -webkit-transform: rotate(0deg); -o-transform: rotate(0deg); -moz-transform: rotate(0deg);}
+            100% {transform: rotate(360deg);-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); -o-transform: rotate(360deg); -moz-transform: rotate(360deg);}
+        }
+
+        @keyframes loading-text-opacity {
+            0%  {opacity: 0}
+            20% {opacity: 0}
+            50% {opacity: 1}
+            100%{opacity: 0}
+        }
+
+        @-moz-keyframes loading-text-opacity {
+            0%  {opacity: 0}
+            20% {opacity: 0}
+            50% {opacity: 1}
+            100%{opacity: 0}
+        }
+
+        @-webkit-keyframes loading-text-opacity {
+            0%  {opacity: 0}
+            20% {opacity: 0}
+            50% {opacity: 1}
+            100%{opacity: 0}
+        }
+
+        @-o-keyframes loading-text-opacity {
+            0%  {opacity: 0}
+            20% {opacity: 0}
+            50% {opacity: 1}
+            100%{opacity: 0}
+        }
+        .loading-container,
+        .loading {
+            height: 100px;
+            position: relative;
+            width: 100px;
+            border-radius: 100%;
+        }
+
+
+        .loading-container { margin: 40px auto }
+
+        .loading {
+            border: 2px solid transparent;
+            border-color: transparent #333 transparent #333;
+            -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+            -moz-transform-origin: 50% 50%;
+            -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+            -o-transform-origin: 50% 50%;
+            -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+            -webkit-transform-origin: 50% 50%;
+            animation: rotate-loading 1.5s linear 0s infinite normal;
+            transform-origin: 50% 50%;
+        }
+
+        .loading-container:hover .loading {
+            border-color: transparent #E45635 transparent #E45635;
+        }
+
+        .loading-container:hover .loading,
+        .loading-container .loading {
+            -webkit-transition: all 0.5s ease-in-out;
+            -moz-transition: all 0.5s ease-in-out;
+            -ms-transition: all 0.5s ease-in-out;
+            -o-transition: all 0.5s ease-in-out;
+            transition: all 0.5s ease-in-out;
+        }
+
+        #loading-text {
+            -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+            -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+            -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+            animation: loading-text-opacity 2s linear 0s infinite normal;
+            color: #444;
+            font-family: "Helvetica Neue, "Helvetica", ""arial";
+            font-size: 10px;
+            font-weight: bold;
+            margin-top: 45px;
+            opacity: 0;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 0;
+            width: 100px;
+        }

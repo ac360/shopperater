@@ -1,4 +1,4 @@
-Medley.Views.EditorMedleyPreview = Backbone.View.extend({
+Medley.Views.EditorMedleyPreviewPlainMode = Backbone.View.extend({
 	
 	tagName: "div",
     className: "row",

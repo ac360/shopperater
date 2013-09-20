@@ -19,6 +19,7 @@
 //= require jstorage
 //= require nicescroll
 //= require gridster
+//= require jquerytyping
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections
