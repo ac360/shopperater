@@ -136,16 +136,40 @@ class MedleyApiController < ApplicationController
 		else
 			@result = OpenStruct.new(:valid => true)
 		end
+	end 
 
-		# if items_array[0].present?
-		# 	items_array[0].i1_id
-		# end
-
-		# if JSON.parse(items_array).first.keys.include?("last_visit_at")
-
-		# @existing_medleys = Medley.advanced_search('B0066AJ5TK&B0041KJSL2')
+	def medley_uniqueness_validation 
 		
-	end  
+		@items = params[:items]
+		item_ids = []
+		@items.each do |item|
+			item_ids << item.second["id"]
+		end
+		conditions = []
+		values = {}
+		item_ids.each_with_index do |t,i|
+		   arg_id = "term#{i}".to_sym
+		   conditions << "(i1_id = :#{arg_id} OR i2_id = :#{arg_id} OR i3_id = :#{arg_id} OR i4_id = :#{arg_id} OR i5_id = :#{arg_id} OR i6_id = :#{arg_id} OR i7_id = :#{arg_id} OR i8_id = :#{arg_id} OR i9_id = :#{arg_id} OR i10_id = :#{arg_id} OR i11_id = :#{arg_id} OR i12_id = :#{arg_id} OR i13_id = :#{arg_id} OR i14_id = :#{arg_id} OR i15_id = :#{arg_id} OR i16_id = :#{arg_id})"
+		   values[arg_id] = t
+		end
+		@existing_medley = Medley.where(conditions.join(' AND '), values)
+		if @existing_medley.length > 0 
+
+			
+			@existing_medley.each do |m|
+
+			end
+
+
+
+			@result     =   OpenStruct.new(:valid => false)
+			@result
+		else 
+			@result     =   OpenStruct.new(:valid => true)
+			@result
+		end
+
+	end
 
 	def create_medley
 		# Find or Create Tags used in this Medley

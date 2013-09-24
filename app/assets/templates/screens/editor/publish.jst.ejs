@@ -1,5 +1,269 @@
-<h4 id="publish-confirm-title" class="m-centered m-font-light" style="margin-top:70px;">Ready to Publish?</h4>
-<h4 id="publish-confirm-title" class="m-centered m-font-bold"><%= model.title %></h4>
-<h5 id="publish-confirm-category" class="m-centered m-font-light"><%= M.getCategory(model.category) %></h5>
-<h6 id="publish-confirm-category" class="m-centered m-font-light"><%= model.tag_one %>, <%= model.tag_two %>, <%= model.tag_three %></h6>
-<center><button id="publish-confirm-button" class="btn btn-primary btn-publish">Publish</button></center>
+<div id="uniqueness-screen" style="display:none;">
+	<div class="row">
+		<div class="col-lg-12">
+			<h4 class="m-centered" style="margin-top:80px;">Checking if a Medley like this already exists</h4>
+			<div class="loading-container">
+			    <div class="loading"></div>
+			    <div id="loading-text">Checking</div>
+			</div>
+    	</div>
+	</div>
+</div>
+
+<div id="uniqueness-valid-screen" style="display:none;">
+	<div class="row">
+		<div class="col-lg-12">
+			<h4 class="m-centered" style="margin-top:150px;"><i style="font-size:17px;padding-right:5px;" class="glyphicon glyphicon-ok"></i> Looks Good!</h4>
+    	</div>
+	</div>
+</div>
+
+<div id="uniqueness-invalid-screen" style="display:none;">
+	<div class="row">
+		<div class="col-lg-12 m-centered">
+			
+			<p class="m-centered" style="margin-top:80px">	
+				<i style="font-size:30px;" class="glyphicon glyphicon-warning-sign"></i> 
+			</p>
+			<h4 class="m-centered" style="margin:15px 0px 0px 0px">
+				A Medley like this exists already.
+			</h4>
+			<h4 class="m-centered" style="margin:10px 0px 15px 0px">Try Something else.</h4>
+			<button id="try-again-btn" class="btn btn-primary btn-publish">Ok</button>
+    	</div>
+	</div>
+</div>
+    		
+<div id="category-screen" style="display:none;">
+    	<div class="row">
+    		<div class="col-lg-12">
+    			<h6 class="m-centered m-font-two m-grey">Step 1 of 2</h6>
+    			<h3 class="m-centered m-font-two" style="margin-top:4px;">Publish Medley</h3>
+    			<h5 class="m-centered m-font-two">Select a Category for your Medley</h5>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-lg-12">
+			  <div id="category-list" class="m-box-shadow-one">
+			  	  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="1">
+					    	Appliances
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="2">
+					    	Arts, Crafts &amp; Sewing
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="3">
+					    	Automotive
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="4">
+					    	Baby
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="5">
+					    	Beauty
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="6">
+					    	Books
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="7">
+					    	Cell Phones &amp; Accessories
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="8">
+					    	Clothing &amp; Accessories
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="9">
+					    	Collectibles
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="10">
+					    	Computers
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="11">
+					    	Electronics
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="12">
+					    	Grocery &amp; Gourmet Foods
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="13">
+					    	Health &amp; Personal Care
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="14">
+					    	Home &amp; Kitchen
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="15">
+					    	Industrial &amp; Scientific
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="16">
+					    	Jewelry
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="17">
+					    	Movies &amp; TV
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="18">
+					    	Music
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="19">
+					    	Musical Instruments
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="20">
+					    	Patio, Lawn &amp; Garden
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="21">
+					    	Pet Supplies
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="22">
+					    	Shoes
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="23">
+					    	Software
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="24">
+					    	Sports &amp; Outdoors
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="25">
+					    	Tools &amp; Home Improvement
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="26">
+					    	Toys &amp; Games
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="27">
+					    	Video Games
+					  </label>
+				  </div>
+				  <div class="radio">
+					  <label>
+					    	<input type="radio" name="optionsRadios" id="optionsRadios1" value="28">
+					    	Watches
+					  </label>
+				  </div>
+			  </div> <!-- #cateogry-list -->
+			</div> <!-- col-lg-12 -->
+		</div> <!-- row -->
+		<div class="row">
+    		<div class="col-lg-12" style="padding-top:10px;">
+    			<center><button id="publish-next-button-one" class="btn btn-primary btn-publish">Next</button></center>
+    			<center><a href="#" id="publish-cancel" class="m-font-light m-centered publish-cancel">Cancel</a></center>
+    		</div>
+    	</div><!-- row -->
+</div> <!-- #category-screen -->
+
+<div id="tags-screen" style="display:none;">
+	<div class="row">
+		<div class="col-lg-12">
+			<h6 class="m-centered m-font-two m-grey">Step 2 of 2</h6>
+			<h3 class="m-centered m-font-two" style="margin-top:4px;">Publish Medley</h3>
+			<h5 class="m-centered m-font-two">Type 3 Tags for your Medley</h5>
+		</div>
+    </div>
+    <div class="row">
+		<div class="tag-container col-offset-4 col-lg-4">
+			<input type="text" class="form-control tag-field tag-field-one m-centered m-box-shadow-one" id="tagOne" placeholder="Sandals">
+			<p class="m-centered tag-error"></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tag-container col-offset-4 col-lg-4">
+			<input type="text" class="form-control tag-field tag-field-two m-centered m-box-shadow-one" id="tagOne" placeholder="Shoes">
+			<p class="m-centered tag-error"></p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tag-container col-offset-4 col-lg-4">
+			<input type="text" class="form-control tag-field tag-field-three m-centered m-box-shadow-one" id="tagOne" placeholder="Beach">
+			<p class="m-centered tag-error"></p>
+		</div>
+	</div>
+	<div class="row">
+    		<div class="col-lg-12" style="padding-top:10px;">
+    			<center><button id="publish-next-button-two" class="btn btn-primary btn-publish">Next</button></center>
+    			<center><a href="#" id="publish-cancel" class="m-font-light m-centered publish-cancel">Cancel</a></center>
+    		</div>
+    	</div><!-- row -->
+</div> <!-- #tag-screen -->
+
+
+
+<div style="display:none">
+	<h4 id="publish-confirm-title" class="m-centered m-font-light" style="margin-top:70px;">Ready to Publish?</h4>
+	<h4 id="publish-confirm-title" class="m-centered m-font-bold"><%= model.title %></h4>
+	<h5 id="publish-confirm-category" class="m-centered m-font-light"><%= M.getCategory(model.category) %></h5>
+	<h6 id="publish-confirm-category" class="m-centered m-font-light"><%= model.tag_one %>, <%= model.tag_two %>, <%= model.tag_three %></h6>
+	<center><button id="publish-confirm-button" class="btn btn-primary btn-publish">Publish</button></center>
+</div>

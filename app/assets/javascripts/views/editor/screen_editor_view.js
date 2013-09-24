@@ -65,12 +65,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		}, 6000);
 
 		// Manual Event Binders
-		$('#medley-title').typing({
-		    stop: function (event, $elem) {
-		        self.validateMedleyTitle();
-		    },
-		    delay: 400
-		});
+			$('#medley-title').typing({
+			    stop: function (event, $elem) {
+			        self.validateMedleyTitle();
+			    },
+			    delay: 400
+			});
 	}, // initialize
 
 	events: {
@@ -203,7 +203,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 						$('#medley-title').removeClass('red-border');
 						$('#editor-title-error').slideUp(120);
 				}
-		    }
+		    } // success
 		}); // uniquenuess.fetch
 	},
 
@@ -235,69 +235,19 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
                     thisItem.link       = $(elem).attr('data-link')
                     thisMedley.items.push( thisItem );
             });
-            console.log(thisMedley);
-            this.options.thisMedley = thisMedley
-            $('#tags-screen').hide();
-	        $('#publish-medley-modal').modal()
-	        $('#publish-medley-modal').modal('show')
-	        $('#publish-medley-modal').on('shown.bs.modal', function () {
-	            $('#category-list').niceScroll({cursorcolor:"#999999"});
-	            self.loadPublishScreenOne();
-	        })
+            console.log("You are going to Publish this Medley: ", thisMedley);
+
+           	// Clear existing mark-up from modal inner-container
+           	$('#publish-modal-inner').html('');
+            $('#publish-medley-modal').modal();
+            var publishView = new Medley.Views.EditorPublish({ model: thisMedley });
+        	$('#publish-modal-inner').html(publishView.render().$el);
+	        $('#publish-medley-modal').modal('show');
+
         } else {
             alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
         };
     },
-
-    loadPublishScreenOne: function() {
-    	self = this;
-    	$('#uniqueness-screen').fadeIn(400);
-    	var unique = new Medley.Models.MedleyUniquenessValidation();
-    	unique.fetch({ 
-		    data: { 
-		    	title: this.options.thisMedley.title,
-		  		items: this.options.thisMedley.items
-		    },
-		    processData: true,
-		    success: function (response) {
-		    	var valid = response.toJSON();
-		    	console.log(valid)
-		    	if (valid == true) {
-			        $('#uniqueness-screen').delay(1200).fadeOut(400, function() {
-					    $('#uniqueness-valid-screen').fadeIn(400).delay(800).fadeOut(300, function() {
-						    self.loadPublishScreenTwo();
-						});
-					});
-				} else {
-					$('#uniqueness-screen').delay(1200).fadeOut(400, function() {
-					    $('#uniqueness-invalid-screen').fadeIn(400);
-					});
-				};
-		    }
-		});
-    },
-
-	loadPublishScreenTwo: function() {
-		$('#category-screen').fadeIn(300)
-	},
-
-	loadPublishScreenThree: function() {
-		this.options.thisMedley.category = $('input[name=optionsRadios]:checked').attr('value');
-		if($('input:radio:checked').length > 0){
-				$('#category-screen').fadeOut(200, function() {
-				    $('#tags-screen').fadeIn(200);
-				});
-		 }else{
-		    	alert("Please select a Category for your Medley");
-		 }
-	},
-
-	loadPublishScreenFour: function() {
-		$('#tags-screen').fadeOut(200)
-		console.log(this.options.thisMedley);
-		var editorPublishView = new Medley.Views.EditorPublish({ model: this.options.thisMedley })
-		$('.modal-content').html(editorPublishView.render().$el); 
-	},
 
 	hidePublishModal: function() {
 		$('#uniqueness-screen').fadeOut(100);
