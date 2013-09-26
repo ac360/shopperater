@@ -12,8 +12,10 @@ class MedleyApiController < ApplicationController
 			@formatted_search = @formatted_search + keyword.to_s + '|'
 		end
 		@formatted_search = @formatted_search.chop
-		@medley_search_results = Medley.advanced_search(@formatted_search).order('votes DESC').limit(15)
-		@empty_array = OpenStruct.new()
+		@medley_search_results = Medley.advanced_search(@formatted_search).order('votes DESC').joins(:user).limit(15)
+		
+		# Build Custom Item URLs Here...
+		@medleys = create_affiliate_urls(@medley_search_results)
 
 		# @tags = Tag.where( :tag => params[:keywords] )
 		# if @tags.count < 1
@@ -52,7 +54,7 @@ class MedleyApiController < ApplicationController
 			@new_response.img_small = 	product.medium_image.url if product.medium_image.present? 
 			@new_response.img_big   = 	product.large_image.url  if product.large_image.present?
 			@new_response.category  = 	product.product_group    if product.product_group.present?
-			@new_response.link      = 	"http://amazon.com/"
+			@new_response.link      = 	product.links.first.url  if product.links.first.url.present? 
 
 			@custom_search_results  << @new_response
 		end
@@ -152,18 +154,27 @@ class MedleyApiController < ApplicationController
 		   conditions << "(i1_id = :#{arg_id} OR i2_id = :#{arg_id} OR i3_id = :#{arg_id} OR i4_id = :#{arg_id} OR i5_id = :#{arg_id} OR i6_id = :#{arg_id} OR i7_id = :#{arg_id} OR i8_id = :#{arg_id} OR i9_id = :#{arg_id} OR i10_id = :#{arg_id} OR i11_id = :#{arg_id} OR i12_id = :#{arg_id} OR i13_id = :#{arg_id} OR i14_id = :#{arg_id} OR i15_id = :#{arg_id} OR i16_id = :#{arg_id})"
 		   values[arg_id] = t
 		end
-		@existing_medley = Medley.where(conditions.join(' AND '), values)
-		if @existing_medley.length > 0 
+		@existing_medleys = Medley.where(conditions.join(' AND '), values).collect {|m| [m.i1_id, m.i2_id, m.i3_id, m.i4_id, m.i5_id, m.i6_id, m.i7_id, m.i8_id, m.i9_id, m.i10_id, m.i11_id, m.i12_id, m.i13_id, m.i4_id, m.i15_id, m.i16_id].compact! }
+		
+		# render :json => @existing_medleys
 
-			
-			@existing_medley.each do |m|
+		if @existing_medleys.length > 0 
 
-			end
+				remainders_array = []
+				@existing_medleys.each do |m|
+					m = m - item_ids
+					length = m.length
+					remainders_array.push(length)
+				end
 
+				if remainders_array.include? 0
+						@result  =   OpenStruct.new(:valid => false)
+						@result
+				else
+						@result  =   OpenStruct.new(:valid => true)
+						@result
+				end
 
-
-			@result     =   OpenStruct.new(:valid => false)
-			@result
 		else 
 			@result     =   OpenStruct.new(:valid => true)
 			@result

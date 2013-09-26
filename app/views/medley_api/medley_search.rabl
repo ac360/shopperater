@@ -1,4 +1,4 @@
-collection @medley_search_results
+collection @medleys
 attributes :id, :title, :user_id, :description, :category, :votes, :remix_of, :tag_1_id, :tag_2_id, :tag_3_id
 
 node(:items, :object_root => false) do |m|
@@ -36,5 +36,11 @@ node(:items, :object_root => false) do |m|
 
 	  ]
 end
+
+child :user do
+  attributes :id, :affiliate_id
+end
+
+
 
 

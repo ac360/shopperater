@@ -14,7 +14,6 @@
  @font-face {font-family: 'nexa_boldregular'; src: url('Nexa_Free_Bold-webfont.eot'); src: url('Nexa_Free_Bold-webfont.eot?#iefix') format('embedded-opentype'), url('Nexa_Free_Bold-webfont.woff') format('woff'), url('Nexa_Free_Bold-webfont.ttf') format('truetype'), url('Nexa_Free_Bold-webfont.svg#nexa_boldregular') format('svg'); font-weight: normal; font-style: normal; }
  @font-face {font-family: 'nexa_lightregular'; src: url('Nexa_Free_Light-webfont.eot'); src: url('Nexa_Free_Light-webfont.eot?#iefix') format('embedded-opentype'), url('Nexa_Free_Light-webfont.woff') format('woff'), url('Nexa_Free_Light-webfont.ttf') format('truetype'), url('Nexa_Free_Light-webfont.svg#nexa_boldregular') format('svg'); font-weight: normal; font-style: normal; }
 
-
  /* Custom Medley Styles */
  a {color:#444;}
  a:hover {color:#666;cursor:pointer;text-decoration:none;}
@@ -128,7 +127,7 @@
  /* Screen - Editor */
  #medley-title       {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;border:1px solid #252525;line-height: 20px;}
  #medley-title:focus {border:1px solid #888;}
- .medley-grid-item  {background:#ffffff;-webkit-box-shadow: 0px 0px 8px 0px #050505;box-shadow:0px 0px 8px 0px #050505;border:1px solid #000;}
+ .medley-grid-item  {background:#ffffff;cursor:pointer;-webkit-box-shadow: 0px 0px 8px 0px #050505;box-shadow:0px 0px 8px 0px #050505;border:1px solid #000;}
  .medley-grid-item-view {min-height:100%;}
  #medley-item-image-container {text-align:center;}
  #medley-item-image-container img { max-width:90%;max-height:90%;padding-top:5px;}

@@ -81,8 +81,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'click #publish-next-button-one'            :   'loadPublishScreenTwo',
 		'click .publish-cancel'                     :   'hidePublishModal',
 		'click #medley-publish-button'              :   'openPublishArea',
-		'keyup .tag-field'      	                :   'reformatTag',
-		'click #publish-next-button-two'            :   'validateAllTags',
 		'click #publish-confirm-button'			    :   'publishMedley',
 		'click #medley-reset-link'					:   'deleteMedley',
 		'click #try-again-btn'                      :   'hidePublishModal'
@@ -272,50 +270,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		            console.log(errors)
 		          }
 		}) // End of thisMedley.save
-	},
-
-	reformatTag: function(e) {
-		var tag = $(e.currentTarget).val();
-		tag = tag.replace(/[_\W]/g, '').toLowerCase()
-		$(e.currentTarget).val(tag);
-	},
-
-	validateAllTags: function() {
-		var validation = []
-		$(".tag-field").each(function(index, elem) {
-				var tag = $(elem).val();
-			    if (tag.length === 0) {
-				      var error = "Tag can't be blank"
-				      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
-				      $(errorContainer).text(error);
-				      $(elem).removeClass('valid-tag')
-				      $(elem).addClass('invalid-tag')
-			    } else if (tag.length < 3) {
-			      	  var error = "Tag must be at least 3 characters long"
-				      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
-				      $(errorContainer).text(error);
-				      $(elem).removeClass('valid-tag')
-				      $(elem).addClass('invalid-tag')
-			    } else if ( tag.match(/[^0-9a-z]/i) ) {
-			      	  var error = "Letters, numbers and single words only"
-				      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
-				      $(errorContainer).text(error);
-				      $(elem).removeClass('valid-tag')
-				      $(elem).addClass('invalid-tag')
-			    } else {
-			      var errorContainer = $(elem).closest( '.tag-container' ).find('.tag-error')
-				  $(errorContainer).hide();
-			      $(elem).removeClass('invalid-tag')
-			      $(elem).addClass('valid-tag')
-			    }
-		});
-		if ($('.invalid-tag').length) {
-		} else {
-			this.options.thisMedley.tag_one   = $('.tag-field-one').val().toLowerCase()
-			this.options.thisMedley.tag_two   = $('.tag-field-two').val().toLowerCase()
-			this.options.thisMedley.tag_three = $('.tag-field-three').val().toLowerCase()
-			this.loadPublishScreenThree();
-		}
 	},
 
 	render: function () {
