@@ -13,7 +13,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 	events: {
 		"click #publish-next-button-one"            :     "loadPublishScreenThree",
 		'keyup .tag-field'      	                :     'reformatTag',
-		'click #publish-next-button-two'            :     'validateAllTags',
+		'click #publish-next-button-two'            :     'validateAllTagsAndProceed',
     },
 
     loadPublishScreenOne: function() {
@@ -70,7 +70,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 		$(e.currentTarget).val(tag);
 	},
 
-	validateAllTags: function() {
+	validateAllTagsAndProceed: function() {
 		var validation = []
 		$(".tag-field").each(function(index, elem) {
 				var tag = $(elem).val();
@@ -104,8 +104,23 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 			this.model.tag_one   = $('.tag-field-one').val().toLowerCase()
 			this.model.tag_two   = $('.tag-field-two').val().toLowerCase()
 			this.model.tag_three = $('.tag-field-three').val().toLowerCase()
-			this.loadPublishScreenFour();
+			this.publishMedley();
 		}
+	},
+
+	publishMedley: function() {
+		console.log("this is the Medley about to be published", this.model);
+
+		var thisMedley = new Medley.Collections.Medlies()
+    	thisMedley.create(this.model, {
+		          success: function () {
+		          	$('#publish-medley-modal').modal('hide')
+		          },
+		          error: function (model, xhr) {
+		            var errors = $.parseJSON(xhr.responseText).errors
+		            console.log(errors)
+		          }
+		}) // End of thisMedley.save
 	},
 
 	render: function () {

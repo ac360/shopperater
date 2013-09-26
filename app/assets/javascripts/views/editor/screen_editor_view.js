@@ -257,21 +257,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		$('#publish-medley-modal').modal('hide')
 	},
 
-	publishMedley: function() {
-		console.log("this is the Medley about to be published", this.options.thisMedley);
-
-		var thisMedley = new Medley.Collections.Medlies()
-    	thisMedley.create(this.options.thisMedley, {
-		          success: function () {
-		          	$('#publish-medley-modal').modal('hide')
-		          },
-		          error: function (model, xhr) {
-		            var errors = $.parseJSON(xhr.responseText).errors
-		            console.log(errors)
-		          }
-		}) // End of thisMedley.save
-	},
-
 	render: function () {
 		return this;
 	}
