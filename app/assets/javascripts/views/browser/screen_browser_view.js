@@ -15,7 +15,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     },
 
     linkTest: function() {
-    	alert("");
+    	var link = $('.medley-grid-item').attr('data-link');
+    	alert(link);
     },
 
     detectEnterButton: function(event) {
