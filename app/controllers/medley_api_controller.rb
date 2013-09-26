@@ -196,7 +196,7 @@ class MedleyApiController < ApplicationController
 		if current_user
 			@medley.user_id = current_user.id
 		else
-			@medley.user_id = 0
+			@medley.user_id = 1
 		end
 		@medley.remix_of 					= params[:remix_of]           					if params[:remix_of].present?
 		@medley.title 						= params[:title].downcase.titleize         		if params[:title].present?
