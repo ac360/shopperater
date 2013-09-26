@@ -35,14 +35,9 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 				alert("Referral Mode has been disabled temporarily")
 				// var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewReferralMode({ params: params });
 				// $('#module-medley-editor').html(editorMedleyPreview.render().$el); 
-
-		// Check for REMIX Param
-		} else if (  params !== undefined && params.remix !== undefined && params.referral === undefined ) {
-				var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewRemixMode();
-				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 		
-		// Check for DRAFT of Medley in Local Storage
-	    } else if ( params === undefined && medleyDraft !== false ) {
+		// // Check for DRAFT of Medley in Local Storage
+	    } else if ( medleyDraft !== false ) {
 	    		var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewDraftMode({ model: medleyDraft });
 				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 
@@ -65,12 +60,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		}, 6000);
 
 		// Manual Event Binders
-			$('#medley-title').typing({
-			    stop: function (event, $elem) {
-			        self.validateMedleyTitle();
-			    },
-			    delay: 400
-			});
+		$('#medley-title').typing({
+		    stop: function (event, $elem) {
+		        self.validateMedleyTitle();
+		    },
+		    delay: 400
+		});
 	}, // initialize
 
 	events: {
@@ -115,7 +110,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             console.log(product);
             // Re-instantiate Gridster
             var gridster = M.instantiateGridster();
-            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_small + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
+            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_large + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
             var itemView = new Medley.Views.EditorProduct({ model: product });
             $('.new-item').html(itemView.render().$el)
             $('.new-item').removeClass('new-item')
@@ -209,41 +204,14 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		var self = this;
         var medleyItemsCount = $("#medley-grid li").size()
         if (medleyItemsCount > 1) {
-            var thisMedley              = {};
-            thisMedley.title            = $('#medley-title').text();
-            thisMedley.description      = $('#description').text();
-            // Get Remix Of Data Attribute Include in Medley Title Tag
-            if ( $('#medley-title').attr('data-remixof') !== undefined ) {
-            	thisMedley.remix_of     = $('#medley-title').attr('data-remixof');
-            }
-            thisMedley.items            = [];
-            $('.medley-grid-item').each(function(index, elem) {
-                    var thisItem = {};
-                    thisItem.row        = $(elem).attr('data-row')
-                    thisItem.col        = $(elem).attr('data-col')
-                    thisItem.sizex      = $(elem).attr('data-sizex')
-                    thisItem.sizey      = $(elem).attr('data-sizey')
-                    thisItem.id         = $(elem).attr('data-id')
-                    thisItem.title      = $(elem).attr('data-title')
-                    thisItem.price      = $(elem).attr('data-price')
-                    thisItem.imagesmall = $(elem).attr('data-imagesmall')
-                    thisItem.imagelarge = $(elem).attr('data-imagelarge')
-                    thisItem.category   = $(elem).attr('data-category')
-                    thisItem.source     = $(elem).attr('data-source')
-                    thisItem.link       = $(elem).attr('data-link')
-                    thisMedley.items.push( thisItem );
-            });
-            console.log("You are going to Publish this Medley: ", thisMedley);
-
-           	// Clear existing mark-up from modal inner-container
-           	$('#publish-modal-inner').html('');
-            $('#publish-medley-modal').modal();
-            var publishView = new Medley.Views.EditorPublish({ model: thisMedley });
-        	$('#publish-modal-inner').html(publishView.render().$el);
-	        $('#publish-medley-modal').modal('show');
-
+	           	// Clear existing mark-up from modal inner-container
+	           	$('#publish-modal-inner').html('');
+	            $('#publish-medley-modal').modal();
+	            var publishView = new Medley.Views.EditorPublish();
+	        	$('#publish-modal-inner').html(publishView.render().$el);
+		        $('#publish-medley-modal').modal('show');
         } else {
-            alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
+            	alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
         };
     },
 

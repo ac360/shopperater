@@ -7,13 +7,43 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
-		console.log("publish area opened")
+		console.log("Publish Area Opened...")
+		this.model = this.createMedley();
+		console.log("You are going to Publish this Medley: ", this.model);
 	},
 
 	events: {
-		"click #publish-next-button-one"            :     "loadPublishScreenThree",
+		'click #publish-next-button-one'            :     'loadPublishScreenThree',
 		'keyup .tag-field'      	                :     'reformatTag',
 		'click #publish-next-button-two'            :     'validateAllTagsAndProceed',
+    },
+
+    createMedley: function() {
+    		var thisMedley              = {};
+            thisMedley.title            = $('#medley-title').text();
+            thisMedley.description      = $('#description').text();
+            // Get Remix Of Data Attribute Include in Medley Title Tag
+            if ( $('#medley-title').attr('data-remixof') !== undefined ) {
+            	thisMedley.remix_of     = $('#medley-title').attr('data-remixof');
+            }
+            thisMedley.items            = [];
+            $('.medley-grid-item').each(function(index, elem) {
+                    var thisItem = {};
+                    thisItem.row        = $(elem).attr('data-row')
+                    thisItem.col        = $(elem).attr('data-col')
+                    thisItem.sizex      = $(elem).attr('data-sizex')
+                    thisItem.sizey      = $(elem).attr('data-sizey')
+                    thisItem.id         = $(elem).attr('data-id')
+                    thisItem.title      = $(elem).attr('data-title')
+                    thisItem.price      = $(elem).attr('data-price')
+                    thisItem.imagesmall = $(elem).attr('data-imagesmall')
+                    thisItem.imagelarge = $(elem).attr('data-imagelarge')
+                    thisItem.category   = $(elem).attr('data-category')
+                    thisItem.source     = $(elem).attr('data-source')
+                    thisItem.link       = $(elem).attr('data-link')
+                    thisMedley.items.push( thisItem );
+            });
+            return thisMedley      
     },
 
     loadPublishScreenOne: function() {
@@ -109,7 +139,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 	},
 
 	publishMedley: function() {
-		console.log("this is the Medley about to be published", this.model);
+		console.log("this is the Medley to be published", this.model);
 
 		var thisMedley = new Medley.Collections.Medlies()
     	thisMedley.create(this.model, {
