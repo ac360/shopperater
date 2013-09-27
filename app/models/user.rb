@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   # Define Relations
   has_many :cart_items, dependent: :destroy
 
+  before_save :set_defaults
+
   # Validations
   validates_uniqueness_of :username, :case_sensitive => false
 
@@ -23,6 +25,16 @@ class User < ActiveRecord::Base
         where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
       else
         where(conditions).first
+      end
+  end
+
+  protected
+
+  def set_defaults
+      if self.affiliate_id.blank?
+          self.affiliate_id = 'medley01-20'
+      else
+          self.affiliate_id ||= 'medley01-20'
       end
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926175648) do
+ActiveRecord::Schema.define(:version => 20130927181902) do
 
   create_table "cart_items", :force => true do |t|
     t.string   "product_name"
@@ -268,7 +268,7 @@ ActiveRecord::Schema.define(:version => 20130926175648) do
     t.datetime "created_at",                                                       :null => false
     t.datetime "updated_at",                                                       :null => false
     t.string   "username"
-    t.string   "affiliate_id",                          :default => "medley01-20"
+    t.string   "affiliate_id",                          :default => "medley01-20", :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
