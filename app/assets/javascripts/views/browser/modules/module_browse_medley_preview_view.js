@@ -49,14 +49,8 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
       var self = this;
     	var gridster = $(".gridster ul").gridster({
          widget_margins: [5, 5],
-         widget_base_dimensions: [90, 90],
-         // Put in callback for drag stop
-         draggable: {
-             stop: function () {
-                 self.openRemixModal()
-             }
-         }
-      }).data("gridster");
+         widget_base_dimensions: [90, 90]
+      }).data("gridster").disable();
   },
 
   highlightDropZone: function(e) {
