@@ -10,13 +10,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click #primary-search-button"              :   "search",
 		"keypress #primary-search-field"			:   "detectEnterButton",
 		"click .medley-result-box"					:   "showMedleySearchResult",
-		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
-		"click .medley-grid-item"					:   "linkTest"
-    },
-
-    linkTest: function() {
-    	var link = $('.medley-grid-item').attr('data-link');
-    	alert(link);
+		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult"
     },
 
     detectEnterButton: function(event) {

@@ -15,7 +15,13 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 		  'dragleave #medley-container' 		           : 'unhighlightDropZone',
 		  'drop #medley-container'      		           : 'openRemixModal',
 	    'dragover #medley-container'  		           : 'highlightDropZone',
-      'click #editor-button'                       : 'remixMedley'
+      'click #editor-button'                       : 'remixMedley',
+      "click .medley-grid-item"                    : "linkTest"
+  },
+
+  linkTest: function() {
+      var link = $('.medley-grid-item').attr('data-link') + "%26tag%3D" + this.model.user.affiliate_id
+      alert(link);
   },
 
   instantiateGridster: function() {

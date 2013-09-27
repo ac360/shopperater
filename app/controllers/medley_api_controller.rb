@@ -53,7 +53,11 @@ class MedleyApiController < ApplicationController
 			@new_response.img_small = 	product.medium_image.url if product.medium_image.present? 
 			@new_response.img_big   = 	product.large_image.url  if product.large_image.present?
 			@new_response.category  = 	product.product_group    if product.product_group.present?
-			@new_response.link      = 	product.links.first.url  if product.links.first.url.present? 
+
+			# aZn Gem Includes Affiliate Tag In Link by Default.  Let's Strip It And We'll Put It Back in On the Front-End
+			if product.links.first.url.present?
+				@new_response.link = product.links.first.url.gsub! "%26tag%3Dmedley01-20", ""
+			end
 
 			@custom_search_results  << @new_response
 		end
