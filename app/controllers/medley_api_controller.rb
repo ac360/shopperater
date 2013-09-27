@@ -13,11 +13,13 @@ class MedleyApiController < ApplicationController
 		end
 		@formatted_search = @formatted_search.chop
 		@medleys = Medley.advanced_search(@formatted_search).order('votes DESC').joins(:user).limit(15)
+		@medleys = medley_extra_formatter(@medleys)
 		# Build Custom Item URLs Here...
 	end
 
 	def medley_most_recent
 		@medleys = Medley.last(15).reverse
+		@medleys = medley_extra_formatter(@medleys)
 	end
 
 	def product_search

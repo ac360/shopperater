@@ -38,7 +38,7 @@ node(:items, :object_root => false) do |m|
 end
 
 child :user do
-  attributes :id, :affiliate_id
+  attributes :id, :affiliate_id, :username
 end
 
 

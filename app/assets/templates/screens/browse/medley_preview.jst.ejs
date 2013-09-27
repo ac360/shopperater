@@ -9,20 +9,19 @@
 	    			<% _.each(model.items, function(model) { %>
 	    			
 		    			<% if ( model.id !== null ) { %>
-		    			<% console.log("this is begin rndered in the view:", model) %>
-			    				<li class="medley-grid-item" data-row="<%= model.r %>" data-col="<%= model.c %>" data-sizex="<%= model.x %>" data-sizey="<%= model.y %>" data_id="<%= model.id %>" data-title="<%= model.title %>" data-price="<%= model.price %>" data-imagesmall="<%= model.img_small %>" data-imagelarge="<%= model.img_big %>" data-category="<%= model.category %>" data-source="<%= model.source %>" data-link="<%= model.link %>">
+		    			<% console.log("This is Being Rendered In The View:", model) %>
+			    				<li class="medley-grid-item" data-row="<%= model.r %>" data-col="<%= model.c %>" data-sizex="<%= model.x %>" data-sizey="<%= model.y %>" data-id="<%= model.id %>" data-title="<%= model.title %>" data-price="<%= model.price %>" data-imagesmall="<%= model.img_small %>" data-imagelarge="<%= model.img_big %>" data-category="<%= model.category %>" data-source="<%= model.source %>" data-link="<%= model.link %>">
 
 				    					<div id="medley-item-image-container">
 											<img src="<%= model.img_small %>" class="product-image">
 										</div>
 
-										<div id="medley-item-title-container">
+										<div id="medley-item-title-container" style="display:none">
 											<h1 class="m-font-two product-title" contenteditable="true">
 												<%= model.title %>
 											</h1>
 											<div class="product-option-icons">
 												<i class="glyphicon glyphicon-search"></i>
-												<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
 											</div>
 										</div>
 

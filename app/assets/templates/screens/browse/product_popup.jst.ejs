@@ -1,0 +1,22 @@
+
+  <div class="modal-dialog">
+    <div class="modal-content row">
+    	<button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+    	<div class="col-lg-6">
+    		<img src="<%= model.img_big %>" class="product-popup-image s-box-shadow-one">
+    	</div>
+    	<div class="col-lg-6">
+    		<h4 class=""><%= model.title %></h4>
+    		<p class="m-capitalize" style="Padding:0px;">Category: <%= model.category %></p>
+    		<% if (model.source == "amazon") { %>
+    			<p class="m-capitalize">Available On: <img src="assets/amazon_logo.png" style="max-width:110px;"></p>
+    		<% } %>
+    		<div class="row">
+    			<div class="col-lg-12">
+    				<a href="<%= model.link %>" class="btn btn-black" target="_blank">Buy Now</a>
+    			</div>
+    		</div>
+    	</div>
+
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->

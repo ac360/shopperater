@@ -16,13 +16,34 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 		  'drop #medley-container'      		           : 'openRemixModal',
 	    'dragover #medley-container'  		           : 'highlightDropZone',
       'click #editor-button'                       : 'remixMedley',
-      "click .medley-grid-item"                    : "linkTest"
+      "click .medley-grid-item"                    : "showProductPopUp"
   },
 
-  linkTest: function() {
-      var link = $('.medley-grid-item').attr('data-link') + "%26tag%3D" + this.model.user.affiliate_id
-      alert(link);
+  showProductOptions: function(e) {
+    $(e.currentTarget).find( "#medley-item-image-container" ).fadeOut(100);
+    $(e.currentTarget).find( "#medley-item-title-container" ).fadeIn(100);
   },
+
+  showProductPopUp: function(e) {
+    // Get ID of Product
+    var productID = $(e.currentTarget).attr('data-id');
+    // Get Specific Product From Model & Make It A Seperate Model
+    var thisProduct = _.where(this.model.items, { id: productID })[0];
+    // Update Link
+    thisProduct.link = $(e.currentTarget).attr('data-link') + "%26tag%3D" + this.model.user.affiliate_id
+    // Prepare Modal
+    $('#product-modal').html('');
+    var productPopUp = new Medley.Views.BrowserProductPopUp({ model: thisProduct })
+    $('#product-modal').html(productPopUp.render().$el);
+
+    $('#product-modal').modal();
+    $('#product-modal').modal('show');
+  },
+
+  // linkTest: function() {
+  //     var link = $('.medley-grid-item').attr('data-link') + "%26tag%3D" + this.model.user.affiliate_id
+  //     alert(link);
+  // },
 
   instantiateGridster: function() {
       var self = this;

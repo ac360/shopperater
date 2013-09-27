@@ -30,8 +30,10 @@
  .btn {border-radius:0px;}
  .btn-primary {background:#000000;border:0px;font-family:nexa_boldregular;text-transform: uppercase;letter-spacing:3px;}
  .btn-primary:hover {background:#333;}
- .btn-publish, .btn-grey {background:#777777;color:#fff;border:0px;min-width:140px;height:40px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
+ .btn-publish, .btn-grey {background:#777777;color:#fff;border:0px;min-width:140px;height:40px;line-height:25px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
  .btn-publish:hover, .btn-grey:hover {background:#aaaaaa;}
+ .btn-black {background:#111;color:#fff;border:0px;min-width:140px;height:40px;line-height:25px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
+ .btn-black:hover {background:#333;}
  :focus {outline: 0!important; }
  .modal-content, .form-control {border-radius:0px;}
  .form-control {border:none;}
@@ -39,6 +41,7 @@
  .tooltip-inner {padding:10px;}
  .glyphicon-heart-empty {color: #ec5c5c;font-size:8px;padding-right:3px;}
  .red-border {border: 1px solid #ff6b6b!important;}
+ .m-capitalize {text-transform: capitalize;}
  /* Style Placeholder Text --> */ ::-webkit-input-placeholder { text-align:center!important; } :-moz-placeholder { /* Firefox 18- */ text-align:center!important; } ::-moz-placeholder {  /* Firefox 19+ */ text-align:center!important; } :-ms-input-placeholder { text-align:center!important; } .form-control:focus {border: none; outline: 0; -webkit-box-shadow:none; box-shadow:none; }
  /* Animations */
  @-webkit-keyframes rotating {
@@ -125,6 +128,10 @@
  .temp-grid-item {background:#eaeaea!important;}
  #medley-description {min-height:100px;color:#cccccc;font-size:14px;}
  #module-medley-results {background:#eaeaea;min-height:565px;}
+
+ /* Screen - Product Pop-Up */
+ #product-modal .modal-content {background:#eaeaea;}
+ .product-popup-image {max-width:90%;padding:5px;background:#fff;}
 
  /* Screen - Editor */
  #medley-title       {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;border:1px solid #252525;line-height: 20px;}
