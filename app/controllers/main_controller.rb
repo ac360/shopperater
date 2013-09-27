@@ -8,4 +8,7 @@ class MainController < ApplicationController
 		session["user_return_to"] = request.url
 	end
 
+	def settings
+	end
+
 end

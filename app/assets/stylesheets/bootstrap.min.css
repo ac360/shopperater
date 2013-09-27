@@ -30,8 +30,8 @@
  .btn {border-radius:0px;}
  .btn-primary {background:#000000;border:0px;font-family:nexa_boldregular;text-transform: uppercase;letter-spacing:3px;}
  .btn-primary:hover {background:#333;}
- .btn-publish {background:#777777;border:0px;min-width:140px;height:40px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
- .btn-publish:hover {background:#aaaaaa;}
+ .btn-publish, .btn-grey {background:#777777;color:#fff;border:0px;min-width:140px;height:40px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
+ .btn-publish:hover, .btn-grey:hover {background:#aaaaaa;}
  :focus {outline: 0!important; }
  .modal-content, .form-control {border-radius:0px;}
  .form-control {border:none;}
@@ -88,6 +88,8 @@
  #menu-links li {padding-right: 0px;padding-left:15px;}
  #menu-links a {font-size:11px;letter-spacing:2px;color:#aaaaaa;text-transform:uppercase;}
  #menu-links a:hover {cursor: pointer;color: #fff;}
+ #error_explanation h2 {display:none;}
+ #error_explanation ul {list-style-type: none;color:#D9534F;padding:0px 0px 15px 0px;margin:0px;}
 
  /* Screen - Browse */
  #module-product-results-container {background:#eaeaea;height:565px;}
@@ -154,7 +156,7 @@
  .editor-error-text {color: #ff6b6b;font-size:13px;}
 
  /* Registration/Log In Page */
- #user-actions-box {background:#444444;padding-top:15px;padding-bottom:35px;}
+ #user-actions-box {background:#151515;padding-top:15px;padding-bottom:35px;}
  #user-actions-page #header-logo {margin-top:45px;}
  #signup-title {color:#ffffff;font-size:14px;letter-spacing:8px;}
  #user-actions-page .form-control{max-width:240px;margin:10px auto;}

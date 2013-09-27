@@ -1,27 +1,42 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<h4 class="m-centered m-white m-font-light" style="letter-spacing:4px;">SETTINGS</h4>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'm-centered' }) do |f| %>
   <%= devise_error_messages! %>
 
-    <div>
-      <p><%= f.label :username %><br />
-      <%= f.text_field :username %></p>
+    <div class="form-group">
+      <label class="m-white">Username</label>
+      <%= f.text_field :username, :class => 'form-control m-centered' %>
+      </p>
     </div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
+  <div class="form-group">
+      <label class="m-white">Email</label>
+      <%= f.email_field :email, :class => 'form-control m-centered'  %>
+  </div>
 
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-  <%= f.password_field :password %></div>
+  <div class="form-group">
+      <label class="m-white">Amazon Affiliate ID</label>
+      <%= f.text_field :affiliate_id, :class => 'form-control m-centered' %>
+  </div>
 
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-  <%= f.password_field :current_password %></div>
+  <div class="form-group">
+    <label class="m-white">Password</label>
+    <%= f.password_field :password, :class => 'form-control m-centered'  %>
+    <small class="m-grey">Leave blank if you don't want to change it</small>
 
-  <div><%= f.submit "Update" %></div>
+  </div>
+
+  <div class="form-group">
+    <label class="m-white">Current Password <span style="color:#D9534F">*</span></label>
+    <%= f.password_field :current_password, :class => 'form-control m-centered'  %>
+    <small class="m-grey small">Enter your password to confirm changes</small>
+  </div>
+
+  <div style="padding-top:5px;">
+    <%= f.submit "Update Account", :class => 'btn btn-grey', :style => 'padding:10px 20px;' %>
+  </div>
 <% end %>
 
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete %>.</p>
-
-<%= link_to "Back", :back %>
+  <div class="m-centered" style="padding-top:10px;">
+      <%= link_to "Delete Account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete, :style => 'padding:5px 15px 5px 15px;color:#D9534F' %>
+  </div>

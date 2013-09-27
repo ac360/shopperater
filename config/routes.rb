@@ -21,10 +21,11 @@ Shopperater::Application.routes.draw do
     get '/login'    => 'devise/sessions#new'
     get '/register' => 'devise/registrations#new'
     get 'logout'    => 'devise/sessions#destroy'
+    get '/settings' => 'devise/registrations#edit'
   end
   
-  # Application Routes
-  match 'editor',   :to => 'main#editor'
-  root              :to => 'main#browser'
+  # Other Application Routes
+  match 'editor',     :to => 'main#editor'
+  root                :to => 'main#browser'
 
 end
