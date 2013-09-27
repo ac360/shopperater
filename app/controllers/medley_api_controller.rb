@@ -12,11 +12,8 @@ class MedleyApiController < ApplicationController
 			@formatted_search = @formatted_search + keyword.to_s + '|'
 		end
 		@formatted_search = @formatted_search.chop
-		@medley_search_results = Medley.advanced_search(@formatted_search).order('votes DESC').joins(:user).limit(15)
-
-		# @tags = Tag.where( :tag => params[:keywords] )
-		# if @tags.count < 1
-		# end
+		@medleys = Medley.advanced_search(@formatted_search).order('votes DESC').joins(:user).limit(15)
+		# Build Custom Item URLs Here...
 	end
 
 	def medley_most_recent
