@@ -13,8 +13,6 @@ class MedleyApiController < ApplicationController
 		end
 		@formatted_search = @formatted_search.chop
 		@medley_search_results = Medley.advanced_search(@formatted_search).order('votes DESC').joins(:user).limit(15)
-		# Build Custom Item URLs Here...
-		@medleys = create_affiliate_urls(@medley_search_results)
 
 		# @tags = Tag.where( :tag => params[:keywords] )
 		# if @tags.count < 1
