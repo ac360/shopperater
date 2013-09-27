@@ -36,9 +36,31 @@
 	</div> <!-- .row -->
 
 	<div class="row">
-		<div id="medley-description" class="col-offset-2 col-lg-8 m-font-light">
+		<div id="medley-description" class="col-offset-2 col-lg-5 m-font-light">
 			<%= model.description %>
 		</div>
+
+		<div class="col-lg-3">
+
+			<div class="row">
+				<div id="owner-info-container" class="col-lg-12">
+					<p id="created-by" style="margin-bottom:3px;">Created by</p>
+					<h3 id="created-by-username"><%= model.user.username %></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div id="actions-container" class="col-lg-12">
+					<button class="btn btn-primary btn-publish">Remix</button>
+					<p style="padding-top:3px;">
+						<a href="#" class="m-centered m-font-light" style="font-size:13px;">
+							Follow User
+						</a>
+					</p>
+				</div>
+			</div>
+
+		</div>
+
 	</div>
 
 

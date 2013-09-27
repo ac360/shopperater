@@ -63,35 +63,39 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                              $('#medleys-most-recent').html(medleysMostRecent.render().$el);
 
 	                              // Search Products on callback to keep page loading orderly and not all at once
-	                              var searchItems = new Medley.Collections.ProductSearch();
-	                              searchItems.fetch({
-	                                      data: { keywords: searchKeywords, category: searchCategory },
-	                                      processData: true,
-	                                      success: function (response) {
-	                                          var productResults = response.toJSON();
-	                                          console.log("Here are your product search results:")
-	                                          console.log(productResults)
-	                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
-	                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
-	                                      } // End Success
-	                              }); // End searchItems.fetch
+	                              _.defer( function() {
+		                              var searchItems = new Medley.Collections.ProductSearch();
+		                              searchItems.fetch({
+		                                      data: { keywords: searchKeywords, category: searchCategory },
+		                                      processData: true,
+		                                      success: function (response) {
+		                                          var productResults = response.toJSON();
+		                                          console.log("Here are your product search results:")
+		                                          console.log(productResults)
+		                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
+		                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
+		                                      } // End Success
+		                              }); // End searchItems.fetch
+	                              });
 
 	                          } // End Success of medleysMostRecent
 	                        }) // End medleysMostRecent.fetch
 	                } else {
 	                      // Search Products
-	                      var searchItems = new Medley.Collections.ProductSearch();
-	                      searchItems.fetch({
-	                              data: { keywords: searchKeywords, category: searchCategory },
-	                              processData: true,
-	                              success: function (response) {
-	                                  var productResults = response.toJSON();
-	                                  console.log("Here are your product search results:")
-	                                  console.log(productResults)
-	                                  var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
-	                                  $('#module-product-results').html(moduleItemResultsView.render().$el);
-	                              } // End Success
-	                      }); // End searchItems.fetch
+	                      _.defer( function() {
+		                      var searchItems = new Medley.Collections.ProductSearch();
+		                      searchItems.fetch({
+		                              data: { keywords: searchKeywords, category: searchCategory },
+		                              processData: true,
+		                              success: function (response) {
+		                                  var productResults = response.toJSON();
+		                                  console.log("Here are your product search results:")
+		                                  console.log(productResults)
+		                                  var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
+		                                  $('#module-product-results').html(moduleItemResultsView.render().$el);
+		                              } // End Success
+		                      }); // End searchItems.fetch
+		                  });
 
 	                }; // /if results.length < 15
 	                
