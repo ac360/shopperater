@@ -112,7 +112,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	},
 
 	showMedleySearchResult: function(e) {
-		var medleyID = $(e.currentTarget).attr('data-id')
+		var medleyID = $(e.currentTarget).attr('data-id');
 		var thisMedley = this.options.medleys.get(medleyID);
 
 		var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: thisMedley.toJSON() })

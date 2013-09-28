@@ -16,7 +16,9 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 		  'drop #medley-container'      		           : 'openRemixModal',
 	    'dragover #medley-container'  		           : 'highlightDropZone',
       'click #editor-button'                       : 'remixMedley',
-      "click .medley-grid-item"                    : "showProductPopUp"
+      "click .medley-grid-item"                    : "showProductPopUp",
+      "click #remix-btn"                           : 'openRemixModal'
+
   },
 
   showProductOptions: function(e) {
