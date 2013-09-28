@@ -93,6 +93,8 @@
  #menu-links a:hover {cursor: pointer;color: #fff;}
  #error_explanation h2 {display:none;}
  #error_explanation ul {list-style-type: none;color:#D9534F;padding:0px 0px 15px 0px;margin:0px;}
+ #bottom-nav a {color:#aaa;}
+ #bottom-nav a:hover {color:#ddd;}
 
  /* Screen - Browse */
  #module-product-results-container {background:#eaeaea;height:565px;}
