@@ -4,6 +4,9 @@ Medley.Views.Header = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+		_.defer( function() {
+              $('#tagline').delay(800).fadeIn(1000);
+        });
 	},
 
 	events: {

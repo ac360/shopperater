@@ -18,12 +18,6 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
       'click #editor-button'                       : 'remixMedley',
       "click .medley-grid-item"                    : "showProductPopUp",
       "click #remix-btn"                           : 'openRemixModal'
-
-  },
-
-  showProductOptions: function(e) {
-    $(e.currentTarget).find( "#medley-item-image-container" ).fadeOut(100);
-    $(e.currentTarget).find( "#medley-item-title-container" ).fadeIn(100);
   },
 
   showProductPopUp: function(e) {
@@ -42,17 +36,22 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
     $('#product-modal').modal('show');
   },
 
-  // linkTest: function() {
-  //     var link = $('.medley-grid-item').attr('data-link') + "%26tag%3D" + this.model.user.affiliate_id
-  //     alert(link);
-  // },
-
   instantiateGridster: function() {
+    	this.options.gridster = $(".gridster ul").gridster({
+                                 widget_margins: [5, 5],
+                                 widget_base_dimensions: [90, 90]
+                              }).data("gridster")
+      // Disable Dragging
+      this.options.gridster.disable();
+  },
+
+  addItemsToMedley: function() {
       var self = this;
-    	var gridster = $(".gridster ul").gridster({
-         widget_margins: [5, 5],
-         widget_base_dimensions: [90, 90]
-      }).data("gridster").disable();
+      _.each(this.model.items, function(item) {
+          if ( item.id !== null ) {
+            self.options.gridster.add_widget('<li class="medley-grid-item" data-id="' + item.id + '" data-title="' + item.title + '" data-price="' + item.price + '" data-imagesmall="' + item.img_small + '" data-imagelarge="' + item.img_big + '" data-category="' + item.category + '" data-source="' + item.source + '" data-link="' + item.link + '"><div id="medley-item-image-container"><img src="' + item.img_small + '" class="product-image" draggable="false"></div></li>', item.x, item.y, item.c, item.r); 
+          };
+      });
   },
 
   highlightDropZone: function(e) {
@@ -67,38 +66,15 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
   addTempItemToGrid: function() {
   	// Check to see if a temporary grid item has already been added...
   	if (!$("li").hasClass("temp-grid-item")) {
-    	// Re-instantiate Gridster under a variable that also has access to the API object
-    	var gridster = $(".gridster ul").gridster({
-                 widget_margins: [5, 5],
-                 widget_base_dimensions: [90, 90],
-                 // Put in callback for drag stop
-                 draggable: {
-                     stop: function () {
-                         self.openRemixModal()
-                     }
-                 }
-             }).data("gridster");
     	// Add new item
-    	gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
+    	this.options.gridster.add_widget('<li class="temp-grid-item"></li>', 1, 1, 1, 1);
   	}
   },
 
   removeTempItemFromGrid: function() {
   	// Check to see if a temporary grid item has already been added...
   	if ($("li").hasClass("temp-grid-item")) {
-    	// Re-instantiate Gridster under a variable that also has access to the API object
-    	var gridster = $(".gridster ul").gridster({
-                 widget_margins: [5, 5],
-                 widget_base_dimensions: [90, 90],
-                 // Put in callback for drag stop
-                 draggable: {
-                     stop: function () {
-                         self.openRemixModal()
-                     }
-                 }
-             }).data("gridster");
-    	// Add new item
-    	gridster.remove_widget($('.temp-grid-item'));
+    	this.options.gridster.remove_widget($('.temp-grid-item'));
     	console.log("Item Removed!")
   	}
   },
@@ -129,7 +105,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
     var self = this;
 		this.$el.html(this.template({ model: this.model })).fadeIn(1000);
     // Defer the instantiation of Gridster so that it happens at the end of everything else
-    _.defer( function() { self.instantiateGridster(); } )
+    _.defer( function() { self.instantiateGridster(), self.addItemsToMedley(); } )
     // Manual Event Binder for Notification Modal Hide
 		return this;
 	}

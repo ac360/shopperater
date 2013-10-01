@@ -6,29 +6,6 @@
 			<div class="gridster">
 	    		<ul id="medley-grid" class="list-unstyled">
 
-	    			<% _.each(model.items, function(model) { %>
-	    			
-		    			<% if ( model.id !== null ) { %>
-		    			<% console.log("This is Being Rendered In The View:", model) %>
-			    				<li class="medley-grid-item" data-row="<%= model.r %>" data-col="<%= model.c %>" data-sizex="<%= model.x %>" data-sizey="<%= model.y %>" data-id="<%= model.id %>" data-title="<%= model.title %>" data-price="<%= model.price %>" data-imagesmall="<%= model.img_small %>" data-imagelarge="<%= model.img_big %>" data-category="<%= model.category %>" data-source="<%= model.source %>" data-link="<%= model.link %>">
-
-				    					<div id="medley-item-image-container">
-											<img src="<%= model.img_small %>" class="product-image" draggable="false">
-										</div>
-
-										<div id="medley-item-title-container" style="display:none">
-											<h1 class="m-font-two product-title" contenteditable="true">
-												<%= model.title %>
-											</h1>
-											<div class="product-option-icons">
-												<i class="glyphicon glyphicon-search"></i>
-											</div>
-										</div>
-
-			    				</li>
-		    			<% } %>
-		    		<% }); %>
-		    		
 	    		</ul>
 	    	</div>
 
@@ -50,12 +27,7 @@
 			</div>
 			<div class="row">
 				<div id="actions-container" class="col-lg-12">
-					<button id="remix-btn" class="btn btn-primary btn-publish">Remix</button>
-					<p style="padding-top:3px;">
-						<a href="#" class="m-centered m-font-light" style="font-size:13px;">
-							Follow User
-						</a>
-					</p>
+					<button id="remix-btn" class="btn btn-primary btn-publish" style="line-height:28px;font-size:12px;"><i class="glyphicon glyphicon-retweet" style="font-size:14px;display:inline-block;vertical-align: middle;"></i> Remix</button>
 				</div>
 			</div>
 

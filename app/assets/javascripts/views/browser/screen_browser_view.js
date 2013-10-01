@@ -128,8 +128,6 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	},
 
 	render: function () {
-		// Render Sub Views
-		// var modulePrimarySearch = new Medley.Views.ModuleBrowseMedleySearch()
 		return this;
 	}
 
