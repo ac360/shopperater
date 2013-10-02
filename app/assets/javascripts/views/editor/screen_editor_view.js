@@ -115,7 +115,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             $('.new-item').html(itemView.render().$el)
             $('.new-item').removeClass('new-item')
         } else {
-            alert("Sorry, Medlies can contain only 12 Items");
+            alert("Sorry, Medlies can only contain 12 items");
         };
         this.gridUnhighlightDropZone();
     },
