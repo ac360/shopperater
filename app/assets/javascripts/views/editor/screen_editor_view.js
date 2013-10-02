@@ -99,7 +99,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             product.title        = e.originalEvent.dataTransfer.getData("productTitle");
             product.price        = e.originalEvent.dataTransfer.getData("productPrice");
             product.img_small    = e.originalEvent.dataTransfer.getData("productImageSmall");
-            product.img_large    = e.originalEvent.dataTransfer.getData("productImageLarge");
+            product.img_big      = e.originalEvent.dataTransfer.getData("productImageLarge");
             product.category     = e.originalEvent.dataTransfer.getData("productCategory");
             product.source       = e.originalEvent.dataTransfer.getData("productSource");
             product.link         = e.originalEvent.dataTransfer.getData("productLink");
@@ -110,7 +110,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             console.log(product);
             // Re-instantiate Gridster
             var gridster = M.instantiateGridster();
-            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_large + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
+            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
             var itemView = new Medley.Views.EditorProduct({ model: product });
             $('.new-item').html(itemView.render().$el)
             $('.new-item').removeClass('new-item')
@@ -159,14 +159,14 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	            thisItem.title      = $(elem).attr('data-title')
 	            thisItem.price      = $(elem).attr('data-price')
 	            thisItem.img_small  = $(elem).attr('data-imagesmall')
-	            thisItem.img_large  = $(elem).attr('data-imagelarge')
+	            thisItem.img_big    = $(elem).attr('data-imagelarge')
 	            thisItem.category   = $(elem).attr('data-category')
 	            thisItem.source     = $(elem).attr('data-source')
 	            thisItem.link       = $(elem).attr('data-link')
 	            thisMedley.items.push( thisItem );
         });
-        console.log("Auto-Saved", thisMedley);
         $.jStorage.set("medley_current", thisMedley);
+        console.log("Auto-Saved", $.jStorage.get("medley_current", false) );
 	},
 
 	validateMedleyTitle: function() {
