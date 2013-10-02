@@ -141,43 +141,42 @@ class MedleyApiController < ApplicationController
 	end 
 
 	def medley_uniqueness_validation 
-		
-		@items = params[:items]
-		item_ids = []
-		@items.each do |item|
-			item_ids << item.second["id"]
-		end
-		conditions = []
-		values = {}
-		item_ids.each_with_index do |t,i|
-		   arg_id = "term#{i}".to_sym
-		   conditions << "(i1_id = :#{arg_id} OR i2_id = :#{arg_id} OR i3_id = :#{arg_id} OR i4_id = :#{arg_id} OR i5_id = :#{arg_id} OR i6_id = :#{arg_id} OR i7_id = :#{arg_id} OR i8_id = :#{arg_id} OR i9_id = :#{arg_id} OR i10_id = :#{arg_id} OR i11_id = :#{arg_id} OR i12_id = :#{arg_id} OR i13_id = :#{arg_id} OR i14_id = :#{arg_id} OR i15_id = :#{arg_id} OR i16_id = :#{arg_id})"
-		   values[arg_id] = t
-		end
-		@existing_medleys = Medley.where(conditions.join(' AND '), values).collect {|m| [m.i1_id, m.i2_id, m.i3_id, m.i4_id, m.i5_id, m.i6_id, m.i7_id, m.i8_id, m.i9_id, m.i10_id, m.i11_id, m.i12_id, m.i13_id, m.i4_id, m.i15_id, m.i16_id].compact! }
-		
-		# render :json => @existing_medleys
-
-		if @existing_medleys.length > 0 
-
-				remainders_array = []
-				@existing_medleys.each do |m|
-					m = m - item_ids
-					length = m.length
-					remainders_array.push(length)
+		if Medley.exists?(:title => params[:title])
+				@result = OpenStruct.new(:valid => false)
+				return @result
+		else
+				item_ids = params[:item_ids]["ids"]
+				conditions = []
+				values = {}
+				item_ids.each_with_index do |t,i|
+				   arg_id = "term#{i}".to_sym
+				   conditions << "(i1_id = :#{arg_id} OR i2_id = :#{arg_id} OR i3_id = :#{arg_id} OR i4_id = :#{arg_id} OR i5_id = :#{arg_id} OR i6_id = :#{arg_id} OR i7_id = :#{arg_id} OR i8_id = :#{arg_id} OR i9_id = :#{arg_id} OR i10_id = :#{arg_id} OR i11_id = :#{arg_id} OR i12_id = :#{arg_id} OR i13_id = :#{arg_id} OR i14_id = :#{arg_id} OR i15_id = :#{arg_id} OR i16_id = :#{arg_id})"
+				   values[arg_id] = t
 				end
+				@existing_medleys = Medley.where(conditions.join(' AND '), values).collect {|m| [m.i1_id, m.i2_id, m.i3_id, m.i4_id, m.i5_id, m.i6_id, m.i7_id, m.i8_id, m.i9_id, m.i10_id, m.i11_id, m.i12_id, m.i13_id, m.i4_id, m.i15_id, m.i16_id].compact! }
+				
+				# render :json => @existing_medleys
 
-				if remainders_array.include? 0
-						@result  =   OpenStruct.new(:valid => false)
-						@result
-				else
-						@result  =   OpenStruct.new(:valid => true)
-						@result
+				if @existing_medleys.length > 0 
+
+						remainders_array = []
+						@existing_medleys.each do |m|
+							m = m - item_ids
+							length = m.length
+							remainders_array.push(length)
+						end
+
+						if remainders_array.include? 0
+								@result  =   OpenStruct.new(:valid => false)
+								@result
+						else
+								@result  =   OpenStruct.new(:valid => true)
+								@result
+						end
+				else 
+					@result     =   OpenStruct.new(:valid => true)
+					@result
 				end
-
-		else 
-			@result     =   OpenStruct.new(:valid => true)
-			@result
 		end
 
 	end

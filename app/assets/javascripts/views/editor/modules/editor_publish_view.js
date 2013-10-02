@@ -49,11 +49,16 @@ Medley.Views.EditorPublish = Backbone.View.extend({
     loadPublishScreenOne: function() {
     	self = this;
     	$('#uniqueness-screen').fadeIn(400);
+    	items = {}
+    	items.ids = []
+    	$(this.model.items).each(function(index, item) {
+    		items.ids.push(item.id)
+    	});
     	var unique = new Medley.Models.MedleyUniquenessValidation();
     	unique.fetch({ 
 		    data: { 
 		    	title: this.model.title,
-		  		items: this.model.items
+		  		item_ids: items
 		    },
 		    processData: true,
 		    success: function (response) {
@@ -167,7 +172,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 			          }
 				}) // End of thisMedley.save
 	          	
-	          	// $('#publish-medley-modal').modal('hide')
+	          	$('#publish-medley-modal').modal('hide')
 	        },
 	        error: function (model, xhr) {
 	            var errors = $.parseJSON(xhr.responseText).errors
