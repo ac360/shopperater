@@ -3,6 +3,8 @@ Shopperater::Application.routes.draw do
   # API Routes
   match 'api/medleys',                      :to => 'medley_api#medley_search',                :via => [:get]
   match 'api/medleys',                      :to => 'medley_api#create_medley',                :via => [:post]
+  match 'api/medley_create_items/:id',      :to => 'medley_api#medley_create_items',          :via => [:put]
+  match 'api/medley/:id',                   :to => 'medley_api#update_medley',                :via => [:put]
   match 'api/medleys_most_recent',          :to => 'medley_api#medley_most_recent',           :via => [:get]
   match 'api/product_search',               :to => 'medley_api#product_search',               :via => [:get]
   match 'api/product_lookup',               :to => 'medley_api#product_lookup',               :via => [:get]

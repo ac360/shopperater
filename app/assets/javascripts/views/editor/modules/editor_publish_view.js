@@ -91,7 +91,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 	},
 
 	loadPublishScreenFour: function() {
-		console.log("publish Screen Four: ", this.model);
+		console.log("Publish Screen Four: ", this.model);
 	},
 
 	reformatTag: function(e) {
@@ -139,18 +139,41 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 	},
 
 	publishMedley: function() {
+		var self = this;
 		console.log("this is the Medley to be published", this.model);
-
-		var thisMedley = new Medley.Collections.Medlies()
-    	thisMedley.create(this.model, {
-		          success: function () {
-		          	$('#publish-medley-modal').modal('hide')
-		          },
-		          error: function (model, xhr) {
-		            var errors = $.parseJSON(xhr.responseText).errors
-		            console.log(errors)
-		          }
-		}) // End of thisMedley.save
+		var MedleyInfo = new Medley.Collections.Medlies()
+    	MedleyInfo.create({
+    		tag_one     : this.model.tag_one,
+    		tag_two     : this.model.tag_two,
+    		tag_three   : this.model.tag_three,
+    		category    : this.model.category,
+    		title       : this.model.title,
+    		remix_of    : this.model.remix_of,
+    		description : this.model.description
+    	}, {
+	        success: function (response) {
+	          	console.log("Medley published!  Now Add The Items...");
+	          	var result     = response.toJSON();
+	          	var thisMedley = new Medley.Models.MedleyCreateItems({ id: result.id })
+	          	thisMedley.save({
+	          		items: self.model.items
+	          	}, {
+			          success: function () {
+			          		console.log("Medley should now contain items!")
+			          },
+			          error: function (model, xhr) {
+			            var errors = $.parseJSON(xhr.responseText).errors
+			            console.log(errors)
+			          }
+				}) // End of thisMedley.save
+	          	
+	          	// $('#publish-medley-modal').modal('hide')
+	        },
+	        error: function (model, xhr) {
+	            var errors = $.parseJSON(xhr.responseText).errors
+	            console.log(errors)
+	        }
+		}) // End of MedleyInfo.save
 	},
 
 	render: function () {

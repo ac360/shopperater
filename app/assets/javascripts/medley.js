@@ -22,7 +22,7 @@ var M = {};
 // Create Helper Object Functions
 M.checkMedleyItemCount = function() {
   var medleyItemsCount = $("#medley-grid li").size()
-  if (medleyItemsCount < 16) {
+  if (medleyItemsCount < 12) {
     return true;
   } else {
     return false;
