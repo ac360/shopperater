@@ -181,6 +181,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	showTour: function() {
 		console.log("Showing Tour...")
+		
 	},
 
 	newUserChecks: function() {
