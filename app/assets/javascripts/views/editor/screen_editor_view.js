@@ -189,31 +189,31 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
 						$('#editor-title-error').slideDown(120);
-						return false;
+						return false
 				} else if ( title.length > 40) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Titles can only be 40 characters long');
 						$('#editor-title-error').slideDown(120);
-						return false;
+						return false
 				} else if ( title == "remixed medley" ) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
 						$('#editor-title-error').slideDown(120);
-						return false;
+						return false
 				} else if ( title == "Untitled Medley" ) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
 						$('#editor-title-error').slideDown(120);
-						return false;
+						return false
 				} else if (result.valid == false)  {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
 						$('#editor-title-error').slideDown(120);
-						return false;
+						return false
 				} else {
 						$('#medley-title').removeClass('red-border');
 						$('#editor-title-error').slideUp(120);
-						return true;
+						return true
 				}
 		    } // success
 		}); // uniquenuess.fetch
@@ -242,21 +242,64 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 
 	openPublishArea: function() {
 		var self = this;
-		var validateTitle = this.validateMedleyTitle();
-		if (validateTitle === false) {return}
-		var validateDescription = this.validateMedleyDescription();
-		if (validateDescription === false) {return}
-        var medleyItemsCount = $("#medley-grid li").size()
-        if (medleyItemsCount > 1) {
-	           	// Clear existing mark-up from modal inner-container
-	           	$('#publish-modal-inner').html('');
-	            $('#publish-medley-modal').modal();
-	            var publishView = new Medley.Views.EditorPublish();
-	        	$('#publish-modal-inner').html(publishView.render().$el);
-		        $('#publish-medley-modal').modal('show');
-        } else {
-            	alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
-        };
+		// Re-Run Title Validation - TODO Clean this up, it's redundant
+		var title = $('#medley-title').text().toLowerCase();
+		var uniqueness = new Medley.Models.TitleValidation();
+		uniqueness.fetch({ 
+		    data: { 
+		    	title: title
+		    },
+		    processData: true,
+		    success: function (response) {
+		    	var result = response.toJSON();
+				if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
+						$('#editor-title-error').slideDown(120);
+						return
+				} else if ( title.length > 40) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Titles can only be 40 characters long');
+						$('#editor-title-error').slideDown(120);
+						return
+				} else if ( title == "remixed medley" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+						$('#editor-title-error').slideDown(120);
+						return
+				} else if ( title == "Untitled Medley" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+						$('#editor-title-error').slideDown(120);
+						return
+				} else if (result.valid == false)  {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
+						$('#editor-title-error').slideDown(120);
+						return
+				} else {
+						// Title Is Unique!  Proceed...
+						$('#medley-title').removeClass('red-border');
+						$('#editor-title-error').slideUp(120);
+						// Description Validation
+						var validateDescription = self.validateMedleyDescription();
+						if (validateDescription == false) {
+							return;
+						};
+						var medleyItemsCount = $("#medley-grid li").size();
+				        if (medleyItemsCount > 1) {
+				           	// Clear existing mark-up from modal inner-container
+				           	$('#publish-modal-inner').html('');
+				            $('#publish-medley-modal').modal();
+				            var publishView = new Medley.Views.EditorPublish();
+				        	$('#publish-modal-inner').html(publishView.render().$el);
+					        $('#publish-medley-modal').modal('show');
+				        } else {
+				            alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
+				        };
+				} // if statement to do further checks on title
+		    } // success
+		}); // uniquenuess.fetch
     },
 
 	hidePublishModal: function() {

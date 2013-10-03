@@ -19,19 +19,18 @@
 </div>
 
 <div id="uniqueness-invalid-screen" style="display:none;">
-	<div class="row">
-		<div class="col-lg-12 m-centered">
-			
-			<p class="m-centered" style="margin-top:80px">	
-				<i style="font-size:30px;" class="glyphicon glyphicon-warning-sign"></i> 
-			</p>
-			<h4 class="m-centered m-font-light" style="margin:15px 0px 0px 0px">
-				A Medley With These Items Already Exists
-			</h4>
-			<h4 class="m-centered m-font-light" style="margin:10px 0px 15px 0px">Try Something Different</h4>
-			<button id="try-again-btn" class="btn btn-primary btn-publish">Ok</button>
-    	</div>
-	</div>
+		<div class="row">
+			<div class="col-lg-12 m-centered">
+				
+				<h4 class="m-centered m-font-light" style="margin:110px 0px 0px 0px">
+					A Medley With These Items Already Exists
+				</h4>
+				<h4 class="m-centered m-font-light" style="margin:10px 0px 15px 0px">Try Something Different</h4>
+				<button id="try-again-btn" class="btn btn-primary btn-publish">Ok</button>
+	    	</div>
+		</div>
+
+
 </div>
     		
 <div id="category-screen" style="display:none;">
@@ -258,12 +257,9 @@
     	</div><!-- row -->
 </div> <!-- #tag-screen -->
 
-
-
-<div style="display:none">
-	<h4 id="publish-confirm-title" class="m-centered m-font-light" style="margin-top:70px;">Ready to Publish?</h4>
+<div id="success-screen" style="display:none">
+	<h3 id="publish-confirm-title" class="m-centered m-font-light" style="margin-top:90px;">Success!</h3>
 	<h4 id="publish-confirm-title" class="m-centered m-font-bold"><%= model.title %></h4>
-	<h5 id="publish-confirm-category" class="m-centered m-font-light"><%= M.getCategory(model.category) %></h5>
-	<h6 id="publish-confirm-category" class="m-centered m-font-light"><%= model.tag_one %>, <%= model.tag_two %>, <%= model.tag_three %></h6>
-	<center><button id="publish-confirm-button" class="btn btn-primary btn-publish">Publish</button></center>
+	<h5 id="publish-confirm-category" class="m-centered m-font-light">has been published</h5>
+	<center><button id="publish-success-button" class="btn btn-primary btn-publish">Ok</button></center>
 </div>

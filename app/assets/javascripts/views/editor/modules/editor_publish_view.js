@@ -66,7 +66,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 		    processData: true,
 		    success: function (response) {
 		    	var result = response.toJSON();
-		    	console.log(result.valid)
+		    	console.log("Uniqueness Check: ", result.valid)
 		    	if (result.valid == true) {
 			  		 $('#uniqueness-screen').delay(1000).fadeOut(400, function() {
 					    $('#uniqueness-valid-screen').fadeIn(400).delay(800).fadeOut(300, function() {
@@ -96,10 +96,6 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 		 }else{
 		    	alert("Please select a Category for your Medley");
 		 }
-	},
-
-	loadPublishScreenFour: function() {
-		console.log("Publish Screen Four: ", this.model);
 	},
 
 	reformatTag: function(e) {
@@ -180,14 +176,20 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 			            console.log(errors)
 			          }
 				}) // End of thisMedley.save
-	          	
-	          	$('#publish-medley-modal').modal('hide')
+	          	self.publishSuccess();
+	          	// $('#publish-medley-modal').modal('hide')
 	        },
 	        error: function (model, xhr) {
 	            var errors = $.parseJSON(xhr.responseText).errors
 	            console.log(errors)
 	        }
 		}) // End of MedleyInfo.save
+	},
+
+	publishSuccess: function() {
+		$('#tags-screen').fadeOut(200, function() {
+		    $('#success-screen').fadeIn(200);
+		});
 	},
 
 	render: function () {
