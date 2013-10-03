@@ -200,6 +200,11 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
 						$('#editor-title-error').slideDown(120);
 						return false;
+				} else if ( title == "Untitled Medley" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+						$('#editor-title-error').slideDown(120);
+						return false;
 				} else if (result.valid == false)  {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
