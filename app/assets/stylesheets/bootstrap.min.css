@@ -135,7 +135,7 @@
  #module-medley-results {background:#eaeaea;min-height:565px;}
 
  /* Screen - Product Pop-Up */
- #product-modal .modal-content {background:#eaeaea;}
+ #product-modal .modal-content {background:#eaeaea;border:none!important;}
  .product-popup-image {max-width:90%;padding:5px;background:#fff;}
 
  /* Screen - Editor */

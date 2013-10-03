@@ -48,8 +48,8 @@ Medley.Views.Registration = Backbone.View.extend({
 		    	$('.registration-username').css("background-color", "#ffd1d1");
 		    	this.options.validations.username = false
 		    	return;
-			// Check if username exists
 			} else {
+				// Check if username exists
 		    	var usernameValidation = new Medley.Models.UsernameValidation({})
 			    usernameValidation.fetch({
 		                data: { username: $('.registration-username').val() },
