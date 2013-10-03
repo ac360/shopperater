@@ -22,6 +22,9 @@ Medley.Views.EditorPublish = Backbone.View.extend({
     		var thisMedley              = {};
             thisMedley.title            = $('#medley-title').text();
             thisMedley.description      = $('#description').text();
+            if (thisMedley.description.length > 300) {
+            	this.descriptionError("length");
+            };
             // Get Remix Of Data Attribute Include in Medley Title Tag
             if ( $('#medley-title').attr('data-remixof') !== undefined ) {
             	thisMedley.remix_of     = $('#medley-title').attr('data-remixof');
@@ -104,6 +107,12 @@ Medley.Views.EditorPublish = Backbone.View.extend({
 		tag = tag.replace(/[_\W]/g, '').toLowerCase()
 		$(e.currentTarget).val(tag);
 	},
+
+	descriptionError: function(error) {
+		if (error == "length") {
+			console.log("Description is too long")
+		};
+	},	
 
 	validateAllTagsAndProceed: function() {
 		var validation = []

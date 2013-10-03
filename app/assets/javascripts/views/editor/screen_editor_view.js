@@ -66,6 +66,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		    },
 		    delay: 400
 		});
+		$('#description').typing({
+		    stop: function (event, $elem) {
+		        self.validateMedleyDescription();
+		    },
+		    delay: 1000
+		});
 	}, // initialize
 
 	events: {
@@ -198,6 +204,24 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 				}
 		    } // success
 		}); // uniquenuess.fetch
+	},
+
+	validateMedleyDescription: function() {
+		var description = $('#description').text().replace(/[^a-zA-Z0-9/.,!? ]/g, '');
+		$('#description').text(description)
+		M.placeCaretAtEnd( document.getElementById("description") );
+		if (description == "Click here to enter or edit a description for the Medley...") {
+			$('#description').addClass('red-border');
+			$('#editor-description-error').text('Please Write Your Own Description For This Medley')
+			$('#editor-description-error').slideDown(120);
+		} else if (description.length > 700) {
+			$('#description').addClass('red-border');
+			$('#editor-description-error').text('Medley Description Is Too Long, Please Shorten It.')
+			$('#editor-description-error').slideDown(120);
+		} else {
+			$('#description').removeClass('red-border');
+			$('#editor-description-error').slideUp(120);
+		}
 	},
 
 	openPublishArea: function() {

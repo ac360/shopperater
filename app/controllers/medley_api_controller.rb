@@ -197,10 +197,10 @@ class MedleyApiController < ApplicationController
 		else
 			@medley.user_id = 1
 		end
-		@medley.remix_of 					= params[:remix_of]           					if params[:remix_of].present?
-		@medley.title 						= params[:title].downcase.titleize         		if params[:title].present?
-		@medley.description			    	= params[:description].mb_chars.strip.normalize if params[:description].present?
-		@medley.category			    	= params[:category]        						if params[:category].present?
+		@medley.remix_of 					= params[:remix_of]           									if params[:remix_of].present?
+		@medley.title 						= params[:title].downcase.split.map(&:capitalize).join(' ') 	if params[:title].present?
+		@medley.description			    	= params[:description].mb_chars.strip.normalize 				if params[:description].present?
+		@medley.category			    	= params[:category]        										if params[:category].present?
 		@medley.tag_1_id		        	= @tag_one.id
 		@medley.tag_2_id		        	= @tag_two.id
 		@medley.tag_3_id			    	= @tag_three.id
