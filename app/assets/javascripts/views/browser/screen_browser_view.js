@@ -16,9 +16,15 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	    	});
 		};
 
+		// Manual Event Binders
+		$('#welcome-modal').on('hidden.bs.modal', function () {
+			  self.addNewsletterSubscriber();
+		})
+
+		// Check And Run New User Messages
 		_.defer( function() {
-        	self.showWelcomeModal();
-    	});
+			self.newUserChecks();
+		});
 	},
 
 	events: {
@@ -26,7 +32,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"keypress #primary-search-field"			:   "detectEnterButton",
 		"click .medley-result-box"					:   "showMedleySearchResult",
 		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
-		"click #newsletter-subscribe-submit-button" :   "addNewsletterSubscriber"
+		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal"
     },
 
     detectEnterButton: function(event) {
@@ -148,7 +154,11 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	    $('#welcome-modal').modal('show');
 	},
 
-	addNewsletterSubscriber: function() {
+	hideWelcomeModal: function() {
+		$('#welcome-modal').modal('hide');
+	},
+
+	addNewsletterSubscriber: function(email) {
 		var email = $('#newsletter-email-field').val()
 		if (email == "") {
 		} else {
@@ -159,6 +169,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		        success: function (response) {
 		        	var subscriber = response.toJSON();
 		          	console.log("successfully created: ", subscriber.email);
+		          	$.jStorage.set("medley_welcome_1", true);
 		        },
 		        error: function (model, xhr) {
 		            var errors = $.parseJSON(xhr.responseText).errors
@@ -166,5 +177,22 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		        }
 			}) // End of MedleyInfo.save
 		};
+	},
+
+	showTour: function() {
+		console.log("Showing Tour...")
+	},
+
+	newUserChecks: function() {
+		var self = this;
+		var welcomed = $.jStorage.get("medley_welcome_1", false);
+		if (welcomed === false) {
+			self.showWelcomeModal();
+		};
+		var toured = $.jStorage.get("medley_tour_1", false);
+		if (toured === false) {
+			self.showTour();
+		};
+
 	}
 });

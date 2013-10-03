@@ -468,7 +468,6 @@ class MedleyApiController < ApplicationController
 	def add_newsletter_subscriber
 		@subscriber = NewsletterSubscriber.new()
 		@subscriber.email = params[:email]
-		@subscriber.first_name = params[:first_name]
 		if @subscriber.save
 			render :json => @subscriber
 		else
