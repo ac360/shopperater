@@ -176,8 +176,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	},
 
 	validateMedleyTitle: function() {
-
-		var title = $('#medley-title').text();
+		var title = $('#medley-title').text().toLowerCase();
 		var uniqueness = new Medley.Models.TitleValidation();
 		uniqueness.fetch({ 
 		    data: { 
@@ -190,17 +189,26 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
 						$('#editor-title-error').slideDown(120);
+						return false;
 				} else if ( title.length > 40) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Titles can only be 40 characters long');
 						$('#editor-title-error').slideDown(120);
+						return false;
+				} else if ( title == "remixed medley" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+						$('#editor-title-error').slideDown(120);
+						return false;
 				} else if (result.valid == false)  {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
 						$('#editor-title-error').slideDown(120);
+						return false;
 				} else {
 						$('#medley-title').removeClass('red-border');
 						$('#editor-title-error').slideUp(120);
+						return true;
 				}
 		    } // success
 		}); // uniquenuess.fetch
@@ -212,20 +220,27 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		M.placeCaretAtEnd( document.getElementById("description") );
 		if (description == "Click here to enter or edit a description for the Medley...") {
 			$('#description').addClass('red-border');
-			$('#editor-description-error').text('Please Write Your Own Description For This Medley')
+			$('#editor-description-error').text('Please Come Up With Your Own Description For This Medley')
 			$('#editor-description-error').slideDown(120);
+			return false;
 		} else if (description.length > 700) {
 			$('#description').addClass('red-border');
 			$('#editor-description-error').text('Medley Description Is Too Long, Please Shorten It.')
 			$('#editor-description-error').slideDown(120);
+			return false;
 		} else {
 			$('#description').removeClass('red-border');
 			$('#editor-description-error').slideUp(120);
+			return true;
 		}
 	},
 
 	openPublishArea: function() {
 		var self = this;
+		var validateTitle = this.validateMedleyTitle();
+		if (validateTitle === false) {return}
+		var validateDescription = this.validateMedleyDescription();
+		if (validateDescription === false) {return}
         var medleyItemsCount = $("#medley-grid li").size()
         if (medleyItemsCount > 1) {
 	           	// Clear existing mark-up from modal inner-container
