@@ -8,23 +8,29 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		var self = this;
 		var params = M.getParams();
 		
+		// If params exist, preload a search, else do New User Verification
 		if (params !== undefined && params.search !== undefined) {
 			console.log("Parameters: ", params)
 			_.defer( function() {
 	        	$('#primary-search-field').val(decodeURI(params.search));  
 	        	self.search();
 	    	});
+		} else {
+			// Check And Run New User Messages
+			_.defer( function() {
+				var newUser = self.newUserChecks();
+				console.log("New User? ", newUser)
+				if (newUser === false) {
+					self.showDemo();
+				}
+			});
 		};
 
 		// Manual Event Binders
 		$('#welcome-modal').on('hidden.bs.modal', function () {
-			  self.addNewsletterSubscriber();
+			self.addNewsletterSubscriber();
+			self.showDemo();
 		})
-
-		// Check And Run New User Messages
-		_.defer( function() {
-			self.newUserChecks();
-		});
 	},
 
 	events: {
@@ -156,12 +162,12 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	hideWelcomeModal: function() {
 		$('#welcome-modal').modal('hide');
-		this.showDemo();
 	},
 
 	addNewsletterSubscriber: function(email) {
 		var email = $('#newsletter-email-field').val()
 		if (email == "") {
+			$.jStorage.set("medley_welcome_1", true);
 		} else {
 			newSubscriber = new Medley.Collections.NewsletterSubscribers();
 			newSubscriber.create({
@@ -183,7 +189,6 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	showDemo: function() {
 		console.log("Showing Demo...")
 		var self = this;
-
 		setTimeout(function() {
 
 			setTimeout(function() {
@@ -201,6 +206,9 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 			setTimeout(function() {
 			      self.search();
 			}, 1100);
+			setTimeout(function() {
+			      $( "#primary-search-field" ).focus();
+			}, 1200);
 
 		}, 1000);
 	},
@@ -210,8 +218,9 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		var welcomed = $.jStorage.get("medley_welcome_1", false);
 		if (welcomed === false) {
 			self.showWelcomeModal();
+			return true
 		} else {
-			self.showDemo();
+			return false
 		};
 	}
 });
