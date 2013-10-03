@@ -465,4 +465,15 @@ class MedleyApiController < ApplicationController
 
 	end # medley_create_items
 
+	def add_newsletter_subscriber
+		@subscriber = NewsletterSubscriber.new()
+		@subscriber.email = params[:email]
+		@subscriber.first_name = params[:first_name]
+		if @subscriber.save
+			render :json => @subscriber
+		else
+			render :json => "New Subscriber Could Not Be Saved"
+		end
+	end
+
 end

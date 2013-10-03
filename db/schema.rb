@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130927181902) do
+ActiveRecord::Schema.define(:version => 20131003184000) do
 
   create_table "cart_items", :force => true do |t|
     t.string   "product_name"
@@ -246,6 +246,13 @@ ActiveRecord::Schema.define(:version => 20130927181902) do
     t.integer  "tag_2_id"
     t.integer  "tag_3_id"
     t.integer  "user_id",          :default => 1
+  end
+
+  create_table "newsletter_subscribers", :force => true do |t|
+    t.string   "email"
+    t.string   "first_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "tags", :force => true do |t|

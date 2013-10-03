@@ -122,8 +122,6 @@
  .product-option-icons i:hover {color:#999;cursor:pointer;}
  #medley-reset-link {color:#999;text-align:center;}
  #medley-reset-link:hover {color:#fff;}
-
-
  #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
  #medley-title-browser  {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;line-height: 20px;}
  #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background:url('crisscross.png') #111111;background-size:200px 200px;padding-top:10px;padding-bottom:10px;-webkit-box-shadow: inset 0px 0px 8px 0px #050505;box-shadow: inset 0px 0px 8px 0px #050505;border:1px solid #191919;}
@@ -134,7 +132,10 @@
  #medley-description {min-height:100px;color:#cccccc;font-size:14px;}
  #module-medley-results {background:#eaeaea;min-height:565px;}
 
- /* Screen - Product Pop-Up */
+ /* Welcome Modal */
+ #welcome-modal .modal-content {background:#eaeaea;border:none!important;}
+
+ /* Product Modal */
  #product-modal .modal-content {background:#eaeaea;border:none!important;}
  .product-popup-image {max-width:90%;padding:5px;background:#fff;}
 

@@ -15,6 +15,10 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	        	self.search();
 	    	});
 		};
+
+		_.defer( function() {
+        	self.showWelcomeModal();
+    	});
 	},
 
 	events: {
@@ -136,5 +140,10 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 		var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: thisMedley.toJSON() })
 	    $('#module-medley-browser').html(moduleMedley.render().$el);
-	}
+	},
+
+	showWelcomeModal: function() {
+	    $('#welcome-modal').modal();
+	    $('#welcome-modal').modal('show');
+	},
 });
