@@ -10,36 +10,26 @@ Medley.Views.ModuleBrowseItemResults = Backbone.View.extend({
 	},
 
 	events: {
-		"click #add-to-cart-button":           "addItemToCart"
+		"click .item-result-row":           "showProductPopUp"
     },
 
-    addItemToCart: function(e) {
-    	// If Guest Session
-    	var guestCartItems = $.jStorage.get("MedleyGuestCart");
-		if(!guestCartItems){
-			// Create Array w/ first Javascript Object
-			var guestCart = []
-			var cartItem1 = {}
-			// Get Product Details
-			cartItem1.title = $(e.currentTarget).attr( "data-title" );
-			cartItem1.asin = $(e.currentTarget).attr( "data-asin" );
-			cartItem1.product_group = $(e.currentTarget).attr( "data-product-group" );
-			guestCart.push(cartItem1)
-			// Save item to localstorage
-			$.jStorage.set("MedleyGuestCart", guestCart);
-			var newItemCount = guestCart.length;
-			$('#cart-item-count').text(newItemCount);
-		} else {
-			var guestCart = $.jStorage.get("MedleyGuestCart");
-			var newCartItem = {}
-			newCartItem.title = $(e.currentTarget).attr( "data-title" );
-			newCartItem.asin = $(e.currentTarget).attr( "data-asin" );
-			newCartItem.product_group = $(e.currentTarget).attr( "data-product-group" );
-			guestCart.push(newCartItem)
-			$.jStorage.set("MedleyGuestCart", guestCart);
-			var newItemCount = guestCart.length
-			$('#cart-item-count').text(newItemCount)
-		};
+    showProductPopUp: function(e) {
+    	var self = this;
+    	console.log(this.collection)
+    	// Get ID of Product
+	    var productID = $(e.currentTarget).attr('data-id');
+	    console.log(productID);
+	    // Get Specific Product From Model & Make It A Seperate Model
+	    var thisProduct = _.where(self.collection, {id: productID})[0]
+	    // Update Link
+	    thisProduct.link = $(e.currentTarget).attr('data-link') + "%26tag%3Dmedley01-20"
+	    // Prepare Modal
+	    $('#product-modal').html('');
+	    var productPopUp = new Medley.Views.BrowserProductPopUp({ model: thisProduct })
+	    $('#product-modal').html(productPopUp.render().$el);
+
+	    $('#product-modal').modal();
+	    $('#product-modal').modal('show');
     },
 
 	render: function () {
