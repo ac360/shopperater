@@ -146,4 +146,23 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	    $('#welcome-modal').modal();
 	    $('#welcome-modal').modal('show');
 	},
+
+	addNewsletterSubscriber: function() {
+		var email = $('#newsletter-email-field').val()
+		if (email == "") {
+		} else {
+			newSubscriber = new Medley.Collections.NewsletterSubscribers();
+			newSubscriber.create({
+	    		email       : email
+	    	}, {
+		        success: function (response) {
+		          	
+		        },
+		        error: function (model, xhr) {
+		            var errors = $.parseJSON(xhr.responseText).errors
+		            console.log(errors)
+		        }
+			}) // End of MedleyInfo.save
+		};
+	}
 });

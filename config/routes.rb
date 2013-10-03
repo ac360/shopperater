@@ -12,6 +12,7 @@ Shopperater::Application.routes.draw do
   match 'api/email_validation',             :to => 'medley_api#email_validation',             :via => [:get]
   match 'api/medley_title_validation',      :to => 'medley_api#medley_title_validation',      :via => [:get]
   match 'api/medley_uniqueness_validation', :to => 'medley_api#medley_uniqueness_validation', :via => [:get]
+  match 'api/add_newsletter_subscriber',    :to => 'medley_api#add_newsletter_subscriber',    :via => [:post]
 
   authenticated :user do
     match 'api/get_cart_items',     :to => 'shopperater_api#get_cart_items'
