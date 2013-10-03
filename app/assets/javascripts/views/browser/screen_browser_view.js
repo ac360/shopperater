@@ -7,9 +7,9 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		
 		var self = this;
 		var params = M.getParams();
-		console.log("Parameters: ", params)
 		
 		if (params !== undefined && params.search !== undefined) {
+			console.log("Parameters: ", params)
 			_.defer( function() {
 	        	$('#primary-search-field').val(decodeURI(params.search));  
 	        	self.search();
@@ -25,7 +25,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click #primary-search-button"              :   "search",
 		"keypress #primary-search-field"			:   "detectEnterButton",
 		"click .medley-result-box"					:   "showMedleySearchResult",
-		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult"
+		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
+		"click #newsletter-subscribe-submit-button" :   "addNewsletterSubscriber"
     },
 
     detectEnterButton: function(event) {
@@ -156,7 +157,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	    		email       : email
 	    	}, {
 		        success: function (response) {
-		          	
+		        	var subscriber = response.toJSON();
+		          	console.log("successfully created: ", subscriber.email);
 		        },
 		        error: function (model, xhr) {
 		            var errors = $.parseJSON(xhr.responseText).errors
