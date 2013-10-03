@@ -35,9 +35,9 @@ Medley.Views.Registration = Backbone.View.extend({
 		        this.options.validations.username = false
 		        return;  
 		    }
-		    if (username.length < 8) {
+		    if (username.length < 3) {
 		        
-		        $('#username-notifications').removeClass('hide').html('<p style="color:#ffd1d1">Username must be at least 8 characters long</p>')
+		        $('#username-notifications').removeClass('hide').html('<p style="color:#ffd1d1">Username must be at least 3 characters long</p>')
 		        $('.registration-username').css("background-color", "#ffd1d1");
 		        this.options.validations.username = false
 		        return;  
