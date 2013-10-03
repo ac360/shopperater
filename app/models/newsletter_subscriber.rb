@@ -1,3 +1,4 @@
 class NewsletterSubscriber < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :email
+  validates :email, uniqueness: true
 end
