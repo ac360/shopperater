@@ -42,26 +42,10 @@
  .red-border {border: 1px solid #ff6b6b!important;}
  .m-capitalize {text-transform: capitalize;}
  /* Style Placeholder Text --> */ ::-webkit-input-placeholder { text-align:center!important; } :-moz-placeholder { /* Firefox 18- */ text-align:center!important; } ::-moz-placeholder {  /* Firefox 19+ */ text-align:center!important; } :-ms-input-placeholder { text-align:center!important; } .form-control:focus {border: none; outline: 0; -webkit-box-shadow:none; box-shadow:none; }
+ 
  /* Animations */
- @-webkit-keyframes rotating {
-  from {
-    -webkit-transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-.rotating {
-
-  -webkit-transform:rotate(120deg);
-  -moz-transform:rotate(120deg);
-  -o-transform:rotate(120deg);
-  /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */
-  -ms-transform:rotate(120deg); 
-}
-
-
+ @-webkit-keyframes rotating {from {-webkit-transform: rotate(0deg); } to {-webkit-transform: rotate(360deg); } }
+.rotating {-webkit-transform:rotate(120deg); -moz-transform:rotate(120deg); -o-transform:rotate(120deg); /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */ -ms-transform:rotate(120deg); }
 
  /* Body */
  body {background:url('crisscross.png') #212121;background-size:200px 200px;}
@@ -148,7 +132,7 @@
  .medley-grid-item:hover {border:1px solid #fff;-webkit-box-shadow: 0px 0px 8px 0px #ffffff;box-shadow:0px 0px 8px 0px #ffffff;}
  .medley-grid-item-view {min-height:100%;}
  #medley-item-image-container {text-align:center;}
- #medley-item-image-container img { max-width:90%;max-height:90%;padding-top:5px;}
+ #medley-item-image-container img { max-width:90%;max-height:90%;padding-top:5px;-moz-box-sizing: border-box;}
  #medley-item-title-container {display:none;}
  #item-options-panel {background:#eaeaea;height:190px;width:100%;}
  #item-options-panel .glyphicon-remove {color:#bbb;padding:5px;}
