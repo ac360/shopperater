@@ -156,6 +156,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	hideWelcomeModal: function() {
 		$('#welcome-modal').modal('hide');
+		this.showDemo();
 	},
 
 	addNewsletterSubscriber: function(email) {
@@ -179,9 +180,29 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		};
 	},
 
-	showTour: function() {
-		console.log("Showing Tour...")
-		
+	showDemo: function() {
+		console.log("Showing Demo...")
+		var self = this;
+
+		setTimeout(function() {
+
+			setTimeout(function() {
+			      $('#primary-search-field').val('G')
+			}, 200);
+			setTimeout(function() {
+			      $('#primary-search-field').val('GT')
+			}, 400);
+			setTimeout(function() {
+			      $('#primary-search-field').val('GTA')
+			}, 600);
+			setTimeout(function() {
+			      $('#primary-search-field').val('GTA V')
+			}, 800);
+			setTimeout(function() {
+			      self.search();
+			}, 1100);
+
+		}, 1000);
 	},
 
 	newUserChecks: function() {
@@ -189,11 +210,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		var welcomed = $.jStorage.get("medley_welcome_1", false);
 		if (welcomed === false) {
 			self.showWelcomeModal();
+		} else {
+			self.showDemo();
 		};
-		var toured = $.jStorage.get("medley_tour_1", false);
-		if (toured === false) {
-			self.showTour();
-		};
-
 	}
 });
