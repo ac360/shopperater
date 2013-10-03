@@ -186,7 +186,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		    processData: true,
 		    success: function (response) {
 		    	var result = response.toJSON();
-				if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
+				if ( title == "" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Give Your Medley A Title');
+						$('#editor-title-error').slideDown(120);
+						return false
+				} else if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
 						$('#editor-title-error').slideDown(120);
@@ -253,7 +258,12 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		    processData: true,
 		    success: function (response) {
 		    	var result = response.toJSON();
-				if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
+		    	if ( title == "" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Give Your Medley A Title');
+						$('#editor-title-error').slideDown(120);
+						return false
+				} else if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
 						$('#editor-title-error').slideDown(120);
@@ -261,6 +271,11 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 				} else if ( title.length > 40) {
 						$('#medley-title').addClass('red-border');
 						$('#editor-title-error').text('Titles can only be 40 characters long');
+						$('#editor-title-error').slideDown(120);
+						return
+				} else if ( title == "" ) {
+						$('#medley-title').addClass('red-border');
+						$('#editor-title-error').text('Please Enter A Title');
 						$('#editor-title-error').slideDown(120);
 						return
 				} else if ( title == "remixed medley" ) {
