@@ -84,7 +84,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'click #medley-publish-button'              :   'openPublishArea',
 		'click #publish-confirm-button'			    :   'publishMedley',
 		'click #medley-reset-link'					:   'deleteMedley',
-		'click #try-again-btn'                      :   'hidePublishModal'
+		'click #try-again-btn'                      :   'hidePublishModal',
+		'click #publish-success-button'				:   'clearMedleyAndRedirect'
 	},
 
 	gridHighlightDropzone: function(e) {
@@ -308,8 +309,15 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		$('#uniqueness-invalid-screen').fadeOut(100);
 		$('#category-screen').fadeOut(100);
 		$('#tags-screen').fadeOut(100);
-
 		$('#publish-medley-modal').modal('hide')
+	},
+
+	clearMedleyAndRedirect: function() {
+		var self = this;
+		$.jStorage.deleteKey("medley_current");
+		var searchKeywords = $('#publish-confirm-title').text();
+		var homeLink = '/?search=' + searchKeywords
+		window.location = homeLink
 	},
 
 	render: function () {

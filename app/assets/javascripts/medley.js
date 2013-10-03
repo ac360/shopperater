@@ -183,4 +183,17 @@ M.placeCaretAtEnd = function(el) {
       }
 };
 
+M.getParams = function() {
+  var query = location.search.substr(1);
+    if(query){
+      var data = query.split("&");
+      var params = {};
+      for(var i=0; i<data.length; i++) {
+          var item = data[i].split("=");
+          params[item[0]] = item[1];
+      }
+      return params;
+    };
+}
+
 

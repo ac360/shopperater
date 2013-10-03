@@ -4,6 +4,17 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+		
+		var self = this;
+		var params = M.getParams();
+		console.log("Parameters: ", params)
+		
+		if (params !== undefined && params.search !== undefined) {
+			_.defer( function() {
+	        	$('#primary-search-field').val(decodeURI(params.search));  
+	        	self.search();
+	    	});
+		};
 	},
 
 	events: {
@@ -125,10 +136,5 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 		var moduleMedley = new Medley.Views.ModuleBrowseMedleyPreviewView({ model: thisMedley.toJSON() })
 	    $('#module-medley-browser').html(moduleMedley.render().$el);
-	},
-
-	render: function () {
-		return this;
 	}
-
 });
