@@ -15,7 +15,9 @@ Medley.Views.MedleySearchResults = Backbone.View.extend({
     instantiateNiceScroll: function() {
     	$('#medley-results-container').niceScroll({
             cursorcolor:"#999999",
-            horizrailenabled: false
+            horizrailenabled: false,
+            cursorwidth: 8,
+            cursorborder: '1px solid #eaeaea'
         })
     },
 
