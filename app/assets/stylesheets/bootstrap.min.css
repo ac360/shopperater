@@ -65,13 +65,13 @@
  #primary-search-field:focus {border:none;outline: 0;-webkit-box-shadow:none;box-shadow: none;}
  #tagline {font-size:9px;color:#888;letter-spacing:4px;text-transform:uppercase;margin-bottom:0px;margin-top:0px;}
  #cart-popover-trigger:hover {color:#888888;cursor:pointer;}
- #module-primary-search {height:60px;}
- #menu-button-container {text-align:right;height:60px;padding-top:40px;}
- #menu-button {font-size:12px;color:#999;letter-spacing:2px;}
- #menu-button:hover {color:#fff;}
+ #module-primary-search {height:50px;}
+ #menu-button-container {text-align:right;height:20px;padding-bottom:5px;}
+ #menu-button, #create-button {font-size:12px;color:#999;letter-spacing:2px;}
+ #menu-button:hover, #create-button:hover {color:#fff;}
  #menu-button .glyphicon {font-size:9px;padding-right:1px;}
- #menu-links-container {height:35px;display:none;}
- #menu-links {margin-bottom:0px;margin-top:15px;}
+ #menu-links-container {height:28px;display:none;}
+ #menu-links {margin-bottom:0px;margin-top:10px;}
  #menu-links li {padding-right: 0px;padding-left:15px;}
  #menu-links a {font-size:11px;letter-spacing:2px;color:#aaaaaa;text-transform:uppercase;}
  #menu-links a:hover {cursor: pointer;color: #fff;}

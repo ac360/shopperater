@@ -68,8 +68,13 @@
 					<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold', :autofocus => true %>
 					<span id="cursor"></span>
 			  	</div>
+			</div>
 
-			  	<div id="menu-button-container" class="col-offset-2 col-lg-1">
+			<div class="row">
+				<div id="create-button-container" class="col-offset-1 col-lg-2">
+			  		<a id="create-button" class="m-font-bold" href="/editor"><i class="glyphicon glyphicon-th-large" style="font-size:10px;font-weight:normal"></i> CREATE A MEDLEY</a>
+			  	</div>
+				<div id="menu-button-container" class="col-offset-7 col-lg-1">
 			  		<a id="menu-button" class="m-font-bold"><i class="glyphicon glyphicon-chevron-down"></i>MENU</a>
 			  	</div>
 			</div>
@@ -108,7 +113,7 @@
 	<div class="row">
 	   	<div class="col-offset-1 col-lg-10">
 	   		<ul id="bottom-nav" class="list-inline pull-right m-font-light" style="font-size:10px;padding-top:10px;letter-spacing:1px;">
-					<li><a href="#">CONTACT US</a></li>
+					<li><a href="mailto:medleyapp@gmail.com">CONTACT US</a></li>
 					<li><a href="#">TERMS OF SERVICE</a></li>
 					<li><a href="#">&copy; MEDLEY 2013</a></li>
 			</ul>

@@ -18,6 +18,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 			}
 		};
 
+		$('#create-button').hide();
+
 		// Remove URL Params from REFERRAL MODE.  They are used at first, then everything turns into Draft Mode
 			// if (params.search !== undefined) {
 	  //           var newURL = "editor?draft=true&search=" + params.search
