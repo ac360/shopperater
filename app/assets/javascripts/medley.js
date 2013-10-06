@@ -196,4 +196,10 @@ M.getParams = function() {
     };
 }
 
+M.removeMedleySizeClass = function(elem) {
+  $(elem).removeClass('item-small');
+  $(elem).removeClass('item-medium');
+  $(elem).removeClass('item-large');
+}
+
 

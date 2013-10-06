@@ -117,7 +117,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             console.log(product);
             // Re-instantiate Gridster
             var gridster = M.instantiateGridster();
-            gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
+            gridster.add_widget('<li class="medley-grid-item new-item item-small" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', 1, 1, 1, 1);
             var itemView = new Medley.Views.EditorProduct({ model: product });
             $('.new-item').html(itemView.render().$el)
             $('.new-item').removeClass('new-item')

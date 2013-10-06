@@ -53,6 +53,11 @@ Medley.Views.EditorProduct = Backbone.View.extend({
     gridMakeItemSmaller: function(e) {
         if (this.model.size > 1) { 
         	this.model.size = this.model.size - 1 
+            // Strip Size CLasses and Add New Class
+            M.removeMedleySizeClass($(e.currentTarget).closest('.medley-grid-item'));
+            if (this.model.size == 1){ $(e.currentTarget).closest('.medley-grid-item').addClass('item-small')  }
+            if (this.model.size == 2){ $(e.currentTarget).closest('.medley-grid-item').addClass('item-medium') }
+            if (this.model.size == 3){ $(e.currentTarget).closest('.medley-grid-item').addClass('item-large')  }
         };
         this.gridSaveItemSizes();
         var gridster = M.instantiateGridster();
@@ -68,6 +73,11 @@ Medley.Views.EditorProduct = Backbone.View.extend({
         if (itemPosition.col < 4) {
             if (this.model.size < 3) { 
                 this.model.size = this.model.size + 1 
+                // Strip Size CLasses and Add New Class
+                M.removeMedleySizeClass($(e.currentTarget).closest('.medley-grid-item'));
+                if (this.model.size == 1){ $(e.currentTarget).closest('.medley-grid-item').addClass('item-small')  }
+                if (this.model.size == 2){ $(e.currentTarget).closest('.medley-grid-item').addClass('item-medium') }
+                if (this.model.size == 3){ $(e.currentTarget).closest('.medley-grid-item').addClass('item-large')  }
             }
             this.gridSaveItemSizes();
             var gridster = M.instantiateGridster();
