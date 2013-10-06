@@ -16,7 +16,14 @@ Medley.Views.EditorMedleyPreviewDraftMode = Backbone.View.extend({
         var gridster = M.instantiateGridster();
         _.each(this.model.items, function(product) { 
             if ( product.id !== null ) {
-                gridster.add_widget('<li class="medley-grid-item new-item" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', product.x, product.y, product.c, product.r);
+                if (product.x == 1) {
+                    gridster.add_widget('<li class="medley-grid-item new-item item-small" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', product.x, product.y, product.c, product.r);
+                } else if (product.x == 2 && product.y ==1) {
+                    gridster.add_widget('<li class="medley-grid-item new-item item-medium" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', product.x, product.y, product.c, product.r);
+                } else if (product.x == 2 && product.y == 2) {
+                    gridster.add_widget('<li class="medley-grid-item new-item item-large" data-row="1" data-col="1" data-sizex="1" data-sizey="1" data-id="' + product.id + '" data-title="' + product.title + '" data-price="' + product.price + '" data-imagesmall="' + product.img_small + '" data-imagelarge="' + product.img_big + '" data-category="' + product.category + '" data-source="' + product.source + '" data-link="' + product.link + '"></li>', product.x, product.y, product.c, product.r);
+                };
+
                 var itemView = new Medley.Views.EditorProduct({ model: product });
                 $('.new-item').html(itemView.render().$el)
                 $('.new-item').removeClass('new-item')
