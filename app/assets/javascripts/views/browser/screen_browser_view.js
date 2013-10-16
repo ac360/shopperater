@@ -1,6 +1,6 @@
 Medley.Views.ScreenBrowser = Backbone.View.extend({
 	
-	el: ".container",
+	el: "body",
 
 	initialize: function() {
 		_.bindAll(this);
@@ -26,13 +26,15 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 			});
 		};
 
-		setTimeout(function() {
-			$( "#banner-area" ).slideDown( "slow", function() {
-			    $( "#banner-area-text" ).fadeIn( "slow", function() {
-			    
+		// Show Banner
+		if ($.jStorage.get("medley_banner_1", false) == false) {
+			setTimeout(function() {
+				$( "#banner-area" ).slideDown( "slow", function() {
+				    $( "#banner-area-text" ).fadeIn( "slow", function() {
+					});
 				});
-			});
-		}, 5000);
+			}, 5000);
+		};
 
 		// Manual Event Binders
 		$('#welcome-modal').on('hidden.bs.modal', function () {
@@ -46,7 +48,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"keypress #primary-search-field"			:   "detectEnterButton",
 		"click .medley-result-box"					:   "showMedleySearchResult",
 		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
-		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal"
+		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
+		"click #hide-banner-link"					:   "hideBannerLink"
     },
 
     detectEnterButton: function(event) {
@@ -170,6 +173,14 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	hideWelcomeModal: function() {
 		$('#welcome-modal').modal('hide');
+	},
+
+	hideBannerLink: function() {
+		$('#banner-area-text').fadeOut( "fast", function() {
+    		$('#banner-area').slideUp( "fast", function() {
+    			$.jStorage.set("medley_banner_1", true);
+  			});		
+  		});
 	},
 
 	addNewsletterSubscriber: function(email) {
