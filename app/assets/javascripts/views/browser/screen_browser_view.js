@@ -26,6 +26,14 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 			});
 		};
 
+		setTimeout(function() {
+			$( "#banner-area" ).slideDown( "slow", function() {
+			    $( "#banner-area-text" ).fadeIn( "slow", function() {
+			    
+				});
+			});
+		}, 5000);
+
 		// Manual Event Binders
 		$('#welcome-modal').on('hidden.bs.modal', function () {
 			self.addNewsletterSubscriber();
