@@ -9,8 +9,9 @@
 	  	var el = document.getElementById('mdlya1');
 	  	console.log(el);
 	  	el.style["background"] = "#000000";
-	  	el.style["min-height"] = "200px";
-	  	el.style["min-width"]  = "400px";
+	  	el.style["height"]     = "auto";
+	  	el.style["width"]      = "100%";
+	  	el.style["max-width"]  = "400px";
 
 	  	console.log("hello from the Medley Widgets Script");
 	 	
