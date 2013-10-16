@@ -10,8 +10,8 @@
 	  	console.log(el);
 	  	el.style["background"] = "#000000";
 	  	el.style["height"]     = "auto";
-	  	el.style["width"]      = "100%";
-	  	el.style["max-width"]  = "400px";
+	  	el.style["width"]      = "200px";
+	  	el.style["min-height"] = "200px";
 
 	  	console.log("hello from the Medley Widgets Script");
 	 	
