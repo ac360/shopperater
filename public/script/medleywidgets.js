@@ -6,7 +6,7 @@
 	  	global.mdlywidgets = {};
 	  	var MW = global.mdlywidgets;
 
-	  	var el = Document.getElementById('mdlya1');
+	  	var el = document.getElementById('mdlya1');
 	  	console.log(el);
 	  	el.style["background"] = "#000000";
 	  	el.style["height"] = "100px";
