@@ -28,27 +28,32 @@
 		  	} else {
 		  			// Get Each Medley Element
 			    	$( ".MDLYa1" ).each(function(i,e) {
+			    		var self = e;
 			    		var id = $(e).attr('data-id');
 			    		var mAPI = "http://api.mdly.co/v1/medley/" + id
-			    		$.getJSON( mAPI, function( data ) {
-			    			console.log(data);
-						});
-
-					  	$(e).css({
-					  		"display": 				"none",
-					  		"position":             "relative",
-					  		"min-height": 			"200px",
-					  		"height":               "auto",
-					  		"width":                "400px",
-					  		"background-color": 	"#444444", 
-					  		"-webkit-box-shadow": 	"inset 0px 0px 8px 0px #252525",
-							"box-shadow": 			"inset 0px 0px 8px 0px #252525",
-							"padding":          	"2px"
-					  	});
-					  	// Ajax call to Medley Api
-					  	$(e).html('<div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div><div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div>');
-					  	// Animation Effects
-					  	$(e).fadeIn('slow');
+			    		$.getJSON( mAPI, function( m ) {
+			    			console.log(m);
+							$(e).css({
+						  		"display": 				"none",
+						  		"position":             "relative",
+						  		"min-height": 			"200px",
+						  		"height":               "auto",
+						  		"width":                "400px",
+						  		"background-color": 	"#444444", 
+						  		"-webkit-box-shadow": 	"inset 0px 0px 8px 0px #252525",
+								"box-shadow": 			"inset 0px 0px 8px 0px #252525",
+								"padding":          	"5px"
+						  	});
+						  	// Animation Effects
+						  	$(e).fadeIn('slow');
+						  	// Go Through Medley Items And Add Widgets
+						  	$(m.items).each(function(index, item) {
+						  		if (item.id) {
+						  			var image = '<img src="' + item.img_small + '" style="max-width:100%;max-height:100%;" />'
+						  			$(self).append('<div style="float:left;display:block;position:relative;height:50px;width:100px;background:#fff;margin:5px;">' + image + '</div>');
+								};
+							}); // /m.items
+						}); // /getJSON
 					}) // /.each for each Medley on the page
 		  	}; // / Mobile Device Check
 		}; // / window.mdlywidgets Check
