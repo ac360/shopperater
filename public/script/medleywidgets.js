@@ -50,7 +50,7 @@
 						  	$(m.items).each(function(index, item) {
 						  		if (item.id) {
 						  			var image = '<img src="' + item.img_small + '" style="max-width:100%;max-height:100%;" />'
-						  			$(self).append('<div style="float:left;display:block;position:relative;height:50px;width:100px;background:#fff;margin:5px;">' + image + '</div>');
+						  			$(self).append('<div style="float:left;display:block;position:relative;text-align:center;padding:5px;height:50px;width:100px;background:#fff;margin:5px;">' + image + '</div>');
 								};
 							}); // /m.items
 						}); // /getJSON
