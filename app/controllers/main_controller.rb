@@ -11,4 +11,7 @@ class MainController < ApplicationController
 	def settings
 	end
 
+	def embeds
+	end
+
 end

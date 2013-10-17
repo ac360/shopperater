@@ -28,6 +28,7 @@ Shopperater::Application.routes.draw do
   end
   
   # Other Application Routes
+  match 'embeds',     :to => 'main#embeds'
   match 'editor',     :to => 'main#editor'
   root                :to => 'main#browser'
 
