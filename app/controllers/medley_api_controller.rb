@@ -1,4 +1,4 @@
-class MedleyApiController < ApplicationControllero
+class MedleyApiController < ApplicationController
 
 	include ActionView::Helpers::NumberHelper
 	include ActionView::Helpers::SanitizeHelper
