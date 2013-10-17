@@ -63,6 +63,14 @@ module Shopperater
 
     #Add Folder for custom fonts
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
+
+    # CORS Configuration for Rack-Cors gem
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :options]
+      end
+    end
     
   end
 end

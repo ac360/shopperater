@@ -29,6 +29,11 @@
 		  			// Get Each Medley Element
 			    	$( ".MDLYa1" ).each(function(i,e) {
 			    		var id = $(e).attr('data-id');
+			    		var mAPI = "http://api.mdly.co/v1/medley/" + id
+			    		$.getJSON( mAPI, function( data ) {
+			    			console.log(data);
+						});
+
 					  	$(e).css({
 					  		"display": 				"none",
 					  		"position":             "relative",
@@ -44,7 +49,7 @@
 					  	$(e).html('<div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div><div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div>');
 					  	// Animation Effects
 					  	$(e).fadeIn('slow');
-					}); // /.each for each Medley on the page
+					}) // /.each for each Medley on the page
 		  	}; // / Mobile Device Check
 		}; // / window.mdlywidgets Check
 	}); //jQuery End Document Ready
