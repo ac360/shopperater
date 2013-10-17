@@ -20,26 +20,32 @@
 
     		window.mdlywidgets = {};
 		  	var MW = window.mdlywidgets;
-    		// Get Each Medley Element
-	    	$( ".MDLYa1" ).each(function(i,e) {
-			  	$(e).css({
-			  		"display": 				"none",
-			  		"position":             "relative",
-			  		"min-height": 			"200px",
-			  		"height":               "auto",
-			  		"min-width": 			"200px",
-			  		"width":                "100%",
-			  		"max-width":            "500px",
-			  		"background-color": 	"#444444", 
-			  		"-webkit-box-shadow": 	"inset 0px 0px 8px 0px #252525",
-					"box-shadow": 			"inset 0px 0px 8px 0px #252525",
-					"border": 				"1px solid #111111"
-			  	});
-			  	// Ajax call to Medley Api
-			  	$(e).html('<div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div><div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div>');
-			  	// Animation Effects
-			  	$(e).fadeIn('slow');
-			});
-		};
+
+		  	// Check to See if is a mobile device
+		  	var pw = $( ".MDLYa1" ).parent().width();
+		  	if (pw < 480) {
+			  		
+		  	} else {
+		  			// Get Each Medley Element
+			    	$( ".MDLYa1" ).each(function(i,e) {
+			    		var id = $(e).attr('data-id');
+					  	$(e).css({
+					  		"display": 				"none",
+					  		"position":             "relative",
+					  		"min-height": 			"200px",
+					  		"height":               "auto",
+					  		"width":                "400px",
+					  		"background-color": 	"#444444", 
+					  		"-webkit-box-shadow": 	"inset 0px 0px 8px 0px #252525",
+							"box-shadow": 			"inset 0px 0px 8px 0px #252525",
+							"padding":          	"2px"
+					  	});
+					  	// Ajax call to Medley Api
+					  	$(e).html('<div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div><div style="display:block;position:relative;height:50px;width:100px;background:#fff;margin:10px;"></div>');
+					  	// Animation Effects
+					  	$(e).fadeIn('slow');
+					}); // /.each for each Medley on the page
+		  	}; // / Mobile Device Check
+		}; // / window.mdlywidgets Check
 	}); //jQuery End Document Ready
 });

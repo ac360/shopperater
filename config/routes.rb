@@ -1,6 +1,6 @@
 Shopperater::Application.routes.draw do
 
-  # API Routes
+  # Internal API Routes
   match 'api/medleys',                      :to => 'medley_api#medley_search',                :via => [:get]
   match 'api/medleys',                      :to => 'medley_api#create_medley',                :via => [:post]
   match 'api/medley_create_items/:id',      :to => 'medley_api#medley_create_items',          :via => [:put]
@@ -13,6 +13,11 @@ Shopperater::Application.routes.draw do
   match 'api/medley_title_validation',      :to => 'medley_api#medley_title_validation',      :via => [:get]
   match 'api/medley_uniqueness_validation', :to => 'medley_api#medley_uniqueness_validation', :via => [:get]
   match 'api/add_newsletter_subscriber',    :to => 'medley_api#add_newsletter_subscriber',    :via => [:post]
+
+  # External API Routes
+  constraints subdomain: 'api' do
+    match 'v1/medley/:id',                  :to => 'api_external#medley_show',                :via => [:get]
+  end
 
   authenticated :user do
     match 'api/get_cart_items',     :to => 'shopperater_api#get_cart_items'
