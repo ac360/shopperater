@@ -23,7 +23,7 @@
 
 		  	// Check to See if is a mobile device
 		  	var pw = $( ".MDLYa1" ).parent().width();
-		  	if (pw < 480) {
+		  	if (pw < 420) {
 			  		
 		  	} else {
 		  			// Get Each Medley Element
