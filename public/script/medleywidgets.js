@@ -37,8 +37,7 @@
 						  		"width":                	"390px",
 						  		"background-color": 		"#444444", 
 						  		"-webkit-box-shadow": 		"inset 0px 0px 8px 0px #252525",
-								"box-shadow": 				"inset 0px 0px 8px 0px #252525",
-								"padding":          		"5px 20px 5px 20px",
+								"box-shadow": 				"inset 0px 0px 8px 0px #252525"
 						  	});
 						  	// Animation Effects
 						  	$(e).fadeIn('slow');
