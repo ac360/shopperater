@@ -25,39 +25,46 @@
 	display:block !important;
 	position:relative !important;
 	min-height:200px !important;
-	height:auto !important;
 	width:390px !important;
-	background-color:#f6f6f6 !important;
-	-webkit-border-radius: 4px !important;
-	border-radius: 4px !important;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px 0px !important;
-	box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px 0px !important;
-	border-color: #EEE #DDD #BBB !important;
-	border-width: 1px !important;
-	border-style: solid !important;
+	padding-bottom: 30px !important;
 }
 .MDLYa1 .MDLYa1-title-box {
 	display:block !important;
 	height:30px !important;
 	width:100% !important;
+	background: #222222 !important;
 	text-align: center  !important;
 	color: #ffffff  !important;
 	overflow: hidden !important;
+	border-color: #222 #222 #000  !important;
+	border-width: 1px !important;
+	border-style: solid !important;
+	-webkit-border-radius: 3px 3px 0px 0px !important;
+	border-radius: 3px 3px 0px 0px !important;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.54902) 0px 1px 3px 0px !important;
+	box-shadow: rgba(0, 0, 0, 0.54902) 0px 1px 3px 0px !important;
 }
 
 .MDLYa1 .MDLYa1-title-box h1 {
 	font-weight: bold !important;
-	color: #bbb !important;
+	color: #ffffff !important;
 	font-size: 13px !important;
 	margin-top: 8px !important;
 }
 
-
 .MDLYa1 .MDLYa1-items-box {
 	display: block !important;
 	position: relative !important;
-	width: 100% !important;
-	height: auto !important;
+	width:390px !important;
+	background-color:#f6f6f6 !important;
+	-webkit-border-radius: 0px 0px 3px 3px !important;
+	border-radius: 0px 0px 3px 3px !important;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px 0px !important;
+	box-shadow: rgba(0, 0, 0, 0.14902) 0px 1px 3px 0px !important;
+	border-color: #FFF #DDD #BBB !important;
+	border-width: 1px !important;
+	border-style: solid !important;
+	overflow: hidden !important;
 }
 
 .MDLYa1 .MDLYa1-item { 
@@ -129,30 +136,30 @@
 .MDLYa1 .col3 {  left:200px  !important; }
 .MDLYa1 .col4 {  left:295px  !important; }
 
-.height1  {  height:145px !important;}
-.height2  {  height:240px !important;}
-.height3  {  height:335px !important;}
-.height4  {  height:430px !important;}
-.height5  {  height:525px !important;}
-.height6  {  height:620px !important;}
-.height7  {  height:715px !important;}
-.height8  {  height:810px !important;}
-.height9  {  height:905px !important;}
-.height10 {  height:1000px !important;}
-.height11 {  height:1095px !important;}
-.height12 {  height:1190px !important;}
-.height13 {  height:1285px !important;}
-.height14 {  height:1380px !important;}
-.height15 {  height:1475px !important;}
-.height16 {  height:1570px !important;}
-.height17 {  height:1665px !important;}
-.height18 {  height:1560px !important;}
-.height19 {  height:1655px !important;}
-.height20 {  height:1750px !important;}
-.height21 {  height:1845px !important;}
-.height22 {  height:1740px !important;}
-.height23 {  height:1835px !important;}
-.height24 {  height:1930px !important;}
+.height1, .MDLYa1 .height1   {  height:145px !important;}
+.height2, .MDLYa1 .height2   {  height:240px !important;}
+.height3, .MDLYa1 .height3   {  height:335px !important;}
+.height4, .MDLYa1 .height4   {  height:430px !important;}
+.height5, .MDLYa1 .height5   {  height:525px !important;}
+.height6, .MDLYa1 .height6   {  height:620px !important;}
+.height7, .MDLYa1 .height7   {  height:715px !important;}
+.height8, .MDLYa1 .height8   {  height:810px !important;}
+.height9, .MDLYa1 .height9   {  height:905px !important;}
+.height10, .MDLYa1 .height10 {  height:1000px !important;}
+.height11, .MDLYa1 .height11 {  height:1095px !important;}
+.height12, .MDLYa1 .height12 {  height:1190px !important;}
+.height13, .MDLYa1 .height13 {  height:1285px !important;}
+.height14, .MDLYa1 .height14 {  height:1380px !important;}
+.height15, .MDLYa1 .height15 {  height:1475px !important;}
+.height16, .MDLYa1 .height16 {  height:1570px !important;}
+.height17, .MDLYa1 .height17 {  height:1665px !important;}
+.height18, .MDLYa1 .height18 {  height:1560px !important;}
+.height19, .MDLYa1 .height19 {  height:1655px !important;}
+.height20, .MDLYa1 .height20 {  height:1750px !important;}
+.height21, .MDLYa1 .height21 {  height:1845px !important;}
+.height22, .MDLYa1 .height22 {  height:1740px !important;}
+.height23, .MDLYa1 .height23 {  height:1835px !important;}
+.height24, .MDLYa1 .height24 {  height:1930px !important;}
 
 
 

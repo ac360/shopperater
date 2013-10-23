@@ -66,6 +66,7 @@
 							// Setting Height Of Container.  Start by finding the largest row number.  We use this to find total height.
 							var maxRowNumber = Math.max.apply(Math, rowNumbers);
 							$(self).addClass('height' + maxRowNumber);
+							$(self).children('.MDLYa1-items-box').addClass('height' + maxRowNumber);
 							// Set Title
 							$(self).find('.MDLYa1-title-box').append('<h1>' + m.title + '</h1>');
 							// Fade In Animation Effect
