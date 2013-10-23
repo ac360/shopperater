@@ -86,10 +86,10 @@
 							  	if (item.y == 1) { var height = 'height:85px;'   };
 							  	if (item.y == 2) { var height = 'height:180px;'  };
 								// Calculate Image Padding Based On Container Size
-								if (item.y == 1) { var imagePadding = 15 }
-								if (item.y == 2) { var imagePadding = 28 }
-								var image    = '<img src="' + item.img_small + '" style="max-width:80%;max-height:80%;padding-top:' + imagePadding + 'px;" draggable="false" />'
-								var itemHtml = "<div class='MDLYa1-item' style='position:absolute;display:block;text-align:center;" + left + top + height + width + "background:#eaeaea;'>" + image + "</div>"
+								if (item.y == 1) { var imagePadding = 9 }
+								if (item.y == 2) { var imagePadding = 15 }
+								var image    = '<img src="' + item.img_small + '" style="max-width:80%;height:auto;max-height:80%;padding-top:' + imagePadding + 'px;" draggable="false" />'
+								var itemHtml = "<div class='MDLYa1-item' style='position:absolute;display:block;text-align:center;" + left + top + height + width + "background:#ffffff;'>" + image + "</div>"
 								$(self).append(itemHtml);
 						  	};
 
