@@ -123,7 +123,7 @@
 							  	if (maxRowNumber == 23) { var totalHeight = 2100 + height  };
 							  	if (maxRowNumber == 24) { var totalHeight = 2195 + height  };
 							  	// Subtract 10 because it is 10px too much
-							  	return totalHeight - 10;	
+							  	return totalHeight;	
 						  	};
 						  	// Set Array to keep row numbers and determine highest row value
 						  	var rowNumbers = [];
