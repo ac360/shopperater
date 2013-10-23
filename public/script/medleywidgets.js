@@ -26,10 +26,14 @@
 		  			// Get Each Medley Element
 			    	$( ".MDLYa1" ).each(function(i,e) {
 			    		var self = e;
-			    		var id = $(e).attr('data-id');
+			    		// Append Containers
+			    		$(self).append('<div class="MDLYa1-title-box" style="display:block;height:30px;width:100%;"></div>');
+			    		$(self).append('<div class="MDLYa1-items-box" style="display:block;position:relative;min-height:200px;"></div>');
+			    		// Call Medley API
+			    		var id = $(self).attr('data-id');
 			    		var mAPI = "http://api.mdly.co/v1/medley/" + id
 			    		$.getJSON( mAPI, function( m ) {
-							$(e).css({
+							$(self).css({
 						  		"display": 					"none",
 						  		"position":             	"relative",
 						  		"min-height": 				"200px",
@@ -39,10 +43,8 @@
 						  		"-webkit-box-shadow": 		"inset 0px 0px 8px 0px #252525",
 								"box-shadow": 				"inset 0px 0px 8px 0px #252525"
 						  	});
-						  	// Animation Effects
-						  	$(e).fadeIn('slow');
 
-						  	// Remove Null Items
+						  	// Remove Null Items from results
 						  	var itemArray = []
 						  	$.grep(m.items, function(i, index){ if (i.id) {itemArray.push(i)} });
 						  	console.log(itemArray);
@@ -89,7 +91,7 @@
 								if (item.y == 2) { var imagePadding = 15 }
 								var image    = '<img src="' + item.img_small + '" style="max-width:80%;height:auto;max-height:80%;padding-top:' + imagePadding + 'px;" draggable="false" />'
 								var itemHtml = "<div class='MDLYa1-item' style='position:absolute;display:block;text-align:center;" + left + top + height + width + "background:#ffffff;'>" + image + "</div>"
-								$(self).append(itemHtml);
+								$(self).find('.MDLYa1-items-box').append(itemHtml);
 						  	};
 
 						  	var calculateHeight = function(maxRowNumber, maxHeightNumber) {
@@ -98,30 +100,8 @@
 						  		} else if (maxHeightNumber == 2) {
 						  			var height = 180;
 						  		};
-							  	if (maxRowNumber == 1) {  var totalHeight = 10 + height   };
-							  	if (maxRowNumber == 2) {  var totalHeight = 105 + height  };
-							  	if (maxRowNumber == 3) {  var totalHeight = 200 + height  };
-							  	if (maxRowNumber == 4) {  var totalHeight = 295 + height  };
-							  	if (maxRowNumber == 5) {  var totalHeight = 390 + height  };
-							  	if (maxRowNumber == 6) {  var totalHeight = 485 + height  };
-							  	if (maxRowNumber == 7) {  var totalHeight = 580 + height  };
-							  	if (maxRowNumber == 8) {  var totalHeight = 675 + height  };
-							  	if (maxRowNumber == 9) {  var totalHeight = 770 + height  };
-							  	if (maxRowNumber == 10) { var totalHeight = 865 + height  };
-							  	if (maxRowNumber == 11) { var totalHeight = 960 + height  };
-							  	if (maxRowNumber == 12) { var totalHeight = 1055 + height  };
-							  	if (maxRowNumber == 13) { var totalHeight = 1150 + height  };
-							  	if (maxRowNumber == 14) { var totalHeight = 1245 + height  };
-							  	if (maxRowNumber == 15) { var totalHeight = 1340 + height  };
-							  	if (maxRowNumber == 16) { var totalHeight = 1435 + height  };
-							  	if (maxRowNumber == 17) { var totalHeight = 1530 + height  };
-							  	if (maxRowNumber == 18) { var totalHeight = 1625 + height  };
-							  	if (maxRowNumber == 19) { var totalHeight = 1720 + height  };
-							  	if (maxRowNumber == 20) { var totalHeight = 1815 + height  };
-							  	if (maxRowNumber == 21) { var totalHeight = 1910 + height  };
-							  	if (maxRowNumber == 22) { var totalHeight = 2005 + height  };
-							  	if (maxRowNumber == 23) { var totalHeight = 2100 + height  };
-							  	if (maxRowNumber == 24) { var totalHeight = 2195 + height  };
+						  		// Add Extra Padding and Room for Title Box
+						  		totalHeight = maxRowNumber * 95 + 40
 							  	// Subtract 10 because it is 10px too much
 							  	return totalHeight;	
 						  	};
@@ -132,7 +112,7 @@
 								addItem(item);
 								rowNumbers.push(item.r);
 							});
-							// Find the largest row number
+							// Setting Height Of Container.  Start by finding the largest row number
 							var maxRowNumber = Math.max.apply(Math, rowNumbers);
 							// Find the largest height in that row
 							var rowHeights = [];
@@ -140,6 +120,10 @@
 							var maxHeightNumber = Math.max.apply(Math, rowHeights);
 							var totalHeight = calculateHeight(maxRowNumber, maxHeightNumber);
 							$(self).height(totalHeight);
+							// Set Title
+							$(self).find('.MDLYa1-title-box').append('<h1 style="font-size:16px;color:#fff;text-align:center;padding-top:6px;margin:0px;">' + m.title + '</h1>');
+							// Fade In Animation Effect
+						  	$(self).fadeIn('slow');
 						}); // /getJSON
 					}) // /.each for each Medley on the page
 		  	}; // / Mobile Device Check
