@@ -50,39 +50,12 @@
 								$(self).find('.MDLYa1-items-box').append(itemHtml)
 						  	};
 
-						  	var setEvents = function() {
-						  			$('.MDLYa1-items-box').on('click', '.MDLYa1-item', function (e) {
-									    var MW = window.mdlywidgets
-									    var itemsContainer = $(e.currentTarget).parent()
-									    var medleyId = $(itemsContainer).attr('data-medleyid');
-									    var itemId   = $(e.currentTarget).attr('data-itemid');
-									    // Hide All Items
-									    $(itemsContainer).find('.MDLYa1-item').attr('style', 'display: none !important');
-									    // Find Item in Global Variable
-									    console.log(MW[medleyId].items)
-									    var itemObject = $.grep(MW[medleyId].items, function(m){ return m.id == itemId });
-									    // If There Are Duplicate Items In Medley, Grab Just One
-									    if (itemObject.length > 0) { itemObject = itemObject[0]}
-									    // Build Item Info View Based Off of itemObject
-										var closingDiv = '</div>'
-										var infoContainer = '<div class="MDLYa1-item-info-container" style="display: block !important;height:250px !important;width:370px !important;text-align: center !important;margin:10px auto 0px auto !important;">'
-										var infoImageContainer = '<div class="MDLYa1-item-info-image-container" style="display: block !important;float:left !important;position: relative !important;height:150px !important;width:150px !important;margin:10px !important;padding 10px !important;border-radius: 3px !important;border-bottom: 1px solid #aaa !important;background:#ffffff !important;">'
-										var infoImage    = '<img src="' + itemObject.img_small + '" draggable="false" />'
-										var infoTitle = '<h2 style="float: left !important;">' + itemObject.title + '</h2>' 
-										$(itemsContainer).append( infoContainer + infoImage + closingDiv );
-									});
-									console.log("events set");
-						  	};
-
 						  	// Set Array to keep row numbers and determine highest row value
 						  	var rowNumbers = [];
-						  	var itemLength = itemArray.length
 						  	// Append each item to the parent div and collect the row numbers
 						  	$(itemArray).each(function(index, item) {
 								addItem(item);
 								rowNumbers.push(item.r);
-								itemLength = itemLength - 1
-								if (itemLength == 0) { setEvents() }
 							});
 							// Setting Height Of Container.  Start by finding the largest row number.  We use this to find total height.
 							var maxRowNumber = Math.max.apply(Math, rowNumbers);
@@ -92,8 +65,35 @@
 							$(self).find('.MDLYa1-title-box').append('<h1>' + m.title + '</h1>');
 						}); // /getJSON
 					}) // /.each for each Medley on the page
-					// Event Listener for Clicking A Medley Item
-		  	}; // / Mobile Device Check
+
+					// Set Event Listener for Clicking A Medley Item
+		  			$('.MDLYa1').on('click', '.MDLYa1-item', function (e) {
+						    var MW = window.mdlywidgets
+						    var itemsContainer = $(e.currentTarget).parent()
+						    var medleyId = $(itemsContainer).attr('data-medleyid');
+						    var itemId   = $(e.currentTarget).attr('data-itemid');
+						    // Hide All Items
+						    $(itemsContainer).find('.MDLYa1-item').attr('style', 'display: none !important');
+						    // Find Item in Global Variable
+						    var itemObject = $.grep(MW[medleyId].items, function(m){ return m.id == itemId });
+						    // If There Are Duplicate Items In Medley, Grab Just One
+						    if (itemObject.length > 0) { itemObject = itemObject[0]}
+						    // Build Item Info View Based Off of itemObject
+							var closingDiv = '</div>'
+							var infoContainer = '<div class="MDLYa1-item-info-container" style="display: block !important;height:250px !important;width:370px !important;text-align: center !important;margin:10px auto 0px auto !important;">'
+							var infoImageContainer = '<div class="MDLYa1-item-info-image-container" style="display: block !important;float:left !important;position: relative !important;height:150px !important;width:150px !important;margin:10px !important;padding 10px !important;border-radius: 3px !important;border-bottom: 1px solid #aaa !important;background:#ffffff !important;">'
+							var infoImage    = '<img src="' + itemObject.img_small + '" draggable="false" />'
+							var infoTitle = '<h2 style="float: left !important;">' + itemObject.title + '</h2>'
+							var backButton = '<span class="MDLYa1-back-button">Back</span>' 
+							$(itemsContainer).append( infoContainer + infoImage + backButton + closingDiv );
+					});
+					$('.MDLYa1').on('click', '.MDLYa1-back-button', function (e) {
+						var parent = $(e.currentTarget).parent().parent();
+						$(parent).find('.MDLYa1-item-info-container').attr('style', 'display: none !important');
+						$(parent).find('.MDLYa1-item').attr('style', 'display: block !important');
+					});
+
+	}; // / Mobile Device Check
 		}; // / window.mdlywidgets Check
 	}); //jQuery End Document Ready
 });
