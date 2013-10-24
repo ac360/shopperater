@@ -21,6 +21,8 @@
         -webkit-font-smoothing: antialiased !important;
 }
 
+ @font-face {font-family: 'nexa_boldregular'; src: url('http://mdly.co/fonts/Nexa_Free_Bold-webfont.eot'); src: url('http://mdly.co/fonts/Nexa_Free_Bold-webfont.eot?#iefix') format('embedded-opentype'), url('http://mdly.co/fonts/Nexa_Free_Bold-webfont.woff') format('woff'), url('http://mdly.co/fonts/Nexa_Free_Bold-webfont.ttf') format('truetype'), url('http://mdly.co/fonts/Nexa_Free_Bold-webfont.svg#nexa_boldregular') format('svg'); font-weight: normal; font-style: normal; }
+
 .MDLYa1 {
 	display:block !important;
 	position:relative !important;
@@ -48,8 +50,11 @@
 .MDLYa1 .MDLYa1-title-box h1 {
 	font-weight: bold !important;
 	color: #ffffff !important;
-	font-size: 12px !important;
-	margin-top: 8px !important;
+	font-size: 11px !important;
+	margin-top: 10px !important;
+	font-family: nexa_boldregular !important;
+	text-transform: uppercase !important;
+	letter-spacing: 1px !important;
 }
 
 .MDLYa1 .MDLYa1-items-box {
