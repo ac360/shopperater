@@ -20,7 +20,7 @@
     		window.mdlywidgets = {};
 		  	var MW = window.mdlywidgets;
 		  	// Add the style tag into the head
-	        $('head').append('<'+'link rel="stylesheet" href="http://mdly.co/script/medleywidgets.css" type="text/css"/'+'>'); 
+	        $('head').append('<'+'link rel="stylesheet" href="http://localhost:3000/script/medleywidgets.css" type="text/css"/'+'>'); 
 		  	// Check to See if is a mobile device
 		  	var pw = $( ".MDLYa1" ).parent().width();
 		  	if (pw < 420) {	
@@ -37,7 +37,7 @@
 			    			console.log(MW)
 			    			// Append Containers
 			    			$(self).append('<div class="MDLYa1-title-box"></div>');
-			    			$(self).append('<div class="MDLYa1-items-box" data-medleyid="' + m.id + '""></div>');
+			    			$(self).append('<div class="MDLYa1-items-box" data-medleyid="' + m.id + '"></div>');
 						  	// Remove Null Items from results
 						  	var itemArray = []
 						  	$.grep(m.items, function(i, index){ if (i.id) {itemArray.push(i)} });
@@ -57,9 +57,10 @@
 								addItem(item);
 								rowNumbers.push(item.r);
 							});
+							$(self).find('.MDLYa1-items-box').append('<div class="MDLYa1-link-box"><h1 class="MDLYa1-home-link" style="text-align:center !important;font-size:14px !important;cursor:pointer !important;color:#999 !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;letter-spacing:4px !important;">MEDLEY</h1></div>');
 							// Setting Height Of Container.  Start by finding the largest row number.  We use this to find total height.
 							var maxRowNumber = Math.max.apply(Math, rowNumbers);
-							$(self).addClass('height' + maxRowNumber);
+							$(self).addClass('height-outer' + maxRowNumber);
 							$(self).children('.MDLYa1-items-box').addClass('height' + maxRowNumber);
 							// Set Title
 							$(self).find('.MDLYa1-title-box').append('<h1>' + m.title + '</h1>');
@@ -105,6 +106,9 @@
 						var itemLink = $(e.currentTarget).attr('data-link') + '%26tag%3D' + itemTag
 						console.log(itemTag, itemLink)
 						window.open(itemLink, '_blank');
+					});
+					$('.MDLYa1').on('click', '.MDLYa1-home-link', function (e) {
+						window.open('http://mdly.co', '_blank');
 					});
 
 	}; // / Mobile Device Check
