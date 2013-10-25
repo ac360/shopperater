@@ -81,14 +81,21 @@
 						    // Build Item Info View Based Off of itemObject
 							var closingDiv = '</div>'
 							var infoContainer = '<div class="MDLYa1-item-info-container" style="display: block !important;height:250px !important;width:370px !important;text-align: center !important;margin:10px auto 0px auto !important;">'
-							var infoImageContainer = '<div class="MDLYa1-item-info-image-container" style="display: block !important;float:left !important;position: relative !important;height:150px !important;width:150px !important;margin:10px !important;padding 10px !important;border-radius: 3px !important;border-bottom: 1px solid #aaa !important;background:#ffffff !important;">'
+							var infoLeftContainer = '<div class="MDLYa1-item-info-container-left" style="display: block !important;float:left !important;height:250px !important;width:45% !important;">'
+							var infoRightContainer = '<div class="MDLYa1-item-info-container-right" style="display: block !important;float:left !important;height:250px !important;width:55% !important;">'
 							var infoImage    = '<img src="' + itemObject.img_small + '" draggable="false" />'
-							var infoTitle = '<h2 style="float: left !important;">' + itemObject.title + '</h2>'
-							var backButton = '<span class="MDLYa1-back-button">Back</span>' 
-							$(itemsContainer).append( infoContainer + infoImage + backButton + closingDiv );
+							var infoTitle = '<h2 style="text-align:left !important;font-size:14px !important;line-height: 20px !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;color:#333 !important;">' + itemObject.title + '</h2>'
+							var infoCategory = '<p style="text-align:left !important;font-size:12px !important;line-height: 20px !important;font-family: sans-serif !important;color:#555 !important;">Category: ' + itemObject.category + '</p>'
+							var infoPrice = '<p style="text-align:left !important;font-size:12px !important;line-height: 20px !important;font-family: sans-serif !important;color:#555 !important;">Best Price: $' + itemObject.price + '</p>'
+							var infoSource   = '<p style="text-align:left !important;font-size:12px !important;line-height: 20px !important;font-family: sans-serif !important;color:#555 !important;text-transform:capitalize !important;">Best Price Found On: ' + itemObject.source + '</p>'
+							var buyButton = '<div style="display:block !important;padding: 15px !important;background: #333 !important;cursor:pointer !important;color:#fff !important;font-size:12px !important;letter-spacing: 2px !important;font-weight:normal !important;margin: 5px 0px 5px 0px !important;font-family: nexa_boldregular, sans-serif !important;-webkit-border-radius: 3px !important;border-radius: 3px !important;">VIEW</div>' 
+							var backButton = '<div class="MDLYa1-back-button" style="display:block !important;padding: 10px !important;background: #ccc !important;cursor:pointer !important;color:#fff !important;font-size:10px !important;letter-spacing: 2px !important;font-family: nexa_boldregular, sans-serif !important;-webkit-border-radius: 3px !important;border-radius: 3px !important;">BACK</div>' 
+							$(itemsContainer).append( infoContainer + infoLeftContainer + infoImage + closingDiv + infoRightContainer + infoTitle + infoCategory + infoPrice + infoSource + buyButton + backButton + closingDiv + closingDiv );
 					});
 					$('.MDLYa1').on('click', '.MDLYa1-back-button', function (e) {
-						var parent = $(e.currentTarget).parent().parent();
+						console.log("hi");
+						var parent = $(e.currentTarget).parent().parent().parent();
+						console.log(parent)
 						$(parent).find('.MDLYa1-item-info-container').attr('style', 'display: none !important');
 						$(parent).find('.MDLYa1-item').attr('style', 'display: block !important');
 					});
