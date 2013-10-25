@@ -88,16 +88,23 @@
 							var infoCategory = '<p style="text-align:left !important;font-size:12px !important;line-height:18px !important;margin:0px !important;font-family: sans-serif !important;color:#555 !important;">Category: ' + itemObject.category + '</p>'
 							var infoPrice = '<p style="text-align:left !important;font-size:12px !important;line-height:18px !important;margin:0px !important;font-family: sans-serif !important;color:#555 !important;">Best Price: $' + itemObject.price + '</p>'
 							var infoSource   = '<p style="text-align:left !important;font-size:12px !important;line-height:18px !important;margin:0px !important;font-family: sans-serif !important;color:#555 !important;text-transform:capitalize !important;">Best Price Found On: ' + itemObject.source + '</p>'
-							var buyButton = '<div style="display:block !important;padding: 15px !important;background: #333 !important;cursor:pointer !important;color:#fff !important;font-size:12px !important;letter-spacing: 2px !important;font-weight:normal !important;margin: 8px 0px 5px 0px !important;font-family: nexa_boldregular, sans-serif !important;-webkit-border-radius: 3px !important;border-radius: 3px !important;">VIEW</div>' 
+							var buyButton = '<div class="MDLYa1-buy-button" data-link="' + itemObject.link + '" style="display:block !important;padding: 15px !important;background: #333 !important;cursor:pointer !important;color:#fff !important;font-size:12px !important;letter-spacing: 2px !important;font-weight:normal !important;margin: 10px 0px 5px 0px !important;font-family: nexa_boldregular, sans-serif !important;-webkit-border-radius: 3px !important;border-radius: 3px !important;">VIEW</div>' 
 							var backButton = '<div class="MDLYa1-back-button" style="display:block !important;padding: 10px !important;background: #ccc !important;cursor:pointer !important;color:#fff !important;font-size:10px !important;letter-spacing: 2px !important;font-family: nexa_boldregular, sans-serif !important;-webkit-border-radius: 3px !important;border-radius: 3px !important;">BACK</div>' 
 							$(itemsContainer).append( infoContainer + infoLeftContainer + infoImage + closingDiv + infoRightContainer + infoTitle + infoCategory + infoPrice + infoSource + buyButton + backButton + closingDiv + closingDiv );
 					});
 					$('.MDLYa1').on('click', '.MDLYa1-back-button', function (e) {
-						console.log("hi");
 						var parent = $(e.currentTarget).parent().parent().parent();
 						console.log(parent)
 						$(parent).find('.MDLYa1-item-info-container').attr('style', 'display: none !important');
 						$(parent).find('.MDLYa1-item').attr('style', 'display: block !important');
+					});
+					$('.MDLYa1').on('click', '.MDLYa1-buy-button', function (e) {
+						var medleyId = $(e.currentTarget).parent().parent().parent().attr('data-medleyid')
+						var itemObject = window.mdlywidgets[medleyId]
+						var itemTag = itemObject.user.affiliate_id
+						var itemLink = $(e.currentTarget).attr('data-link') + '%26tag%3D' + itemTag
+						console.log(itemTag, itemLink)
+						window.open(itemLink, '_blank');
 					});
 
 	}; // / Mobile Device Check
