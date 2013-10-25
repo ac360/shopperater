@@ -84,7 +84,7 @@
 							var infoLeftContainer = '<div class="MDLYa1-item-info-container-left" style="display: block !important;float:left !important;height:250px !important;width:45% !important;">'
 							var infoRightContainer = '<div class="MDLYa1-item-info-container-right" style="display: block !important;float:left !important;height:250px !important;width:55% !important;">'
 							var infoImage    = '<img src="' + itemObject.img_small + '" draggable="false" />'
-							var infoTitle = '<h2 style="text-align:left !important;font-size:14px !important;line-height: 20px !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;color:#333 !important;">' + itemObject.title + '</h2>'
+							var infoTitle = '<h2 style="text-align:left !important;font-size:14px !important;line-height: 20px !important;margin-bottom:8px !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;color:#333 !important;">' + itemObject.title + '</h2>'
 							var infoCategory = '<p style="text-align:left !important;font-size:12px !important;line-height:16px !important;margin:0px !important;font-family: sans-serif !important;color:#555 !important;">Category: ' + itemObject.category + '</p>'
 							var infoPrice = '<p style="text-align:left !important;font-size:12px !important;line-height:16px !important;margin:0px !important;font-family: sans-serif !important;color:#555 !important;">Best Price: $' + itemObject.price + '</p>'
 							var infoSource   = '<p style="text-align:left !important;font-size:12px !important;line-height:16px !important;margin:0px !important;font-family: sans-serif !important;color:#555 !important;text-transform:capitalize !important;">Best Price Found On: ' + itemObject.source + '</p>'
