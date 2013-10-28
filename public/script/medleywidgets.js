@@ -20,7 +20,7 @@
     		window.mdlywidgets = {};
 		  	var MW = window.mdlywidgets;
 		  	// Add the style tag into the head
-	        $('head').append('<'+'link rel="stylesheet" href="http://mdly.co/script/medleywidgets.css" type="text/css"/'+'>'); 
+	        $('head').append('<'+'link rel="stylesheet" href="http://localhost:3000/script/medleywidgets.css" type="text/css"/'+'>'); 
 		  	// Check to See if is a mobile device
 		  	var pw = $( ".MDLYa1" ).parent().width();
 		  	if (pw < 420) {	

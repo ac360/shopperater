@@ -76,6 +76,7 @@
 .MDLYa1 .MDLYa1-item, .MDLYa1-item-info-container img { 
 	position:absolute !important;
 	display:block !important;
+	text-align: center !important;
 	background:#ffffff !important;
 	text-align:center !important;
 	-webkit-border-radius: 3px !important;
@@ -113,11 +114,13 @@
 .MDLYa1 .MDLYa1-items-box .heighty1 { height: 85px !important;   }
 .MDLYa1 .MDLYa1-items-box .heighty2 { height: 180px !important;  }
 
+.MDLYa1 .MDLYa1-items-box .widthx1 img  { max-width: 75px  !important;   }
+.MDLYa1 .MDLYa1-items-box .widthx2 img  { max-width: 160px !important;   }
+.MDLYa1 .MDLYa1-items-box .heighty1 img { max-height: 75px !important;margin-top:5px !important;   }
+.MDLYa1 .MDLYa1-items-box .heighty2 img { max-height: 160px !important;margin-top:10px !important;   }
+
 .MDLYa1 .MDLYa1-item img { 
-	position: absolute !important;
-	max-width:80%  !important;
-	height:auto    !important;
-	max-height:80% !important;
+	
 }
 .MDLYa1 .MDLYa1-item img:hover { cursor: pointer !important; }
 
