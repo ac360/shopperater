@@ -61,6 +61,7 @@
 	display: block !important;
 	position: relative !important;
 	width:390px !important;
+	min-height: 280px !important;
 	background-color:#f6f6f6 !important;
 	-webkit-border-radius: 0px 0px 3px 3px !important;
 	border-radius: 0px 0px 3px 3px !important;

@@ -57,14 +57,23 @@
 						  	// TODO ----- FIND Y VALUES OF EACH ROW AND FACTOR THOSE IN TO GT CORRECT HEIGHT
 						  	$(itemArray).each(function(index, item) {
 						  		if(!rowHeightsObj[item.r]) { rowHeightsObj[item.r] = 0 }
-						  		if (rowHeightsObj[item.r] < item.y && rowHeightsObj[item.r - 1] !== 2) { 
-						  			rowHeightsObj[item.r] = item.y 
-						  		} else {
-						  			rowHeightsObj[item.r] = 0
-						  		}
+						  		if ( rowHeightsObj[item.r] < item.y ) { 
+						  			rowHeightsObj[item.r] = item.y
+						  		};
 								addItem(item);
 							});
-							console.log(rowHeightsObj)
+							console.log("Before adjustment: ", rowHeightsObj);
+
+							$.each(rowHeightsObj, function(key, value) {
+								previousRow = rowHeightsObj[key - 1]
+								if (previousRow == 2) {
+									console.log("HELLOOOOO");
+									rowHeightsObj[key] = 0
+								}
+								console.log(key, value)
+							});
+							console.log("After adjustment: ", rowHeightsObj);
+
 							// ITERATE THROUGH OBJECT AN PULL VALUES!
 							rowHeightsTotal = 0
 							$.each(rowHeightsObj, function(key, value) { 
