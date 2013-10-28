@@ -20,7 +20,7 @@
     		window.mdlywidgets = {};
 		  	var MW = window.mdlywidgets;
 		  	// Add the style tag into the head
-	        $('head').append('<'+'link rel="stylesheet" href="http://localhost:3000/script/medleywidgets.css" type="text/css"/'+'>'); 
+	        $('head').append('<'+'link rel="stylesheet" href="http://mdly.co/script/medleywidgets.css" type="text/css"/'+'>'); 
 		  	// Check to See if is a mobile device
 		  	var pw = $( ".MDLYa1" ).parent().width();
 		  	if (pw < 420) {	
@@ -62,17 +62,14 @@
 						  		};
 								addItem(item);
 							});
-							console.log("Before adjustment: ", rowHeightsObj);
 
 							$.each(rowHeightsObj, function(key, value) {
 								previousRow = rowHeightsObj[key - 1]
 								if (previousRow == 2) {
-									console.log("HELLOOOOO");
 									rowHeightsObj[key] = 0
 								}
 								console.log(key, value)
 							});
-							console.log("After adjustment: ", rowHeightsObj);
 
 							// ITERATE THROUGH OBJECT AN PULL VALUES!
 							rowHeightsTotal = 0
