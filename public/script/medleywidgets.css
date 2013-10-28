@@ -104,6 +104,7 @@
 	bottom: 0px !important;
 	display: block !important;
 	height:auto !important;
+	max-height: 20px !important;
 	width: 100% !important;
 	background: transparent !important;
 	padding:0px 0px 15px 0px !important;
