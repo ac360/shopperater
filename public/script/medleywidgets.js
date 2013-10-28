@@ -49,19 +49,31 @@
 								var itemHtml = "<div class='MDLYa1-item widthx" + item.x + " heighty" + item.y + " row" + item.r + " " + "col" + item.c + "' data-itemid='" + item.id + "'>" + image + "</div>"
 								$(self).find('.MDLYa1-items-box').append(itemHtml)
 						  	};
+						  	$(self).find('.MDLYa1-items-box').append('<div class="MDLYa1-link-box"><h1 class="MDLYa1-home-link" style="text-align:center !important;font-size:14px !important;cursor:pointer !important;color:#999 !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;letter-spacing:4px !important;">MEDLEY</h1></div>');
 
-						  	// Set Array to keep row numbers and determine highest row value
-						  	var rowNumbers = [];
+						  	// Set Object to keep row numbers and determine highest row value
+						  	var rowHeightsObj = {};
 						  	// Append each item to the parent div and collect the row numbers
+						  	// TODO ----- FIND Y VALUES OF EACH ROW AND FACTOR THOSE IN TO GT CORRECT HEIGHT
 						  	$(itemArray).each(function(index, item) {
+						  		if(!rowHeightsObj[item.r]) { rowHeightsObj[item.r] = 0 }
+						  		if (rowHeightsObj[item.r] < item.y && rowHeightsObj[item.r - 1] !== 2) { 
+						  			rowHeightsObj[item.r] = item.y 
+						  		} else {
+						  			rowHeightsObj[item.r] = 0
+						  		}
 								addItem(item);
-								rowNumbers.push(item.r);
 							});
-							$(self).find('.MDLYa1-items-box').append('<div class="MDLYa1-link-box"><h1 class="MDLYa1-home-link" style="text-align:center !important;font-size:14px !important;cursor:pointer !important;color:#999 !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;letter-spacing:4px !important;">MEDLEY</h1></div>');
+							console.log(rowHeightsObj)
+							// ITERATE THROUGH OBJECT AN PULL VALUES!
+							rowHeightsTotal = 0
+							$.each(rowHeightsObj, function(key, value) { 
+								rowHeightsTotal = rowHeightsTotal + value 
+							});
+
 							// Setting Height Of Container.  Start by finding the largest row number.  We use this to find total height.
-							var maxRowNumber = Math.max.apply(Math, rowNumbers);
-							$(self).addClass('height-outer' + maxRowNumber);
-							$(self).children('.MDLYa1-items-box').addClass('height' + maxRowNumber);
+							$(self).addClass('height-outer' + rowHeightsTotal );
+							$(self).children('.MDLYa1-items-box').addClass('height' + rowHeightsTotal );
 							// Set Title
 							$(self).find('.MDLYa1-title-box').append('<h1>' + m.title + '</h1>');
 						}); // /getJSON
