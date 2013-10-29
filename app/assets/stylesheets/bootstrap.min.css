@@ -119,12 +119,13 @@
  #medley-grid { margin:0 auto;width:405px;}
  .gridster li {margin-left:5px;}
  .temp-grid-item {background:#eaeaea!important;}
- #medley-description {min-height:100px;color:#cccccc;font-size:14px;}
+ #medley-description {min-height:100px;color:#cccccc;font-size:13px;}
  #module-medley-results {background:#eaeaea;min-height:565px;border: 1px solid #111111;}
  .item-small img  { max-height:80px;max-width:80px; }
  .item-medium img { max-height:80px;max-width:180px; }
  .item-large img  { max-height:180px;max-width:180px; }
- #remix-btn {}
+ #actions-container a {color:#999;}
+ #actions-container a:hover {color:#bbb;}
 
  /* Welcome Modal */
  #welcome-modal .modal-content {background:#eaeaea;border:none!important;}
@@ -156,7 +157,7 @@
  #description:focus {border:1px solid #888;}
  #other-information {color:#fff;}
  #created-by {font-size:10px;color:#999;}
- #created-by-username {margin:0px auto 5px auto;color:#fff;}
+ #created-by-username {margin:0px auto 5px auto;color:#fff;font-size:20px;}
  #publish-medley-modal .modal-content {background:#eaeaea;min-height:380px;}
  #category-list {height:150px;width:40%;margin:0 auto;background:#fff;padding:10px 20px;overflow:hidden;}
  .tag-field {margin:3px 0px;}

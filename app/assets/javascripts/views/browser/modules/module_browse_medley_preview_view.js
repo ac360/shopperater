@@ -17,7 +17,8 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 	    'dragover #medley-container'  		           : 'highlightDropZone',
       'click #editor-button'                       : 'remixMedley',
       "click .medley-grid-item"                    : "showProductPopUp",
-      "click #remix-btn"                           : 'openRemixModal'
+      "click #remix-link"                          : 'openRemixModal',
+      "click #share-link"                          : 'openShareModal'
   },
 
   showProductPopUp: function(e) {
@@ -38,9 +39,9 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
 
   instantiateGridster: function() {
     	this.options.gridster = $(".gridster ul").gridster({
-                                 widget_margins: [5, 5],
-                                 widget_base_dimensions: [90, 90]
-                              }).data("gridster")
+             widget_margins: [5, 5],
+             widget_base_dimensions: [90, 90]
+          }).data("gridster")
       // Disable Dragging
       this.options.gridster.disable();
   },
@@ -87,6 +88,7 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
   },
 
   openRemixModal: function(e) {
+    e.preventDefault();
     this.unhighlightDropZone();
     // Show Remix Notification Modal
     $('#remix-modal').modal('show')
@@ -96,6 +98,12 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
         self.removeTempItemFromGrid();
         self.unhighlightDropZone();
     });
+  },
+
+  openShareModal: function(e) {
+    e.preventDefault();
+    // Show Remix Notification Modal
+    $('#share-modal').modal('show')
   },
 
   remixMedley: function() {
