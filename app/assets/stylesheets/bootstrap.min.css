@@ -181,13 +181,15 @@
 .modal-body {}
 .modal-body ul {margin-bottom:0px;}
 
-#share-modal .modal-content {padding:0px;}
-#share-modal .left-col {background:#f6f6f6;height:300px;}
+#share-modal .modal-content {padding:0px;min-height:400px;}
+#share-modal .left-col {background:#f6f6f6;height:400px;}
 #share-modal .left-col ul {padding:0px;height:250px;}
 #share-modal .left-col ul li {padding:10px;border-bottom:1px solid #eaeaea;}
 #share-modal .left-col ul li:hover {cursor:pointer;background:#f9f9f9;}
 #share-modal .left-col ul .active {background:#ffffff;}
 #share-modal .left-col ul .active:hover {background:#ffffff;}
+#share-modal .well { padding:20px 10px;overflow:scroll;margin:0px 12px 12px 0px;}
+#share-modal code {background:transparent;}
 #share-modal .right-col {background:#fff;padding:0px 20px 20px 30px}
 
 
