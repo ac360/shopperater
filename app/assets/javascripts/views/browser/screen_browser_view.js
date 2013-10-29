@@ -49,7 +49,8 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click .medley-result-box"					:   "showMedleySearchResult",
 		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
 		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
-		"click #hide-banner-link"					:   "hideBannerLink"
+		"click #hide-banner-link"					:   "hideBannerLink",
+		"click .share-tab"                          :   "shareModalTabChange"
     },
 
     detectEnterButton: function(event) {
@@ -181,6 +182,26 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     			$.jStorage.set("medley_banner_1", true);
   			});		
   		});
+	},
+
+	shareModalTabChange: function(e) {
+		var tagID = $(e.currentTarget).attr('data-id');
+	    if ( tagID == 1 ) {
+	    	$('.share-screen').addClass('hide');
+	    	$('#share-website-screen').removeClass('hide');
+	    	$('.share-tab').removeClass('active');
+	    	$(e.currentTarget).addClass('active');
+	    } else if ( tagID == 2 ) {
+	    	$('.share-screen').addClass('hide');
+	    	$('#share-tumblr-screen').removeClass('hide');
+	    	$('.share-tab').removeClass('active');
+	    	$(e.currentTarget).addClass('active');
+	    } else if ( tagID == 3 ) {
+	    	$('.share-screen').addClass('hide');
+	    	$('#share-facebook-screen').removeClass('hide');
+	    	$('.share-tab').removeClass('active');
+	    	$(e.currentTarget).addClass('active');
+	    };
 	},
 
 	addNewsletterSubscriber: function(email) {
