@@ -20,7 +20,7 @@
     		window.mdlywidgets = {};
 		  	var MW = window.mdlywidgets;
 		  	// Add the style tag into the head
-	        $('head').append('<'+'link rel="stylesheet" href="http://mdly.co/script/medleywidgets.css" type="text/css"/'+'>'); 
+	        $('head').append('<'+'link rel="stylesheet" href="http://localhost:3000/script/medleywidgets.css" type="text/css"/'+'>'); 
 		  	// Check to See if is a mobile device
 		  	var pw = $( ".MDLYa1" ).parent().width();
 		  	if (pw < 420) {	
@@ -34,14 +34,13 @@
 			    		$.getJSON( mAPI, function( m ) {
 			    			// Attach Medley to Global Namespace
 			    			if (!MW[m.id]) { MW[m.id] = m };
-			    			console.log(MW)
 			    			// Append Containers
 			    			$(self).append('<div class="MDLYa1-title-box"></div>');
 			    			$(self).append('<div class="MDLYa1-items-box" data-medleyid="' + m.id + '"></div>');
 						  	// Remove Null Items from results
 						  	var itemArray = []
 						  	$.grep(m.items, function(i, index){ if (i.id) {itemArray.push(i)} });
-						  	console.log(itemArray);
+
 
 						  	// Define Functions
 						  	var addItem = function(item) {
@@ -68,7 +67,6 @@
 								if (previousRow == 2) {
 									rowHeightsObj[key] = 0
 								}
-								console.log(key, value)
 							});
 
 							// ITERATE THROUGH OBJECT AN PULL VALUES!
@@ -113,7 +111,6 @@
 					});
 					$('.MDLYa1').on('click', '.MDLYa1-back-button', function (e) {
 						var parent = $(e.currentTarget).parent().parent().parent();
-						console.log(parent)
 						$(parent).find('.MDLYa1-item-info-container').attr('style', 'display: none !important');
 						$(parent).find('.MDLYa1-item').attr('style', 'display: block !important');
 					});
@@ -122,7 +119,6 @@
 						var itemObject = window.mdlywidgets[medleyId]
 						var itemTag = itemObject.user.affiliate_id
 						var itemLink = $(e.currentTarget).attr('data-link') + '%26tag%3D' + itemTag
-						console.log(itemTag, itemLink)
 						window.open(itemLink, '_blank');
 					});
 					$('.MDLYa1').on('click', '.MDLYa1-home-link', function (e) {

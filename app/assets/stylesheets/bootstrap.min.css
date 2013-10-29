@@ -48,7 +48,8 @@
 .rotating {-webkit-transform:rotate(120deg); -moz-transform:rotate(120deg); -o-transform:rotate(120deg); /* filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1.5); */ -ms-transform:rotate(120deg); }
 
  /* Body */
- body {background:url('crisscross.png') #212121;background-size:200px 200px;}
+ /* body {background:url('crisscross.png') #212121;background-size:200px 200px;} */
+ body {background: #212121;}
  .container {background:transparent;min-height:500px;}
 
  /* Header */
@@ -111,15 +112,15 @@
  .product-option-icons i:hover {color:#999;cursor:pointer;}
  #medley-reset-link {color:#999;text-align:center;}
  #medley-reset-link:hover {color:#fff;}
- #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;}
+ #module-medley-browser, #module-medley-editor {background:#151515;min-height:565px;height:auto;padding: 5px 0px 25px 0px;border: 1px solid #111111;}
  #medley-title-browser  {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;line-height: 20px;}
- #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background:url('crisscross.png') #111111;background-size:200px 200px;padding-top:10px;padding-bottom:10px;-webkit-box-shadow: inset 0px 0px 8px 0px #050505;box-shadow: inset 0px 0px 8px 0px #050505;border:1px solid #191919;}
+ #medley-container {margin-top:0px;min-height:330px;margin-bottom:15px;background: #212121 ;padding-top:10px;padding-bottom:10px;border:1px solid #111}
  .drop-zone-highlight {border:1px solid #555!important;}
  #medley-grid { margin:0 auto;width:405px;}
  .gridster li {margin-left:5px;}
  .temp-grid-item {background:#eaeaea!important;}
  #medley-description {min-height:100px;color:#cccccc;font-size:14px;}
- #module-medley-results {background:#eaeaea;min-height:565px;}
+ #module-medley-results {background:#eaeaea;min-height:565px;border: 1px solid #111111;}
  .item-small img  { max-height:80px;max-width:80px; }
  .item-medium img { max-height:80px;max-width:180px; }
  .item-large img  { max-height:180px;max-width:180px; }
@@ -137,7 +138,7 @@
  /* Screen - Editor */
  #medley-title       {letter-spacing:3px;color:#eaeaea;font-size:16px;margin-bottom:10px;margin-top:15px;padding:10px 10px;border:1px solid #252525;line-height: 20px;}
  #medley-title:focus {border:1px solid #888;}
- .medley-grid-item  {background:#ffffff;cursor:pointer;-webkit-box-shadow: 0px 0px 8px 0px #050505;box-shadow:0px 0px 8px 0px #050505;border:1px solid #000;}
+ .medley-grid-item  {background:#ffffff;cursor:pointer;border: 1px solid #000;-webkit-box-shadow: 0px 0px 8px 0px #050505;box-shadow:0px 0px 8px 0px #050505;border:1px solid #000;}
  .medley-grid-item:hover {border:1px solid #fff;-webkit-box-shadow: 0px 0px 8px 0px #ffffff;box-shadow:0px 0px 8px 0px #ffffff;}
  .medley-grid-item-view {min-height:100%;}
  #medley-item-image-container {text-align:center;}
@@ -172,7 +173,7 @@
  #instructions-container {padding-top:20px;}
 
  /* Modals */
-.modal-content {min-height:300px;padding:10px 10px 30px 10px;}
+.modal-content {min-height:300px;padding:10px 10px 30px 10px;border: 1px solid #000000;}
 .modal-body {}
 .modal-body ul {margin-bottom:0px;}
 
