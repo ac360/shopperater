@@ -20,7 +20,7 @@
     		window.mdlywidgets = {};
 		  	var MW = window.mdlywidgets;
 		  	// Add the style tag into the head
-	        $('head').append('<'+'link rel="stylesheet" href="http://mdly.co/script/medleywidgets.css" type="text/css"/'+'>'); 
+	        $('head').append('<'+'link rel="stylesheet" href="http://localhost:3000/script/medleywidgets.css" type="text/css"/'+'>'); 
 		  	// Check to See if is a mobile device
 		  	var pw = $( ".MDLYa1" ).parent().width();
 		  	if (pw < 420) {	
@@ -49,7 +49,7 @@
 								var itemHtml = "<div class='MDLYa1-item widthx" + item.x + " heighty" + item.y + " row" + item.r + " " + "col" + item.c + "' data-itemid='" + item.id + "'>" + image + "</div>"
 								$(self).find('.MDLYa1-items-box').append(itemHtml)
 						  	};
-						  	$(self).find('.MDLYa1-items-box').append('<div class="MDLYa1-link-box"><h1 class="MDLYa1-home-link" style="text-align:center !important;font-size:14px !important;cursor:pointer !important;color:#999 !important;font-family: nexa_boldregular, sans-serif !important;text-transform:uppercase !important;letter-spacing:4px !important;">MEDLEY</h1></div>');
+						  	$(self).find('.MDLYa1-items-box').append('<div class="MDLYa1-link-box"><h1 class="MDLYa1-home-link" style="text-align:center !important;font-size:14px !important;cursor:pointer !important;color:#999 !important;font-family: nexa_boldregular, sans-serif !important;margin-top:0px!important;text-transform:uppercase !important;letter-spacing:4px !important;">MEDLEY</h1></div>');
 
 						  	// Set Object to keep row numbers and determine highest row value
 						  	var rowHeightsObj = {};
