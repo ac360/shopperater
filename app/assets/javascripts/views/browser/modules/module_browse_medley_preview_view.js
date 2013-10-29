@@ -106,7 +106,9 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
     $('#share-modal').modal('show')
   },
 
-  shareModalTab
+  shareModalTabChange: function(e) {
+    console.log("tab click!")
+  },
 
   remixMedley: function() {
     // Build Remix Modal's Link to Editor Area with Any Params
