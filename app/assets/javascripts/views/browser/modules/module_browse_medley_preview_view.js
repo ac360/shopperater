@@ -106,6 +106,8 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
     $('#share-modal').modal('show')
   },
 
+  shareModalTab
+
   remixMedley: function() {
     // Build Remix Modal's Link to Editor Area with Any Params
     var searchKeywords = $('#primary-search-field').val()
