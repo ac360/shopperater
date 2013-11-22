@@ -2,6 +2,7 @@ class MedleyApiController < ApplicationController
 
 	include ActionView::Helpers::NumberHelper
 	include ActionView::Helpers::SanitizeHelper
+	include ActionView::Helpers::TextHelper
 	# TODO - SANITIZE ALL USER INPUT - STUDY RAILS + BACKBONE + SANITIZATION
 
 	def medley_search
@@ -24,16 +25,12 @@ class MedleyApiController < ApplicationController
 
 	def product_search
 
-			# Convert Search Keywords to string ot be safe
-			search_keywords = params[:keywords].to_s
-
-			# Perform Etsy Search
-			etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=10&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
-			@ETSYresults = etsyClient.parsed_response['results']
+			# Convert Search Keywords to string and strip whitespace from beg and end
+			search_keywords = params[:keywords].to_s.strip
 			
 			# Perform Amazon Search
 			amazonClient = A2z::Client.new(key: ENV["AMAZON_PAAPI_KEY"], secret: ENV["AMAZON_PAAPI_SECRET"], tag: ENV["AMAZON_PAAPI_TAG"])
-			
+
 			# Because there are thousands of items in each search index, ItemSearch requires that you specify the value for at least one parameter in addition to a search index.
 			@AMAZONresults = amazonClient.item_search do
 	  			 keywords search_keywords
@@ -41,6 +38,20 @@ class MedleyApiController < ApplicationController
 	  			 # item_page 2
 	  			 response_group 'Small, Images, OfferListings'
 	        end
+
+	        # Perform Etsy Search and set limit based on number of Amazon Results
+	        if @AMAZONresults.items.count < 10
+				etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+				@ETSYresults = etsyClient.parsed_response['results']
+			else
+				etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=10&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+				@ETSYresults = etsyClient.parsed_response['results']
+			end
+
+			if @AMAZONresults.items.count === 0 && @ETSYresults.count === 0
+				render :json => []
+				return
+			end
 
 	        # Create custom response array here
 	        @custom_search_results = []
@@ -71,11 +82,11 @@ class MedleyApiController < ApplicationController
 
 			# Etsy - Reformat& Add Products
 			# TODO - TRIM TITLES && STRIP URL AND HANDLE MEDLEY AFFILIATE TAG
-			etsyPosition = 0
+			etsyPosition = 1
 			@ETSYresults.each do |product|
 				@new_response    		= 	OpenStruct.new(:source => "etsy")
 				@new_response.id 		= 	product['listing_id'] if product['listing_id'].present?  
-				@new_response.title 	= 	product['title'] if product['title'].present? 
+				@new_response.title 	= 	truncate(product['title'], :length => 70) if product['title'].present? 
 				if product['price'].present? 
 					@new_response.price = 	product['price']
 				else
@@ -90,9 +101,16 @@ class MedleyApiController < ApplicationController
 					@new_response.link = product['url']
 				end
 				# Insert into formatted results
-				@custom_search_results.insert(etsyPosition, @new_response)
-				# Increment Position of insert by multiple of 2 so that the Etsy listings are evenly distributed amongst results
-				etsyPosition = etsyPosition + 2
+					# if Amazon has 10 results, insert Etsy results into every other index
+				if @custom_search_results.count > 9
+					@custom_search_results.insert(etsyPosition, @new_response)
+					# Increment Position of insert by multiple of 2 so that the Etsy listings are evenly distributed amongst results
+					etsyPosition = etsyPosition + 2
+					# if Amazon has < 10 results, insert Etsy result and shuffle the array
+				else
+					@custom_search_results << @new_response
+					@custom_search_results = @custom_search_results.shuffle
+				end
 			end
 
 	end # Product_search
