@@ -23,42 +23,79 @@ class MedleyApiController < ApplicationController
 	end
 
 	def product_search
-		client = A2z::Client.new(key: ENV["AMAZON_PAAPI_KEY"], secret: ENV["AMAZON_PAAPI_SECRET"], tag: ENV["AMAZON_PAAPI_TAG"])
-		# Because there are thousands of items in each search index, ItemSearch requires that you specify the value for at least one parameter in addition to a search index.
-		search_keywords = params[:keywords].to_s
 
-		@results = client.item_search do
-  			 keywords search_keywords
-  			 category 'All'
-  			 # item_page 2
-  			 response_group 'Small, Images, OfferListings'
-        end
+			# Convert Search Keywords to string ot be safe
+			search_keywords = params[:keywords].to_s
 
-        # Create custom response here using the data from the Amazon API's reponse...
-        @custom_search_results = []
-        @results.items.each do |product|
+			# Perform Etsy Search
+			etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=10&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+			@ETSYresults = etsyClient.parsed_response['results']
+			
+			# Perform Amazon Search
+			amazonClient = A2z::Client.new(key: ENV["AMAZON_PAAPI_KEY"], secret: ENV["AMAZON_PAAPI_SECRET"], tag: ENV["AMAZON_PAAPI_TAG"])
+			
+			# Because there are thousands of items in each search index, ItemSearch requires that you specify the value for at least one parameter in addition to a search index.
+			@AMAZONresults = amazonClient.item_search do
+	  			 keywords search_keywords
+	  			 category 'All'
+	  			 # item_page 2
+	  			 response_group 'Small, Images, OfferListings'
+	        end
 
-			@new_response    		= 	OpenStruct.new(:source => "amazon")
-			@new_response.id 		= 	product.asin if product.asin.present? 
-			@new_response.title 	= 	product.title if product.title.present? 
-			if product.offers.present? 
-				@new_response.price = 	product.offers.first.price.fractional / 100.00
-				@new_response.price =   number_with_precision(@new_response.price, :precision => 2)
-			else
-				@new_response.price =   "No Price"
+	        # Create custom response array here
+	        @custom_search_results = []
+
+	        # Amazon - Filter & Add Products
+	        @AMAZONresults.items.each do |product|
+
+				@new_response    		= 	OpenStruct.new(:source => "amazon")
+				@new_response.id 		= 	product.asin if product.asin.present? 
+				@new_response.title 	= 	product.title if product.title.present? 
+				if product.offers.present? 
+					@new_response.price = 	product.offers.first.price.fractional / 100.00
+					@new_response.price =   number_with_precision(@new_response.price, :precision => 2)
+				else
+					@new_response.price =   "No Price"
+				end
+				@new_response.img_small = 	product.medium_image.url if product.medium_image.present? 
+				@new_response.img_big   = 	product.large_image.url  if product.large_image.present?
+				@new_response.category  = 	product.product_group    if product.product_group.present?
+
+				# aZn Gem Includes Affiliate Tag In Link by Default.  Let's Strip It And We'll Put It Back in On the Front-End
+				if product.links.first.url.present?
+					@new_response.link = product.links.first.url.gsub! "%26tag%3Dmedley01-20", ""
+				end
+
+				@custom_search_results  << @new_response
 			end
-			@new_response.img_small = 	product.medium_image.url if product.medium_image.present? 
-			@new_response.img_big   = 	product.large_image.url  if product.large_image.present?
-			@new_response.category  = 	product.product_group    if product.product_group.present?
 
-			# aZn Gem Includes Affiliate Tag In Link by Default.  Let's Strip It And We'll Put It Back in On the Front-End
-			if product.links.first.url.present?
-				@new_response.link = product.links.first.url.gsub! "%26tag%3Dmedley01-20", ""
+			# Etsy - Reformat& Add Products
+			# TODO - TRIM TITLES && STRIP URL AND HANDLE MEDLEY AFFILIATE TAG
+			etsyPosition = 0
+			@ETSYresults.each do |product|
+				@new_response    		= 	OpenStruct.new(:source => "etsy")
+				@new_response.id 		= 	product['listing_id'] if product['listing_id'].present?  
+				@new_response.title 	= 	product['title'] if product['title'].present? 
+				if product['price'].present? 
+					@new_response.price = 	product['price']
+				else
+					@new_response.price =   "No Price"
+				end
+				@new_response.img_small = 	product['Images'].first['url_570xN'] if product['Images'].first['url_570xN'].present? 
+				@new_response.img_big   = 	product['Images'].first['url_fullxfull'] if product['Images'].first['url_fullxfull'].present?
+				@new_response.category  = 	product['category_path'].first if product['category_path'].present?
+
+				# aZn Gem Includes Affiliate Tag In Link by Default.  Let's Strip It And We'll Put It Back in On the Front-End
+				if product['url'].present?
+					@new_response.link = product['url']
+				end
+				# Insert into formatted results
+				@custom_search_results.insert(etsyPosition, @new_response)
+				# Increment Position of insert by multiple of 2 so that the Etsy listings are evenly distributed amongst results
+				etsyPosition = etsyPosition + 2
 			end
 
-			@custom_search_results  << @new_response
-		end
-	end
+	end # Product_search
 
 	def product_lookup
 		# Check which Retailer this is for

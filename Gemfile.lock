@@ -78,6 +78,9 @@ GEM
     google-webfonts (0.1.2)
       actionpack (>= 3.0.0)
     hike (1.2.3)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     jeff (0.6.4)
       excon (~> 0.23.0)
@@ -94,6 +97,7 @@ GEM
     money (5.1.1)
       i18n (~> 0.6.0)
     multi_json (1.7.7)
+    multi_xml (0.5.5)
     orm_adapter (0.0.5)
     pg (0.16.0)
     polyglot (0.3.3)
@@ -167,6 +171,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   google-webfonts
+  httparty
   jquery-rails
   json
   pg

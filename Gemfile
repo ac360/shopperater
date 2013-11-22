@@ -33,6 +33,7 @@ gem 'google-webfonts'
 gem 'rabl'
 gem 'textacular', '~> 3.0'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'httparty'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
