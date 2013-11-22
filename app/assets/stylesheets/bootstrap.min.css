@@ -134,7 +134,7 @@
 
  /* Product Modal */
  #product-modal .modal-content {background:#eaeaea;border:none!important;}
- .product-popup-image {max-width:90%;padding:5px;background:#fff;}
+ .product-popup-image {max-width:90%;max-height:240px;padding:5px;margin-top:20px;background:#fff;}
 
  /* Tour ToolTips */
  .tooltip-inner {padding:15px 30px;background:#fff;color:#666;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px; }

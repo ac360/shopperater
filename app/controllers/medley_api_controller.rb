@@ -85,7 +85,7 @@ class MedleyApiController < ApplicationController
 			etsyPosition = 1
 			@ETSYresults.each do |product|
 				@new_response    		= 	OpenStruct.new(:source => "etsy")
-				@new_response.id 		= 	product['listing_id'] if product['listing_id'].present?  
+				@new_response.id 		= 	product['listing_id'].to_s if product['listing_id'].present?  
 				@new_response.title 	= 	truncate(product['title'], :length => 70) if product['title'].present? 
 				if product['price'].present? 
 					@new_response.price = 	product['price']

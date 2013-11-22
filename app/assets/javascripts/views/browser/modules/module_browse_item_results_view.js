@@ -17,10 +17,12 @@ Medley.Views.ModuleBrowseItemResults = Backbone.View.extend({
     	var self = this;
     	console.log(this.collection)
     	// Get ID of Product
-	    var productID = $(e.currentTarget).attr('data-id');
-	    console.log(productID);
+	    var productID = $(e.currentTarget).attr('data-id').toString();
+	    console.log(productID)
+	    console.log(typeof productID)
 	    // Get Specific Product From Model & Make It A Seperate Model
 	    var thisProduct = _.where(self.collection, {id: productID})[0]
+	    console.log(thisProduct);
 	    // Update Link
 	    thisProduct.link = $(e.currentTarget).attr('data-link') + "%26tag%3Dmedley01-20"
 	    // Prepare Modal
