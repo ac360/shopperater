@@ -68,7 +68,18 @@
 			</div>
 
 			<div id="module-primary-search" class="row">
-			  	<div class="col-offset-4 col-lg-4">
+				<div id="retailer-dropdown-container" class="col-offset-3 col-lg-1">
+					<div class="dropdown">
+						 <a id="retailer-toggle" class="pull-right" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-chevron-down" style="font-size:10px;padding-right:3px;"></span><span id="retailer-title"> All Retailers</span></a>
+						 <ul id="retailer-dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						    <li class="retailer-select" data-retailer="All Retailers">All Retailers</li>
+						    <li class="divider"></li>
+						    <li class="retailer-select" data-retailer="Amazon">Amazon</li>
+						    <li class="retailer-select" data-retailer="Etsy">Etsy</li>
+						 </ul>
+					</div>
+				</div>
+			  	<div class="col-lg-4">
 					<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold', :autofocus => true %>
 					<span id="cursor"></span>
 			  	</div>

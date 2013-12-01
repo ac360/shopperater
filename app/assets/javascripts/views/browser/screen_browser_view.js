@@ -50,7 +50,14 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
 		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
 		"click #hide-banner-link"					:   "hideBannerLink",
-		"click .share-tab"                          :   "shareModalTabChange"
+		"click .share-tab"                          :   "shareModalTabChange",
+		"click .retailer-select"                    :   "detectDropdown"
+    },
+
+    detectDropdown: function(e) {
+    	var retailer = $(e.currentTarget).attr('data-retailer');
+    	$('#retailer-title').text(retailer);
+    	console.log(retailer);
     },
 
     detectEnterButton: function(event) {

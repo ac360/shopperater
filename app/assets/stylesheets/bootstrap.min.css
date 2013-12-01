@@ -88,6 +88,13 @@
  #error_explanation ul {list-style-type: none;color:#D9534F;padding:0px 0px 15px 0px;margin:0px;}
  #bottom-nav a {color:#aaa;}
  #bottom-nav a:hover {color:#ddd;}
+ #retailer-dropdown-container {padding:7px 0px 0px 0px;}
+ #retailer-toggle {color:#999;text-decoration: none!important;}
+ #retailer-toggle:hover {text-decoration: none;color:#fff;}
+ #retailer-dropdown {border-radius:0px;border:none;background:#444;color:#fff;padding:5px 0px;}
+ #retailer-dropdown li {padding:5px 10px;}
+ #retailer-dropdown li:hover {background:#555;cursor:pointer;}
+ #retailer-dropdown .divider {background:#565656;padding:0px!important;}
 
  /* Screen - Browse */
  #module-product-results-container {background:#eaeaea;height:565px;}
