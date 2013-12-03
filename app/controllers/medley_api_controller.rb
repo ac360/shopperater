@@ -28,6 +28,7 @@ class MedleyApiController < ApplicationController
 			# Convert Search Keywords to string and strip whitespace from beg and end
 			search_keywords = params[:keywords].to_s.strip
 			search_retailer = params[:retailer].to_s.strip
+			etsy_store_id   = params[:etsy_store_id].to_s.strip if params[:etsy_store_id].present? 
 			# Create custom response array here
 			@custom_search_results = []
 
@@ -137,7 +138,12 @@ class MedleyApiController < ApplicationController
 						@custom_search_results  << @new_response
 					end
 			elsif search_retailer == "Etsy"
-					etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+					# Check if they entered in an Etsy Store ID/Name
+					if etsy_store_id.present?
+						etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/shops/" + URI.escape(etsy_store_id) + "/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+					else
+						etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+					end
 					@ETSYresults = etsyClient.parsed_response['results']
 					etsyPosition = 1
 					@ETSYresults.each do |product|
@@ -160,6 +166,10 @@ class MedleyApiController < ApplicationController
 						@custom_search_results << @new_response
 						@custom_search_results = @custom_search_results.shuffle
 					end
+			end
+
+			if @custom_search_results.count === 0
+				render :json => []
 			end
 
 	end # Product_search

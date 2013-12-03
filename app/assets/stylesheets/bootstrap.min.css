@@ -75,6 +75,8 @@
  #tagline {font-size:9px;color:#888;letter-spacing:4px;text-transform:uppercase;margin-bottom:0px;margin-top:0px;}
  #cart-popover-trigger:hover {color:#888888;cursor:pointer;}
  #module-primary-search {height:50px;}
+ #etsy-storeid-field {background:transparent;border-bottom:1px dashed #666666;margin:0px auto;width:300px;border-radius:0px;text-align:center;color:#ffffff;}
+ #retailer-options-etsy {display:none;}
  #menu-button-container {text-align:right;height:20px;padding-bottom:5px;}
  #menu-button, #create-button {font-size:12px;color:#999;letter-spacing:2px;}
  #menu-button:hover, #create-button:hover {color:#fff;}

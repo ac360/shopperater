@@ -46,6 +46,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	events: {
 		"click #primary-search-button"              :   "search",
 		"keypress #primary-search-field"			:   "detectEnterButton",
+		"keypress #etsy-storeid-field"			    :   "detectEnterButton",
 		"click .medley-result-box"					:   "showMedleySearchResult",
 		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
 		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
@@ -58,6 +59,11 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	var retailer = $(e.currentTarget).attr('data-retailer');
     	$('#retailer-title').text(retailer);
     	console.log(retailer);
+    	if (retailer === "Etsy") {
+    		$('#retailer-options-etsy').slideDown("slow", function() {});
+    	} else {
+    		$('#retailer-options-etsy').slideUp("slow", function() {});
+    	};
     },
 
     detectEnterButton: function(event) {
@@ -73,7 +79,10 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr('data-category');
     	var searchRetailer = $('#retailer-title').text();
-
+    	var searchEtsyStoreId = ""
+    	if (searchRetailer === "Etsy") {
+    		var searchEtsyStoreId = $('#etsy-storeid-field').val();
+    	};
 	      // Search Medleys
 	      self.options.medleys = new Medley.Collections.Medlies();
 	      self.options.medleys.fetch({
@@ -114,7 +123,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                              _.defer( function() {
 		                              var searchItems = new Medley.Collections.ProductSearch();
 		                              searchItems.fetch({
-		                                      data: { keywords: searchKeywords, category: searchCategory, retailer: searchRetailer },
+		                                      data: { keywords: searchKeywords, category: searchCategory, retailer: searchRetailer, etsy_store_id: searchEtsyStoreId },
 		                                      processData: true,
 		                                      success: function (response) {
 		                                          var productResults = response.toJSON();
