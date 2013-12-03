@@ -72,6 +72,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	var self = this;
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr('data-category');
+    	var searchRetailer = $('#retailer-title').text();
 
 	      // Search Medleys
 	      self.options.medleys = new Medley.Collections.Medlies();
@@ -113,7 +114,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                              _.defer( function() {
 		                              var searchItems = new Medley.Collections.ProductSearch();
 		                              searchItems.fetch({
-		                                      data: { keywords: searchKeywords, category: searchCategory },
+		                                      data: { keywords: searchKeywords, category: searchCategory, retailer: searchRetailer },
 		                                      processData: true,
 		                                      success: function (response) {
 		                                          var productResults = response.toJSON();
