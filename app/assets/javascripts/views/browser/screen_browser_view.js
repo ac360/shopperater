@@ -60,9 +60,9 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	$('#retailer-title').text(retailer);
     	console.log(retailer);
     	if (retailer === "Etsy") {
-    		$('#retailer-options-etsy').slideDown("slow", function() {});
+    		$('#retailer-options-etsy').slideDown(150, function() {});
     	} else {
-    		$('#retailer-options-etsy').slideUp("slow", function() {});
+    		$('#retailer-options-etsy').slideUp(150, function() {});
     	};
     },
 
@@ -131,9 +131,16 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		                                          console.log(productResults)
 		                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
 		                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
-		                                      } // End Success
+		                                      }, 
+		                                      error: function(xhr) {
+											      var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
+											      $('#error-modal-content').html(errorMessage);
+											      $('#error-modal').modal({ show: true });
+											      //$('#error-modal').modal('show');
+											      return false;
+											  }
 		                              }); // End searchItems.fetch
-	                              });
+	                              }); // defer
 
 	                          } // End Success of medleysMostRecent
 	                        }) // End medleysMostRecent.fetch

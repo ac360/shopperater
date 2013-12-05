@@ -141,6 +141,17 @@ class MedleyApiController < ApplicationController
 					# Check if they entered in an Etsy Store ID/Name
 					if etsy_store_id.present?
 						etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/shops/" + URI.escape(etsy_store_id) + "/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+						puts etsyClient
+						case etsyClient.code
+						  when 200
+						    puts "Etsy shop ID is valid..."
+						  when 404
+						    puts "Etsy shop ID is NOT valid..."
+						    render :json => { :errors => "Etsy Store Does Not Exist" }, :status => 422
+						    return false
+						  when 500...600
+						    puts "ZOMG ERROR #{response.code}"
+						end
 					else
 						etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
 					end
