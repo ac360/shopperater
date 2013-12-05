@@ -150,7 +150,12 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 											      var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
 											      $('#error-modal-content').html(errorMessage);
 											      $('#error-modal').modal({ show: true });
-											      //$('#error-modal').modal('show');
+		                                          $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
+	                                          	  setTimeout(function() {
+											          $('#status-update').fadeOut(100, function() {
+											        	  $('#header-box').fadeIn(100);
+											          })
+											      }, 2000);
 											      return false;
 											  }
 		                              }); // End searchItems.fetch
