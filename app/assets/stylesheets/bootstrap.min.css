@@ -66,7 +66,7 @@
  #upper-navigation-links li {padding-right:0px;padding-left:15px;}
  #upper-navigation-links a {color:#aaa;letter-spacing:1px;font-size:10px;}
  #upper-navigation-links a:hover {color:#fff;}
- #header-logo {margin-top:0px;height:50px;}
+ #header-logo {margin-top:0px;height:60px;}
  .brand {margin:0px;}
  .brand, .brand:hover {color:#ffffff;padding-left:15px;letter-spacing:15px;text-decoration:none;font-family:nexa_boldregular;font-size:24px;font-weight:normal!important;}
  #header-search {margin-bottom:10px;}
@@ -97,6 +97,8 @@
  #retailer-dropdown li {padding:5px 10px;}
  #retailer-dropdown li:hover {background:#555;cursor:pointer;}
  #retailer-dropdown .divider {background:#565656;padding:0px!important;}
+ #status-update-content {text-align:center;}
+ #status-update-content h5 {font-weight:normal;}
 
  /* Screen - Browse */
  #module-product-results-container {background:#eaeaea;height:565px;}

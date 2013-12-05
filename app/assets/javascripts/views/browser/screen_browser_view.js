@@ -74,7 +74,11 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	},
 
     search: function() {
-    	console.log("New Search Being Executed...")
+    	console.log("New Search Being Executed...");
+    	$('#header-box').fadeOut(100, function(){
+    		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Searching Medleys...</h5>')
+    		$('#status-update').fadeIn(100);
+    	});
     	var self = this;
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr('data-category');
@@ -102,6 +106,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                // If there are less than 15 results, bring up the Most Recent Medleys
 	                if (medleyResults.length < 15) {
 	                        // Get Most Recent Medleys
+	                        $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Getting Recent Medleys...</h5>');
 	                        self.options.medleys_recent = new Medley.Collections.MedleysMostRecent();
 	                        self.options.medleys_recent.fetch({
 	                          success: function (response) {
@@ -121,6 +126,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 
 	                              // Search Products on callback to keep page loading orderly and not all at once
 	                              _.defer( function() {
+	                              	  $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Searching For Related Products...</h5>');
 		                              var searchItems = new Medley.Collections.ProductSearch();
 		                              searchItems.fetch({
 		                                      data: { keywords: searchKeywords, category: searchCategory, retailer: searchRetailer, etsy_store_id: searchEtsyStoreId },
@@ -131,6 +137,14 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		                                          console.log(productResults)
 		                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
 		                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
+		                                          setTimeout(function() {
+		                                          	$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Found '+productResults.length+' Products</h5>');
+		                                          	setTimeout(function() {
+												        $('#status-update').fadeOut(100, function() {
+												        	$('#header-box').fadeIn(100);
+												        })
+												    }, 2000);
+		                                          }, 500);
 		                                      }, 
 		                                      error: function(xhr) {
 											      var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
