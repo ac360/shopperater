@@ -83,7 +83,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr('data-category');
     	var searchRetailer = $('#retailer-title').text();
-    	var searchEtsyStoreId = ""
+    	var searchEtsyStoreId = "";
     	if (searchRetailer === "Etsy") {
     		var searchEtsyStoreId = $('#etsy-storeid-field').val();
     	};
