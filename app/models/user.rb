@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
   def apply_omniauth(auth)
       # In previous omniauth, 'user_info' was used in place of 'raw_info'
       self.email = auth['extra']['raw_info']['email']
-      self.provider = auth['provider']
       self.username = auth['extra']['raw_info']['username']
       self.uid = auth['extra']['raw_info']['id']
       # Again, saving token is optional. If you haven't created the column in authentications table, this will fail
