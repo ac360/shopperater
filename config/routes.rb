@@ -16,8 +16,10 @@ Shopperater::Application.routes.draw do
 
   # External API Routes
   constraints subdomain: 'api' do
-    match 'v1/medley/:id',                  :to => 'api_external#medley_show',                :via => [:get]
+    match 'v1/medley/:id',          :to => 'api_external#medley_show',                :via => [:get]
   end
+
+  match '/auth/:provider/callback', :to => 'authentications#create'
 
   authenticated :user do
     match 'api/get_cart_items',     :to => 'shopperater_api#get_cart_items'
@@ -33,6 +35,7 @@ Shopperater::Application.routes.draw do
   end
   
   # Other Application Routes
+  get '/_=_',         to: redirect('/')
   match 'embeds',     :to => 'main#embeds'
   match 'editor',     :to => 'main#editor'
   root                :to => 'main#browser'

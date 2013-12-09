@@ -13,6 +13,9 @@ window.Medley = {
 };
 
 $(document).ready(function(){
+  if (window.location.hash && window.location.hash == '#_=_') {
+      window.location = '';
+  }
   Medley.initialize();
 });
 

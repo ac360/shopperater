@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   # Define Relations
   has_many :cart_items, dependent: :destroy
+  has_many :authentications, dependent: :destroy
 
   before_save :set_defaults
 
@@ -26,6 +27,16 @@ class User < ActiveRecord::Base
       else
         where(conditions).first
       end
+  end
+
+  def apply_omniauth(auth)
+      # In previous omniauth, 'user_info' was used in place of 'raw_info'
+      self.email = auth['extra']['raw_info']['email']
+      self.provider = auth['provider']
+      self.username = auth['extra']['raw_info']['username']
+      self.uid = auth['extra']['raw_info']['id']
+      # Again, saving token is optional. If you haven't created the column in authentications table, this will fail
+      authentications.build(:provider => auth['provider'], :uid => auth['uid'], :token => auth['credentials']['token'])
   end
 
   protected
