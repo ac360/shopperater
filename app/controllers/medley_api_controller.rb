@@ -140,7 +140,11 @@ class MedleyApiController < ApplicationController
 			elsif search_retailer == "Etsy"
 					# Check if they entered in an Etsy Store ID/Name
 					if etsy_store_id.present?
-						etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/shops/" + URI.escape(etsy_store_id) + "/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+						if search_keywords.present?
+							etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/shops/" + URI.escape(etsy_store_id) + "/listings/active.json?keywords=" + URI.escape(search_keywords) + "&limit=20&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+						else
+							etsyClient =  HTTParty.get "https://openapi.etsy.com/v2/shops/" + URI.escape(etsy_store_id) + "/listings/active.json?limit=40&includes=Images:1&api_key=fidmluour59jmlqcxfvq5k7u"
+						end
 						puts etsyClient
 						case etsyClient.code
 						  when 200
