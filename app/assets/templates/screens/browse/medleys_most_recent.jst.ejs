@@ -1,10 +1,10 @@
 <% _.each(collection, function(medley) { %>
 			<div class="row">
-				<div class="medley-most-recent-box m-box-shadow-one" data-id="<%= medley.id %>">
+				<div class="medley-most-recent-box m-box-shadow-one animated bounceInUp" data-id="<%= medley.id %>">
 					
 					<div class="row">
 							<%  if (medley.items[0].img_small) { %>
-									<div class="col-offset-2 col-lg-4 medley-result-img-container">
+									<div class="col-lg-offset-2 col-lg-4 medley-result-img-container">
 										<center><img src="<%= medley.items[0].img_small %>"></center>
 									</div>
 							<%  } else {  %>
@@ -25,11 +25,11 @@
 					</div>
 					<div class="row">
 							<%  if (medley.items[2].img_small) { %>
-									<div class="col-offset-2 col-lg-4 medley-result-img-container">
+									<div class="col-lg-offset-2 col-lg-4 medley-result-img-container">
 										<center><img src="<%= medley.items[2].img_small %>" draggable="false" class=""></center>
 									</div>
 							<%  } else {  %>
-									<div class="col-offset-2 col-lg-4 medley-result-img-container">
+									<div class="col-lg-offset-2 col-lg-4 medley-result-img-container">
 										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
 									</div>
 							<%	}  %>
@@ -47,7 +47,7 @@
 
 
 					<div class="row">
-						<div class="col-offset-1 col-lg-10">
+						<div class="col-lg-offset-1 col-lg-10">
 
 							<p class="result-title m-centered" style="font-size:12px;line-height:16px;letter-spacing:0.5px;"><%= medley.title %></p>
 
@@ -56,12 +56,12 @@
 							</p> 
 
 							<p class="result-votes m-centered">
-								<i class="glyphicon glyphicon-heart-empty"></i><%= medley.votes %>
+								<i class="fa fa-heart-o"></i> <%= medley.votes %>
 							</p>
 
-						</div> <!-- .col-offset-1 -->
+						</div> <!-- .col-lg-offset-1 -->
 					</div> <!-- .row -->
 
-				</div> <!-- .col-offset-1 col-lg-10 -->
+				</div> <!-- .col-lg-offset-1 col-lg-10 -->
 			</div> <!-- .row -->
 		<% }); %>

@@ -12,12 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap.min
 //= require underscore
 //= require backbone
 //= require medley
 //= require jstorage
-//= require nicescroll
 //= require gridster
 //= require jquerytyping
 //= require_tree ../templates

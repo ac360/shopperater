@@ -1,9 +1,9 @@
 
 	<% _.each(collection, function(collection) { %>
 			
-			<div class="row item-result-row" draggable="true"
+			<div class="row item-result-row animated bounceInUp" draggable="true"
 			data-id="<%= collection.id %>" data-title="<%= collection.title %>" data-price="<%= collection.price %>" data-image="<%= collection.img_small %>" data-category="<%= collection.category %>" data-source="amazon" data-link="<%= collection.link %>">
-				<div class="col-offset-1 col-lg-10 product-result-container s-box-shadow-one">
+				<div class="col-lg-offset-1 col-lg-10 product-result-container s-box-shadow-one">
 
 					<%  // Check for Image 
 						if (collection.img_small) { %>

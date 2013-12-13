@@ -25,7 +25,7 @@ Medley.Views.EditorSearch = Backbone.View.extend({
   searchProducts: function() {
       var self = this;
       $('#header-box').fadeOut(100, function(){
-        $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Searching For Products...</h5>');
+        $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching For Products...</h5>');
         $('#status-update').fadeIn(100);
       });
       // Get Search Information
@@ -49,16 +49,20 @@ Medley.Views.EditorSearch = Backbone.View.extend({
       			var results = response.toJSON();
             	console.log("Here are your Product Search Results");
               console.log(results);
-      				var searchResultsView = new Medley.Views.EditorSearchResults({ collection: results });
-      				$('#module-product-results').html(searchResultsView.render().$el);
               setTimeout(function() {
-                $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Found '+results.length+' Products</h5>');
+                if (results.length > 0) {
+                  $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-check" style="font-size:16px;"></i> Found '+results.length+' Products</h5>');
+                } else {
+                  $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-frown-o" style="font-size:16px;"></i> Found '+results.length+' Products</h5>');
+                };
                 setTimeout(function() {
                   $('#status-update').fadeOut(100, function() {
                     $('#header-box').fadeIn(100);
                   })
                 }, 2000);
               }, 500);
+      				var searchResultsView = new Medley.Views.EditorSearchResults({ collection: results });
+      				$('#module-product-results').html(searchResultsView.render().$el);
 			    }, // End Success
           error: function(xhr) {
             var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'

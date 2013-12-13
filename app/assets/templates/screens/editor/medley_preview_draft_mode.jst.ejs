@@ -1,19 +1,25 @@
-<h2 id="medley-title" class="col-offset-2 col-lg-8 s-grey s-font-bold s-centered" contenteditable="true" data-remixof="<%= model.id %>"><%= model.title %></h2>
-
-<p id="editor-title-error" class="col-offset-2 col-lg-8 m-centered editor-error-text" style="display:none;"></p>
-
-<div id="medley-container" class="col-offset-2 col-lg-8">
-	<div class="gridster">
-		<ul id="medley-grid" class="list-unstyled">
-		</ul>
+	<div class="row">
+		<h2 id="medley-title" class="col-lg-offset-2 col-lg-8 s-grey s-font-bold s-centered" contenteditable="true">Untitled Medley</h2>
 	</div>
-</div>
+	<div class="row">
+		<p id="editor-title-error" class="col-lg-offset-2 col-lg-8 m-centered editor-error-text" style="display:none;"></p>
+	</div>
+	<div class="row">
+		<div id="medley-container" class="col-lg-offset-2 col-lg-8">
+			<div class="gridster">
+				<ul id="medley-grid" class="list-unstyled">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<p id="editor-description-error" class="col-lg-offset-2 col-lg-8 m-centered editor-error-text" style="display:none;"></p>
+	</div>
+	<div class="row">
+		<div id="description" class="col-lg-offset-2 col-lg-4 m-font-two" contenteditable="true">
+			Click here to enter or edit a description for the Medley...
+		</div>
+		<div id="user-information" class="col-lg-offset-1 col-lg-3 m-font-two">
+		</div>
+	</div>
 
-<div class="row">
-	<p id="editor-description-error" class="col-offset-2 col-lg-8 m-centered editor-error-text" style="display:none;"></p>
-	<div id="description" class="col-offset-2 col-lg-4 m-font-two" contenteditable="true">
-		<%= model.description %>
-	</div>
-	<div id="user-information" class="col-offset-1 col-lg-3 m-font-two">
-	</div>
-</div>

@@ -41,31 +41,35 @@
 
 <div id="banner-area" class="m-centered m-white m-font-bold">
 	<div id="banner-area-text">
-		<a href="http://blog.mdly.co" class="banner-link">Make Money From Your Medleys By Entering In Your Amazon Associates Tag</a> <span style="opacity:0.6;">Or</span> <span id="hide-banner-link" class="banner-link">Hide This Message</span>
+		<a href="http://blog.mdly.co" class="banner-link">Make Money From Your Medleys By Entering In Your Amazon Associates Tag</a> <span id="hide-banner-link" class="banner-link"><i class="fa fa-times-circle"></i></span>
 	</div>
 </div>
 <div class="container">
 	<div id="header-container">
 			<div id="upper-navigation" class="row">
 				<% if user_signed_in? %>
-				<% else %>
-			  	<div class="col-offset-1 col-lg-10">
+					<div class="col-lg-offset-1 col-lg-10">
 			   		<ul id="upper-navigation-links" class="list-inline pull-right m-font-light">
-						<li><a href="/register">SIGN-UP</a></li>
-						<li><%= link_to 'LOG IN', login_path %></li>
-						<li><%= link_to 'SIGN IN VIA FACEBOOK', '/auth/facebook/' %></li>
+						<li><a href="#"><%= current_user.name.upcase %></a></li>
+						<li><a href="/logout">LOGOUT</a></li>
 					</ul>
 		       	</div>
+				<% else %>
+				  	<div class="col-lg-offset-1 col-lg-10">
+				   		<ul id="upper-navigation-links" class="list-inline pull-right m-font-light">
+							<li><%= link_to 'SIGN IN WITH FACEBOOK', '/auth/facebook/' %></li>
+						</ul>
+			       	</div>
 		       	<% end %>
 			</div>
 
 			<div id="header-logo" class="row">
 				<div id="header-box">
 				  	<div class="col-lg-12 s-centered">
-				  		<h1 style="margin:0px;"><a href="/" class="brand m-text-shadow">MEDLEY</a></h1>
+				  		<h1 style="margin:0px;"><a href="/" class="brand">MEDLEY</a></h1>
 				  	</div>
 				  	<div class="row">
-				  		<h2 id="tagline" class="col-offset-3 col-lg-6 s-centered s-font-bold" style="padding:3px 0px 3px 0px">The Best Related Products</h2>
+				  		<h2 id="tagline" class="col-lg-offset-3 col-lg-6 s-centered s-font-bold" style="padding:3px 0px 3px 0px">The Best Related Products</h2>
 				  	</div>
 			  	</div>
 			  	<div id="status-update" class="row" style="display:none;">
@@ -76,9 +80,9 @@
 			</div>
 
 			<div id="module-primary-search" class="row">
-				<div id="retailer-dropdown-container" class="col-offset-3 col-lg-1">
+				<div id="retailer-dropdown-container" class="col-lg-offset-3 col-lg-1">
 					<div class="dropdown">
-						 <a id="retailer-toggle" class="pull-right" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-chevron-down" style="font-size:10px;padding-right:3px;"></span><span id="retailer-title"> All Retailers</span></a>
+						 <a id="retailer-toggle" class="pull-right" data-toggle="dropdown" href="#"><i class="fa fa-angle-down"></i>&nbsp;<span id="retailer-title">All Retailers</span></a>
 						 <ul id="retailer-dropdown" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
 						    <li class="retailer-select" data-retailer="All Retailers">All Retailers</li>
 						    <li class="divider"></li>
@@ -88,27 +92,32 @@
 					</div>
 				</div>
 			  	<div class="col-lg-4">
-					<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold', :autofocus => true %>
+					<%= text_field_tag 'Search', nil, placeholder: '', :id => 'primary-search-field', :class => 'form-control s-font-bold animated pulse', :autofocus => true %>
 					<span id="cursor"></span>
 			  	</div>
+
+			  	<div id="create-link-container" class="col-lg-2" style="padding:7px 0px 0px 0px;">
+			  		<a id="create-link" href="/editor"><i class="fa fa-th-large"></i> Create A Medley</a>
+			  	</div>
+			  	
 			</div>
 			<div id="retailer-options-etsy" class="row">
-				<div class="col-offset-4 col-lg-4">
-			  		<input type="text" id="etsy-storeid-field" class="form-control m-centered" placeholder="Etsy Store Name"></input>
+				<div class="col-lg-offset-4 col-lg-4">
+			  		<input type="text" id="etsy-storeid-field" class="form-control m-centered animated pulse" placeholder="Etsy Store Name (Optional)"></input>
 			  	</div>
 			</div>
 
-			<div class="row">
-				<div id="create-button-container" class="col-offset-1 col-lg-2">
+			<div class="row" style="display:none!important;">
+				<div id="create-button-container" class="col-lg-offset-1 col-lg-2">
 			  		<a id="create-button" class="m-font-bold" href="/editor"><i class="glyphicon glyphicon-th-large" style="font-size:10px;font-weight:normal"></i> CREATE A MEDLEY</a>
 			  	</div>
-				<div id="menu-button-container" class="col-offset-7 col-lg-1">
+				<div id="menu-button-container" class="col-lg-offset-7 col-lg-1">
 			  		<a id="menu-button" class="m-font-bold"><i class="glyphicon glyphicon-chevron-down"></i>MENU</a>
 			  	</div>
 			</div>
 
 			<div id="menu-links-container" class="row">
-			   	<div class="col-offset-1 col-lg-10">
+			   	<div class="col-lg-offset-1 col-lg-10">
 			   		<ul id="menu-links" class="list-inline pull-right m-font-light">
 						<li><a href="/">Home</a></li>
 						<li><a href="/editor">Create Medley</a></li>
@@ -126,20 +135,20 @@
 			</div>
 
 			<div id="notifications-container" class="row">
-			   	<div class="col-offset-4 col-lg-4" style="margin-top:5px;text-align:center">
+			   	<div class="col-lg-offset-4 col-lg-4" style="margin-top:5px;text-align:center">
 		       	</div>
 			</div>
 
 	</div><!-- #header-container -->
 
 	<div class="row">
-	   	<div class="col-offset-1 col-lg-10">
+	   	<div class="col-lg-offset-1 col-lg-10">
 			<%= yield %>
 		</div>
 	</div>
 
 	<div class="row">
-	   	<div class="col-offset-1 col-lg-10">
+	   	<div class="col-lg-offset-1 col-lg-10">
 	   		<ul id="bottom-nav" class="list-inline pull-right m-font-light" style="font-size:10px;padding-top:10px;letter-spacing:1px;">
 				<li><a href="mailto:medleyapp@gmail.com">CONTACT US</a></li>
 				<li><a href="#">TERMS OF SERVICE</a></li>

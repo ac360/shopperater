@@ -74,12 +74,12 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	},
 
     search: function() {
-    	console.log("New Search Being Executed...");
+    	var self = this;
+    	console.log("New Search Executed...");
     	$('#header-box').fadeOut(100, function(){
-    		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Searching Medleys...</h5>')
+    		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching Medleys...</h5>')
     		$('#status-update').fadeIn(100);
     	});
-    	var self = this;
     	var searchKeywords = $('#primary-search-field').val();
     	var searchCategory = $('#category-button-text').attr('data-category');
     	var searchRetailer = $('#retailer-title').text();
@@ -87,9 +87,9 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	if (searchRetailer === "Etsy") {
     		var searchEtsyStoreId = $('#etsy-storeid-field').val();
     	};
-	      // Search Medleys
-	      self.options.medleys = new Medley.Collections.Medlies();
-	      self.options.medleys.fetch({
+	    // Search Medleys
+	    self.options.medleys = new Medley.Collections.Medlies();
+	    self.options.medleys.fetch({
 	          data: { keywords: searchKeywords, category: searchCategory },
 	          processData: true,
 	          success: function (response) {
@@ -106,7 +106,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                // If there are less than 15 results, bring up the Most Recent Medleys
 	                if (medleyResults.length < 15) {
 	                        // Get Most Recent Medleys
-	                        $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Getting Recent Medleys...</h5>');
+	                        $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Getting Recent Medleys...</h5>');
 	                        self.options.medleys_recent = new Medley.Collections.MedleysMostRecent();
 	                        self.options.medleys_recent.fetch({
 	                          success: function (response) {
@@ -125,60 +125,73 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                              $('#medleys-most-recent').html(medleysMostRecent.render().$el);
 
 	                              // Search Products on callback to keep page loading orderly and not all at once
-	                              _.defer( function() {
-	                              	  $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Searching For Related Products...</h5>');
-		                              var searchItems = new Medley.Collections.ProductSearch();
-		                              searchItems.fetch({
-		                                      data: { keywords: searchKeywords, category: searchCategory, retailer: searchRetailer, etsy_store_id: searchEtsyStoreId },
-		                                      processData: true,
-		                                      success: function (response) {
-		                                          var productResults = response.toJSON();
-		                                          console.log("Here are your product search results:")
-		                                          console.log(productResults)
-		                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
-		                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
-		                                          setTimeout(function() {
-		                                          	$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">Found '+productResults.length+' Products</h5>');
+                              	  $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching For Related Products...</h5>');
+	                              var searchItems = new Medley.Collections.ProductSearch();
+	                              searchItems.fetch({
+	                                      data: { keywords: searchKeywords, category: searchCategory, retailer: searchRetailer, etsy_store_id: searchEtsyStoreId },
+	                                      processData: true,
+	                                      success: function (response) {
+	                                          var productResults = response.toJSON();
+	                                          console.log("Here are your product search results:")
+	                                          console.log(productResults)
+	                                          var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
+	                                          $('#module-product-results').html(moduleItemResultsView.render().$el);
+	                                          setTimeout(function() {
+		                                          	if (productResults.length > 0) {
+		                                          		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-check" style="font-size:16px;"></i> Found '+productResults.length+' Products</h5>');
+		                                          	} else {
+		                                          		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-frown-o" style="font-size:16px;"></i> Found '+productResults.length+' Products</h5>');
+		                                          	};
 		                                          	setTimeout(function() {
 												        $('#status-update').fadeOut(100, function() {
 												        	$('#header-box').fadeIn(100);
 												        })
 												    }, 2000);
-		                                          }, 500);
-		                                      }, 
-		                                      error: function(xhr) {
-											      var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
-											      $('#error-modal-content').html(errorMessage);
-											      $('#error-modal').modal({ show: true });
-		                                          $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
-	                                          	  setTimeout(function() {
-											          $('#status-update').fadeOut(100, function() {
-											        	  $('#header-box').fadeIn(100);
-											          })
-											      }, 2000);
-											      return false;
-											  }
-		                              }); // End searchItems.fetch
-	                              }); // defer
+		                                      }, 500);
+	                                      }, 
+	                                      error: function(xhr) {
+										      var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
+										      $('#error-modal-content').html(errorMessage);
+										      $('#error-modal').modal({ show: true });
+	                                          $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
+                                          	  setTimeout(function() {
+										          $('#status-update').fadeOut(100, function() {
+										        	  $('#header-box').fadeIn(100);
+										          })
+										      }, 2000);
+										      return false;
+										  }
+	                              }); // End searchItems.fetch
 
 	                          } // End Success of medleysMostRecent
 	                        }) // End medleysMostRecent.fetch
 	                } else {
+	                	  $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching For Related Products...</h5>');
 	                      // Search Products
-	                      _.defer( function() {
-		                      var searchItems = new Medley.Collections.ProductSearch();
-		                      searchItems.fetch({
-		                              data: { keywords: searchKeywords, category: searchCategory },
-		                              processData: true,
-		                              success: function (response) {
-		                                  var productResults = response.toJSON();
-		                                  console.log("Here are your product search results:")
-		                                  console.log(productResults)
-		                                  var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
-		                                  $('#module-product-results').html(moduleItemResultsView.render().$el);
-		                              } // End Success
-		                      }); // End searchItems.fetch
-		                  });
+	                      var searchItems = new Medley.Collections.ProductSearch();
+	                      searchItems.fetch({
+	                              data: { keywords: searchKeywords, category: searchCategory },
+	                              processData: true,
+	                              success: function (response) {
+	                                  var productResults = response.toJSON();
+	                                  console.log("Here are your product search results:")
+	                                  console.log(productResults)
+	                                  var moduleItemResultsView = new Medley.Views.ModuleBrowseItemResults({ collection: productResults })
+	                                  $('#module-product-results').html(moduleItemResultsView.render().$el);
+	                                  setTimeout(function() {
+                                          	if (productResults.length > 0) {
+                                          		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-check" style="font-size:16px;"></i> Found '+productResults.length+' Products</h5>');
+                                          	} else {
+                                          		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-frown-o" style="font-size:16px;"></i> Found '+productResults.length+' Products</h5>');
+                                          	};
+                                          	setTimeout(function() {
+										        $('#status-update').fadeOut(100, function() {
+										        	$('#header-box').fadeIn(100);
+										        })
+										    }, 2000);
+                                      }, 500);
+	                              } // End Success
+	                      }); // End searchItems.fetch
 
 	                }; // /if results.length < 15
 	                

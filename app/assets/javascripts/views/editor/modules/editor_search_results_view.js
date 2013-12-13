@@ -10,16 +10,10 @@ Medley.Views.EditorSearchResults = Backbone.View.extend({
 	},
 
 	events: {
-		"click #add-to-cart-button":           "addItemToCart"
     },
 
 	render: function () {
     this.$el.html(this.template({ collection: this.collection })).fadeIn(500);
-    $('#module-product-results').niceScroll({
-    	cursorcolor:"#999999", 
-    	cursorwidth: 8,
-        cursorborder: '1px solid #eaeaea'
-    });
 	return this;
 	}
 
