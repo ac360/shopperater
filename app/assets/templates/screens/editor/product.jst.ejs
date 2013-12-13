@@ -1,12 +1,21 @@
-<div id="medley-item-image-container">
+<div id="medley-item-image-container" class="animated tada">
 	<img src="<%= model.img_small %>" class="product-image">
 </div>
 
 <div id="medley-item-title-container">
 	<h1 class="m-font-two product-title" contenteditable="true"><%= model.title %></h1>
 	<div class="product-option-icons">
-		<i id="size-minus-button" class="glyphicon glyphicon-minus"></i>
-		<i id="size-plus-button" class="glyphicon glyphicon-plus"></i>
-		<i id="delete-item-button" class="glyphicon glyphicon-trash"></i>
+		<span id="size-minus-button" class="fa-stack fa-md" style="font-size:10px;">
+		  <i class="fa fa-circle fa-stack-2x"></i>
+		  <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
+		</span>
+		<span id="size-plus-button" class="fa-stack fa-md" style="font-size:10px;">
+		  <i class="fa fa-circle fa-stack-2x"></i>
+		  <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+		</span>
+		<span id="delete-item-button" class="fa-stack fa-md" style="font-size:11px;">
+		  <i class="fa fa-circle fa-stack-2x"></i>
+		  <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+		</span>
 	</div>
 </div>

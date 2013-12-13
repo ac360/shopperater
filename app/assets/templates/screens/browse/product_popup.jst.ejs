@@ -1,11 +1,11 @@
 
   <div class="modal-dialog">
     <div class="modal-content row">
-    	<button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
-    	<div class="col-lg-6">
-    		<img src="<%= model.img_big %>" class="product-popup-image s-box-shadow-one">
+    	<button type="button" class="close pull-right animated bounceIn" data-dismiss="modal" aria-hidden="true" style="color:#888!important">&times;</button>
+    	<div class="col-lg-6" style="text-align:center">
+    		<img src="<%= model.img_big %>" class="product-popup-image s-box-shadow-one animated flipInX">
     	</div>
-    	<div class="col-lg-6">
+    	<div class="col-lg-6 animated flipInY">
     		<h4 class=""><%= model.title %></h4>
              <p class="m-capitalize" style="padding:0px;margin-bottom:5px;">Price: <span style="font-size:20px;">$<%= model.price %></span></p>
     		<p class="m-capitalize" style="padding:0px;margin-bottom:10px;">Category: <%= model.category %></p>
