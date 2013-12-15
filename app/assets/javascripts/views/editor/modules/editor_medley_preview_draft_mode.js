@@ -29,6 +29,8 @@ Medley.Views.EditorMedleyPreviewDraftMode = Backbone.View.extend({
                 $('.new-item').removeClass('new-item')
             }
         });
+        $('#medley-title').text(this.model.title);
+        $('#description').text(this.model.description);
     },
 
     loadUserInformation: function() {

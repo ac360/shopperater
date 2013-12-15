@@ -16,6 +16,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             }
            	this.options.params = params;
         };
+        // Create the new Medley Object
+        this.createMedleyObject();
 		// Change the Create A Medley link to Delete Medley
 		$('#create-link-container').html('<a href="#" id="medley-reset-link" class="m-centered m-font-light" style="font-size:13px;"><i class="fa fa-trash-o"></i> Delete This Medley</a>');
 
@@ -142,14 +144,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		window.location = editorLink
 	},
 
-	clearMedleyAndRedirect: function() {
-		var self = this;
-		$.jStorage.deleteKey("medley_current");
-		var searchKeywords = $('#publish-confirm-title').text();
-		var homeLink = '/?search=' + searchKeywords
-		window.location = homeLink
-	},
-
 	autoSaveMedley: function() {
 		var thisMedley = this.createMedleyObject();
         $.jStorage.set("medley_current", thisMedley);
@@ -157,35 +151,32 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	},
 
 	createMedleyObject: function() {
-		    if (this.options.params.remix) {
-		    	var remixId = decodeURIComponent(this.options.params.remix)
-		    }
-    		var thisMedley              = {};
-    		thisMedley.search           = $('#primary-search-field').val()
-            thisMedley.title            = $('#medley-title').text();
-            thisMedley.description      = $('#description').text();
-            // Get Remix of Id if present in params
-            if (this.options.params.remix) {
-		    	thisMedley.remix_of = decodeURIComponent(this.options.params.remix)
-		    }
-            thisMedley.items            = [];
-            $('.medley-grid-item').each(function(index, elem) {
-                    var thisItem = {};
-                    thisItem.r          = $(elem).attr('data-row')
-                    thisItem.c          = $(elem).attr('data-col')
-                    thisItem.x          = $(elem).attr('data-sizex')
-                    thisItem.y          = $(elem).attr('data-sizey')
-                    thisItem.id         = $(elem).attr('data-id')
-                    thisItem.title      = $(elem).attr('data-title')
-                    thisItem.price      = $(elem).attr('data-price')
-                    thisItem.img_small  = $(elem).attr('data-imagesmall')
-                    thisItem.img_big    = $(elem).attr('data-imagelarge')
-                    thisItem.category   = $(elem).attr('data-category')
-                    thisItem.source     = $(elem).attr('data-source')
-                    thisItem.link       = $(elem).attr('data-link')
-                    thisMedley.items.push( thisItem );
-            });
-            return thisMedley      
+		var thisMedley              = {};
+		thisMedley.search           = $('#primary-search-field').val()
+        thisMedley.title            = $('#medley-title').text();
+        thisMedley.description      = $('#description').text();
+        // Get Remix of Id if present in params
+        if (this.options.params && this.options.params.remix) {
+	    	thisMedley.remix_of = decodeURIComponent(this.options.params.remix)
+	    }
+        thisMedley.items            = [];
+        $('.medley-grid-item').each(function(index, elem) {
+                var thisItem = {};
+                thisItem.r          = $(elem).attr('data-row')
+                thisItem.c          = $(elem).attr('data-col')
+                thisItem.x          = $(elem).attr('data-sizex')
+                thisItem.y          = $(elem).attr('data-sizey')
+                thisItem.id         = $(elem).attr('data-id')
+                thisItem.title      = $(elem).attr('data-title')
+                thisItem.price      = $(elem).attr('data-price')
+                thisItem.img_small  = $(elem).attr('data-imagesmall')
+                thisItem.img_big    = $(elem).attr('data-imagelarge')
+                thisItem.category   = $(elem).attr('data-category')
+                thisItem.source     = $(elem).attr('data-source')
+                thisItem.link       = $(elem).attr('data-link')
+                thisMedley.items.push( thisItem );
+        });
+        return thisMedley      
     },
 
     validateMedleyUniqueness: function(cb) {
@@ -319,6 +310,9 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 
     publishSuccess: function() {
     	alert("Success!");
+    	var self = this;
+		$.jStorage.deleteKey("medley_current");
+		window.location = homeLink
     },
 
 	render: function () {

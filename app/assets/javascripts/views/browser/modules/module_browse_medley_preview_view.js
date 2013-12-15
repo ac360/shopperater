@@ -111,7 +111,8 @@ Medley.Views.ModuleBrowseMedleyPreviewView = Backbone.View.extend({
     var searchKeywords = $('#primary-search-field').val()
     this.model.search = searchKeywords;
     var editorLink = '/editor?remix=' + this.model.id
-    // $("#editor-button").attr('href', editorLink );
+    // Clear the remix_of property or it will inherit the wrong value and fill the title and description area in the editor.
+    this.model.remix_of = null;
     $.jStorage.set("medley_current", this.model);
     window.location = editorLink
   },
