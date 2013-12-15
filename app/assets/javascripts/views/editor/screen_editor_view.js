@@ -209,43 +209,55 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		});
     },
 
-	validateMedleyTitle: function() {
+	validateMedleyTitle: function(cb) {
 		// Medley Uniqueness Validation - Checks Title & Items
 		this.model = this.createMedleyObject();
-		if ( this.model.title == "" ) {
-				$('#medley-title').addClass('error-background');
-				$('#editor-title-error').text('Please Give Your Medley A Title');
-				$('#editor-title-error').slideDown(120);
-				return false;
-		} else if ( !this.model.title.match(/^[-\sa-zA-Z0-9]+$/) ) {
-				$('#medley-title').addClass('error-background');
-				$('#editor-title-error').text('Letters, Numbers and Dashes Only')
-				$('#editor-title-error').slideDown(120);
-				return false;
-		} else if ( this.model.title.length > 40) {
-				$('#medley-title').addClass('error-background');
-				$('#editor-title-error').text('Titles can only be 40 characters long');
-				$('#editor-title-error').slideDown(120);
-				return false;
-		} else if ( this.model.title == "remixed medley" ) {
-				$('#medley-title').addClass('error-background');
-				$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
-				$('#editor-title-error').slideDown(120);
-				return false;
-		} else if ( this.model.title == "Untitled Medley" ) {
-				$('#medley-title').addClass('error-background');
-				$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
-				$('#editor-title-error').slideDown(120);
-				return false;
-		} else {
-				$('#medley-title').removeClass('error-background');
-				$('#editor-title-error').slideUp(120);
-		};
+		var self = this;
+		var items = [];
+		var unique = new Medley.Models.TitleValidation();
+    	unique.fetch({ 
+		    data: { title: self.model.title },
+		    processData: true,
+		    success: function (response) {
+		    	var result = response.toJSON();
+		    	if (result.valid === false) {
+						$('#medley-title').addClass('error-background');
+						$('#editor-title-error').text('A Medley With This Title Already Exists');
+						$('#editor-title-error').slideDown(120);
+						return false;
+				} else if ( self.model.title == "" ) {
+						$('#medley-title').addClass('error-background');
+						$('#editor-title-error').text('Please Give Your Medley A Title');
+						$('#editor-title-error').slideDown(120);
+						return false;
+				} else if ( !self.model.title.match(/^[-\sa-zA-Z0-9]+$/) ) {
+						$('#medley-title').addClass('error-background');
+						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
+						$('#editor-title-error').slideDown(120);
+						return false;
+				} else if ( self.model.title.length > 40) {
+						$('#medley-title').addClass('error-background');
+						$('#editor-title-error').text('Titles can only be 40 characters long');
+						$('#editor-title-error').slideDown(120);
+						return false;
+				} else if ( self.model.title == "Untitled Medley" ) {
+						$('#medley-title').addClass('error-background');
+						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+						$('#editor-title-error').slideDown(120);
+						return false;
+				} else {
+						if(cb) {cb()};
+						$('#medley-title').removeClass('error-background');
+						$('#editor-title-error').slideUp(120);
+				};
+			}
+		}); // unique.fetch
 	},
 
 	validateMedleyDescription: function() {
 		// Validate Medley Description
 		var description = $('#description').text().replace(/[^a-zA-Z0-9/.,!? ]/g, '');
+		console.log(description);
 		$('#description').text(description)
 		M.placeCaretAtEnd( document.getElementById("description") );
 		if (description == "Click here to enter or edit a description for the Medley...") {
@@ -256,6 +268,11 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		} else if (description.length > 700) {
 			$('#description').addClass('error-background');
 			$('#editor-description-error').text('Medley Description Is Too Long, Please Shorten It.')
+			$('#editor-description-error').slideDown(120);
+			return false;
+		} else if (description === "") {
+			$('#description').addClass('error-background');
+			$('#editor-description-error').text('Please Add A Description')
 			$('#editor-description-error').slideDown(120);
 			return false;
 		} else {
@@ -270,36 +287,37 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
         if (this.model.items.length > 1) {
         	console.log("this is the Medley to be published", this.model);
 	    	self.validateMedleyUniqueness(function(){
-	    		if (self.validateMedleyTitle() === false)       { return false };
-	    		if (self.validateMedleyDescription() === false) { return false };
-	    		var MedleyInfo = new Medley.Collections.Medlies()
-		    	MedleyInfo.create({
-		    		title       : self.model.title,
-		    		remix_of    : self.model.remix_of,
-		    		description : self.model.description
-		    	}, {
-			        success: function (response) {
-			          	console.log("Medley published!  Now Adding The Items...");
-			          	var result     = response.toJSON();
-			          	var thisMedley = new Medley.Models.MedleyCreateItems({ id: result.id })
-			          	thisMedley.save({
-			          		items: self.model.items
-			          	}, {
-					          success: function () {
-					          		console.log("Medley should now contain the items!");
-					          		self.publishSuccess();
-					          },
-					          error: function (model, xhr) {
-					            var errors = $.parseJSON(xhr.responseText).errors
-					            console.log(errors)
-					          }
-						}) // End of thisMedley.save
-			        },
-			        error: function (model, xhr) {
-			            var errors = $.parseJSON(xhr.responseText).errors
-			            console.log(errors)
-			        }
-				}) // End of MedleyInfo.save
+	    		self.validateMedleyTitle(function() {
+	    			if (self.validateMedleyDescription() === false) { return false };
+		    		var MedleyInfo = new Medley.Collections.Medlies()
+			    	MedleyInfo.create({
+			    		title       : self.model.title,
+			    		remix_of    : self.model.remix_of,
+			    		description : self.model.description
+			    	}, {
+				        success: function (response) {
+				          	console.log("Medley published!  Now Adding The Items...");
+				          	var result     = response.toJSON();
+				          	var thisMedley = new Medley.Models.MedleyCreateItems({ id: result.id })
+				          	thisMedley.save({
+				          		items: self.model.items
+				          	}, {
+						          success: function () {
+						          		console.log("Medley should now contain the items!");
+						          		self.publishSuccess();
+						          },
+						          error: function (model, xhr) {
+						            var errors = $.parseJSON(xhr.responseText).errors
+						            console.log(errors)
+						          }
+							}) // End of thisMedley.save
+				        },
+				        error: function (model, xhr) {
+				            var errors = $.parseJSON(xhr.responseText).errors
+				            console.log(errors)
+				        }
+					}) // End of MedleyInfo.save
+	    		}) // self.validateMedleyTitle
 	    	}); // validateMedleyUniqueness
         } else {
             $('#medley-container').addClass('medley-error');

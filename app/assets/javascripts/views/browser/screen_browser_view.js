@@ -7,34 +7,28 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		
 		var self = this;
 		var params = M.getParams();
-		
-		// If params exist, preload a search, else do New User Verification
-		if (params !== undefined && params.search !== undefined) {
-			console.log("Parameters: ", params)
-			_.defer( function() {
-	        	$('#primary-search-field').val(decodeURI(params.search));  
-	        	self.search();
-	    	});
-		} else {
-			// Check And Run New User Messages
-			_.defer( function() {
-				var newUser = self.newUserChecks();
-				console.log("New User? ", newUser)
-				if (newUser === false) {
-					self.showDemo();
-				}
-			});
-		};
 
-		// Show Banner
+		// Show Banner?
 		if ($.jStorage.get("medley_banner_1", false) == false) {
 			setTimeout(function() {
 				$( "#banner-area" ).slideDown( "slow", function() {
 				    $( "#banner-area-text" ).fadeIn( "slow", function() {
 					});
 				});
-			}, 10000);
+			}, 20000);
 		};
+
+		// Try To Get Last Search Performed or show Demo
+		if ($.jStorage.get("medley_search_keywords", false)) {
+			self.search($.jStorage.get("medley_search_keywords", false));
+		} else {
+			// Show Welcome Modal?
+			if ($.jStorage.get("medley_welcome_1", false) === false) {
+				this.showWelcomeModal();
+			} else {
+				self.showDemo();
+			}
+		}
 
 		// Manual Event Binders
 		$('#welcome-modal').on('hidden.bs.modal', function () {
@@ -73,20 +67,27 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	  	}
 	},
 
-    search: function() {
+    search: function(keywords) {
     	var self = this;
     	console.log("New Search Executed...");
     	$('#header-box').fadeOut(100, function(){
     		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching for Related Products...</h5>');
     		$('#status-update').fadeIn(100);
     	});
-    	var searchKeywords = $('#primary-search-field').val();
+    	if (keywords) {
+    		var searchKeywords = keywords;
+    		$('#primary-search-field').val(searchKeywords);
+    	} else {
+    		var searchKeywords = $('#primary-search-field').val();
+    	};
     	var searchCategory = $('#category-button-text').attr('data-category');
     	var searchRetailer = $('#retailer-title').text();
     	var searchEtsyStoreId = "";
     	if (searchRetailer === "Etsy") {
     		var searchEtsyStoreId = $('#etsy-storeid-field').val();
     	};
+    	// Save search to local storage
+    	$.jStorage.set("medley_search_keywords", searchKeywords);
 	    // Search Medleys
 	    self.options.medleys = new Medley.Collections.Medlies();
 	    self.options.medleys.fetch({
@@ -308,16 +309,5 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 			}, 1200);
 
 		}, 1000);
-	},
-
-	newUserChecks: function() {
-		var self = this;
-		var welcomed = $.jStorage.get("medley_welcome_1", false);
-		if (welcomed === false) {
-			self.showWelcomeModal();
-			return true
-		} else {
-			return false
-		};
 	}
 });
