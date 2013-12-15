@@ -34,9 +34,9 @@ M.checkMedleyItemCount = function() {
 
 M.instantiateGridster = function() {
   var gridster = $(".gridster ul").gridster({
-                    widget_margins: [5, 5],
-                    widget_base_dimensions: [90, 90],
-                    avoid_overlapped_widgets: true
+      widget_margins: [5, 5],
+      widget_base_dimensions: [90, 90],
+      avoid_overlapped_widgets: true
   }).data("gridster");
   return gridster;
 }

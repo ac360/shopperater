@@ -1,2 +1,2 @@
 object @result
-attributes :valid, :message
+attributes :medley_unique, :title_unique

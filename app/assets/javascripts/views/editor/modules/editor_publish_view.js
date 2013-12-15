@@ -6,6 +6,7 @@ Medley.Views.EditorPublish = Backbone.View.extend({
     template: JST['screens/editor/publish'],
 
 	initialize: function() {
+		console.log(this.options)
 		_.bindAll(this);
 		console.log("Publish Area Opened...")
 		this.model = this.createMedley();

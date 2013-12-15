@@ -6,6 +6,7 @@ Medley.Views.EditorMedleyPreviewPlainMode = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
+        console.log("you are in plain mode")
         if ( this.options.params !== undefined ) {
             console.log("Below are the params passed into the Preview/Viewer View:")
             console.log(this.options.params)

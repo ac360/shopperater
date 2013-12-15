@@ -4,34 +4,31 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
-
 		var self = this;
-	    
-		// Get Parameters, if any...
+		// Check Parameters
 		var query = location.search.substr(1);
-		if(query){
-			var data = query.split("&");
-	    	var params = {};
-			for(var i=0; i<data.length; i++) {
-			    var item = data[i].split("=");
-			    params[item[0]] = item[1];
-			}
-		};
-
+        if(query){
+            var data = query.split("&");
+            var params = {};
+            for(var i=0; i<data.length; i++) {
+                var item = data[i].split("=");
+                params[item[0]] = item[1];
+            }
+           	this.options.params = params;
+        };
+		// Change the Create A Medley link to Delete Medley
 		$('#create-link-container').html('<a href="#" id="medley-reset-link" class="m-centered m-font-light" style="font-size:13px;"><i class="fa fa-trash-o"></i> Delete This Medley</a>');
 
 		// Get Medley in Local Storage, if any...
 		medleyDraft = $.jStorage.get("medley_current", false);
 
+		// Load Draft Mode or Plain Create Mode...
 		if ( medleyDraft !== false ) {
-				console.log
-	    		var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewDraftMode({ model: medleyDraft });
-				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
-
-		// Check for PLAIN CREATE MODE
+    		var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewDraftMode({ model: medleyDraft });
+			$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 		} else {
-				var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewPlainMode({});
-				$('#module-medley-editor').html(editorMedleyPreview.render().$el);
+			var editorMedleyPreview = new Medley.Views.EditorMedleyPreviewPlainMode({});
+			$('#module-medley-editor').html(editorMedleyPreview.render().$el);
 		};
 
 		// Check for SEARCH Param and pre-load a search
@@ -68,7 +65,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'dragstart .item-result-row'                :   'gridSetDataTransferObject',
 		'click #publish-next-button-one'            :   'loadPublishScreenTwo',
 		'click .publish-cancel'                     :   'hidePublishModal',
-		'click #medley-publish-button'              :   'openPublishArea',
+		'click #medley-publish-button'              :   'publishMedley',
 		'click #publish-confirm-button'			    :   'publishMedley',
 		'click #medley-reset-link'					:   'deleteMedley',
 		'click #try-again-btn'                      :   'hidePublishModal',
@@ -77,7 +74,6 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	},
 
 	detectDropdown: function(e) {
-		console.log("here");
     	var retailer = $(e.currentTarget).attr('data-retailer');
     	$('#retailer-title').text(retailer);
     	console.log(retailer);
@@ -101,7 +97,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
         //  Run Helper function to check how many Medley items are curerntly in the Medley
         if(M.checkMedleyItemCount()) {
             // Get Product from DataTransferObject that was set on dragstart
-            var product = {}
+            var product = {};
             product.id           = e.originalEvent.dataTransfer.getData("productID");
             product.title        = e.originalEvent.dataTransfer.getData("productTitle");
             product.price        = e.originalEvent.dataTransfer.getData("productPrice");
@@ -125,6 +121,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
             alert("Sorry, Medlies can only contain 12 items");
         };
         this.gridUnhighlightDropZone();
+        this.validateMedleyUniqueness();
     },
 
 	gridSetDataTransferObject: function(e) {
@@ -141,91 +138,122 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 	deleteMedley: function() {
 		$.jStorage.deleteKey("medley_current")
 		var searchKeywords = $('#primary-search-field').val();
-		var editorLink = '/editor?search=' + searchKeywords
+		var editorLink = '/editor'
 		window.location = editorLink
 	},
 
-	autoSaveMedley: function() {
-		var thisMedley				= {};
-		thisMedley.title            = $('#medley-title').text();
-        thisMedley.description      = $('#description').text();
-        // Get last search performed
-        thisMedley.search           = $('#primary-search-field').attr('data-search');
-        // Get Remix Of Data Attribute Include in Medley Title Tag
-        if ( $('#medley-title').attr('data-remixof') !== undefined ) {
-        	thisMedley.remix_of     = $('#medley-title').attr('data-remixof');
-        }
-        thisMedley.items            = [];
-        $('.medley-grid-item').each(function(index, elem) {
-	            var thisItem = {};
-	            thisItem.r          = $(elem).attr('data-row')
-	            thisItem.c          = $(elem).attr('data-col')
-	            thisItem.x          = $(elem).attr('data-sizex')
-	            thisItem.y          = $(elem).attr('data-sizey')
-	            thisItem.id         = $(elem).attr('data-id')
-	            thisItem.title      = $(elem).attr('data-title')
-	            thisItem.price      = $(elem).attr('data-price')
-	            thisItem.img_small  = $(elem).attr('data-imagesmall')
-	            thisItem.img_big    = $(elem).attr('data-imagelarge')
-	            thisItem.category   = $(elem).attr('data-category')
-	            thisItem.source     = $(elem).attr('data-source')
-	            thisItem.link       = $(elem).attr('data-link')
-	            thisMedley.items.push( thisItem );
-        });
-        $.jStorage.set("medley_current", thisMedley);
-        console.log("Auto-Saved", $.jStorage.get("medley_current", false) );
+	clearMedleyAndRedirect: function() {
+		var self = this;
+		$.jStorage.deleteKey("medley_current");
+		var searchKeywords = $('#publish-confirm-title').text();
+		var homeLink = '/?search=' + searchKeywords
+		window.location = homeLink
 	},
 
-	validateMedleyTitle: function() {
-		var title = $('#medley-title').text().toLowerCase();
-		var uniqueness = new Medley.Models.TitleValidation();
-		uniqueness.fetch({ 
-		    data: { 
-		    	title: title
-		    },
+	autoSaveMedley: function() {
+		var thisMedley = this.createMedleyObject();
+        $.jStorage.set("medley_current", thisMedley);
+        console.log("Auto-Saved", $.jStorage.get("medley_current", false));
+	},
+
+	createMedleyObject: function() {
+		    if (this.options.params.remix) {
+		    	var remixId = decodeURIComponent(this.options.params.remix)
+		    }
+    		var thisMedley              = {};
+    		thisMedley.search           = $('#primary-search-field').val()
+            thisMedley.title            = $('#medley-title').text();
+            thisMedley.description      = $('#description').text();
+            // Get Remix of Id if present in params
+            if (this.options.params.remix) {
+		    	thisMedley.remix_of = decodeURIComponent(this.options.params.remix)
+		    }
+            thisMedley.items            = [];
+            $('.medley-grid-item').each(function(index, elem) {
+                    var thisItem = {};
+                    thisItem.r          = $(elem).attr('data-row')
+                    thisItem.c          = $(elem).attr('data-col')
+                    thisItem.x          = $(elem).attr('data-sizex')
+                    thisItem.y          = $(elem).attr('data-sizey')
+                    thisItem.id         = $(elem).attr('data-id')
+                    thisItem.title      = $(elem).attr('data-title')
+                    thisItem.price      = $(elem).attr('data-price')
+                    thisItem.img_small  = $(elem).attr('data-imagesmall')
+                    thisItem.img_big    = $(elem).attr('data-imagelarge')
+                    thisItem.category   = $(elem).attr('data-category')
+                    thisItem.source     = $(elem).attr('data-source')
+                    thisItem.link       = $(elem).attr('data-link')
+                    thisMedley.items.push( thisItem );
+            });
+            return thisMedley      
+    },
+
+    validateMedleyUniqueness: function(cb) {
+		// Medley Uniqueness Validation - Checks Title & Items
+		this.model = this.createMedleyObject();
+		console.log("Medley Object Serialized: ", this.model);
+		items = {};
+    	items.ids = [];
+    	$(this.model.items).each(function(index, item) {
+    		items.ids.push(item.id);
+    	});
+    	var unique = new Medley.Models.MedleyUniquenessValidation();
+    	unique.fetch({ 
+		    data: { title: this.model.title, item_ids: items },
 		    processData: true,
 		    success: function (response) {
 		    	var result = response.toJSON();
-				if ( title == "" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Give Your Medley A Title');
-						$('#editor-title-error').slideDown(120);
-						return false
-				} else if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
-						$('#editor-title-error').slideDown(120);
-						return false
-				} else if ( title.length > 40) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Titles can only be 40 characters long');
-						$('#editor-title-error').slideDown(120);
-						return false
-				} else if ( title == "remixed medley" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
-						$('#editor-title-error').slideDown(120);
-						return false
-				} else if ( title == "Untitled Medley" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
-						$('#editor-title-error').slideDown(120);
-						return false
-				} else if (result.valid == false)  {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
-						$('#editor-title-error').slideDown(120);
-						return false
+		    	console.log("Medley Uniqueness Check: ", result)
+		    	if (result.medley_unique === false) {
+			  		$('#medley-container').addClass('medley-error');
+			  		$('#editor-medley-error').text('A Medley With These Items Already Exists!');
+					$('#editor-medley-error').slideDown(120);
+					return false;
 				} else {
-						$('#medley-title').removeClass('error-background');
-						$('#editor-title-error').slideUp(120);
-						return true
+					$('#editor-medley-error').slideUp(120);
+					$('#medley-container').removeClass('medley-error');
+					if (cb) {cb()};
 				}
-		    } // success
-		}); // uniquenuess.fetch
+			} // Success
+		});
+    },
+
+	validateMedleyTitle: function() {
+		// Medley Uniqueness Validation - Checks Title & Items
+		this.model = this.createMedleyObject();
+		if ( this.model.title == "" ) {
+				$('#medley-title').addClass('error-background');
+				$('#editor-title-error').text('Please Give Your Medley A Title');
+				$('#editor-title-error').slideDown(120);
+				return false;
+		} else if ( !this.model.title.match(/^[-\sa-zA-Z0-9]+$/) ) {
+				$('#medley-title').addClass('error-background');
+				$('#editor-title-error').text('Letters, Numbers and Dashes Only')
+				$('#editor-title-error').slideDown(120);
+				return false;
+		} else if ( this.model.title.length > 40) {
+				$('#medley-title').addClass('error-background');
+				$('#editor-title-error').text('Titles can only be 40 characters long');
+				$('#editor-title-error').slideDown(120);
+				return false;
+		} else if ( this.model.title == "remixed medley" ) {
+				$('#medley-title').addClass('error-background');
+				$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+				$('#editor-title-error').slideDown(120);
+				return false;
+		} else if ( this.model.title == "Untitled Medley" ) {
+				$('#medley-title').addClass('error-background');
+				$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
+				$('#editor-title-error').slideDown(120);
+				return false;
+		} else {
+				$('#medley-title').removeClass('error-background');
+				$('#editor-title-error').slideUp(120);
+		};
 	},
 
 	validateMedleyDescription: function() {
+		// Validate Medley Description
 		var description = $('#description').text().replace(/[^a-zA-Z0-9/.,!? ]/g, '');
 		$('#description').text(description)
 		M.placeCaretAtEnd( document.getElementById("description") );
@@ -242,98 +270,56 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		} else {
 			$('#description').removeClass('error-background');
 			$('#editor-description-error').slideUp(120);
-			return true;
-		}
+		};
 	},
 
-	openPublishArea: function() {
+	publishMedley: function() {
 		var self = this;
-		// Re-Run Title Validation - TODO Clean this up, it's redundant
-		var title = $('#medley-title').text().toLowerCase();
-		var uniqueness = new Medley.Models.TitleValidation();
-		uniqueness.fetch({ 
-		    data: { 
-		    	title: title
-		    },
-		    processData: true,
-		    success: function (response) {
-		    	var result = response.toJSON();
-		    	if ( title == "" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Give Your Medley A Title');
-						$('#editor-title-error').slideDown(120);
-						return false
-				} else if ( !title.match(/^[-\sa-zA-Z0-9]+$/) ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Letters, Numbers and Dashes Only')
-						$('#editor-title-error').slideDown(120);
-						return
-				} else if ( title.length > 40) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Titles can only be 40 characters long');
-						$('#editor-title-error').slideDown(120);
-						return
-				} else if ( title == "" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Enter A Title');
-						$('#editor-title-error').slideDown(120);
-						return
-				} else if ( title == "remixed medley" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
-						$('#editor-title-error').slideDown(120);
-						return
-				} else if ( title == "untitled medley" ) {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Please Come Up With Your Own Title For This Medley');
-						$('#editor-title-error').slideDown(120);
-						return
-				} else if (result.valid == false)  {
-						$('#medley-title').addClass('error-background');
-						$('#editor-title-error').text('Title Is Already Being Used.  Try Another Title');
-						$('#editor-title-error').slideDown(120);
-						return
-				} else {
-						// Title Is Unique!  Proceed...
-						$('#medley-title').removeClass('error-background');
-						$('#editor-title-error').slideUp(120);
-						// Description Validation
-						var validateDescription = self.validateMedleyDescription();
-						if (validateDescription == false) {
-							return;
-						};
-						var medleyItemsCount = $("#medley-grid li").size();
-				        if (medleyItemsCount > 1) {
-				           	// Clear existing mark-up from modal inner-container
-				           	$('#publish-modal-inner').html('');
-				            $('#publish-medley-modal').modal();
-				            var publishView = new Medley.Views.EditorPublish();
-				        	$('#publish-modal-inner').html(publishView.render().$el);
-					        $('#publish-medley-modal').modal('show');
-				        } else {
-				            alert("A Medley must contain at least two items before it can be published...  Otherwise it's not a Medley!")
-				        };
-				} // if statement to do further checks on title
-		    } // success
-		}); // uniquenuess.fetch
+		this.model = this.createMedleyObject();
+        if (this.model.items.length > 1) {
+        	console.log("this is the Medley to be published", this.model);
+	    	self.validateMedleyUniqueness(function(){
+	    		if (self.validateMedleyTitle() === false)       { return false };
+	    		if (self.validateMedleyDescription() === false) { return false };
+	    		var MedleyInfo = new Medley.Collections.Medlies()
+		    	MedleyInfo.create({
+		    		title       : self.model.title,
+		    		remix_of    : self.model.remix_of,
+		    		description : self.model.description
+		    	}, {
+			        success: function (response) {
+			          	console.log("Medley published!  Now Adding The Items...");
+			          	var result     = response.toJSON();
+			          	var thisMedley = new Medley.Models.MedleyCreateItems({ id: result.id })
+			          	thisMedley.save({
+			          		items: self.model.items
+			          	}, {
+					          success: function () {
+					          		console.log("Medley should now contain the items!");
+					          		self.publishSuccess();
+					          },
+					          error: function (model, xhr) {
+					            var errors = $.parseJSON(xhr.responseText).errors
+					            console.log(errors)
+					          }
+						}) // End of thisMedley.save
+			        },
+			        error: function (model, xhr) {
+			            var errors = $.parseJSON(xhr.responseText).errors
+			            console.log(errors)
+			        }
+				}) // End of MedleyInfo.save
+	    	}); // validateMedleyUniqueness
+        } else {
+            $('#medley-container').addClass('medley-error');
+	  		$('#editor-medley-error').text('A Medley Must Contain Two Or More Items');
+			$('#editor-medley-error').slideDown(120);
+        }; // if items.length > 1
     },
 
-	hidePublishModal: function() {
-		$('#uniqueness-screen').fadeOut(100);
-		$('#uniqueness-valid-screen').fadeOut(100);
-		$('#uniqueness-invalid-screen').fadeOut(100);
-		$('#category-screen').fadeOut(100);
-		$('#tags-screen').fadeOut(100);
-		$('#publish-medley-modal').modal('hide')
-	},
-
-	clearMedleyAndRedirect: function() {
-		var self = this;
-		$.jStorage.deleteKey("medley_current");
-		var searchKeywords = $('#publish-confirm-title').text();
-		var homeLink = '/?search=' + searchKeywords
-		window.location = homeLink
-	},
+    publishSuccess: function() {
+    	alert("Success!");
+    },
 
 	render: function () {
 		return this;

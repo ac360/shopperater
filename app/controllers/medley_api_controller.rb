@@ -270,55 +270,52 @@ class MedleyApiController < ApplicationController
 	end 
 
 	def medley_uniqueness_validation 
+		@result = OpenStruct.new()
 		if Medley.exists?(:title => params[:title])
-				@result = OpenStruct.new(:valid => false)
-				return @result
+			@result.title_unique = false
 		else
-				item_ids = params[:item_ids]["ids"]
-				conditions = []
-				values = {}
-				item_ids.each_with_index do |t,i|
-				   arg_id = "term#{i}".to_sym
-				   conditions << "(i1_id = :#{arg_id} OR i2_id = :#{arg_id} OR i3_id = :#{arg_id} OR i4_id = :#{arg_id} OR i5_id = :#{arg_id} OR i6_id = :#{arg_id} OR i7_id = :#{arg_id} OR i8_id = :#{arg_id} OR i9_id = :#{arg_id} OR i10_id = :#{arg_id} OR i11_id = :#{arg_id} OR i12_id = :#{arg_id} OR i13_id = :#{arg_id} OR i14_id = :#{arg_id} OR i15_id = :#{arg_id} OR i16_id = :#{arg_id})"
-				   values[arg_id] = t
-				end
-				@existing_medleys = Medley.where(conditions.join(' AND '), values).collect {|m| [m.i1_id, m.i2_id, m.i3_id, m.i4_id, m.i5_id, m.i6_id, m.i7_id, m.i8_id, m.i9_id, m.i10_id, m.i11_id, m.i12_id, m.i13_id, m.i4_id, m.i15_id, m.i16_id].compact! }
-				
-				# render :json => @existing_medleys
-
-				if @existing_medleys.length > 0 
-
-						remainders_array = []
-						@existing_medleys.each do |m|
-							m = m - item_ids
-							length = m.length
-							remainders_array.push(length)
-						end
-
-						if remainders_array.include? 0
-								@result  =   OpenStruct.new(:valid => false)
-								@result
-						else
-								@result  =   OpenStruct.new(:valid => true)
-								@result
-						end
-				else 
-					@result     =   OpenStruct.new(:valid => true)
-					@result
-				end
+			@result.title_unique = true
 		end
+		item_ids = params[:item_ids]["ids"]
+		conditions = []
+		values = {}
+		item_ids.each_with_index do |t,i|
+		   arg_id = "term#{i}".to_sym
+		   conditions << "(i1_id = :#{arg_id} OR i2_id = :#{arg_id} OR i3_id = :#{arg_id} OR i4_id = :#{arg_id} OR i5_id = :#{arg_id} OR i6_id = :#{arg_id} OR i7_id = :#{arg_id} OR i8_id = :#{arg_id} OR i9_id = :#{arg_id} OR i10_id = :#{arg_id} OR i11_id = :#{arg_id} OR i12_id = :#{arg_id} OR i13_id = :#{arg_id} OR i14_id = :#{arg_id} OR i15_id = :#{arg_id} OR i16_id = :#{arg_id})"
+		   values[arg_id] = t
+		end
+		@existing_medleys = Medley.where(conditions.join(' AND '), values).collect {|m| [m.i1_id, m.i2_id, m.i3_id, m.i4_id, m.i5_id, m.i6_id, m.i7_id, m.i8_id, m.i9_id, m.i10_id, m.i11_id, m.i12_id, m.i13_id, m.i4_id, m.i15_id, m.i16_id].compact! }
+		
+		if @existing_medleys.length > 0
+			remainders_array = []
+			@existing_medleys.each do |m|
+				m = m - item_ids
+				length = m.length
+				remainders_array.push(length)
+			end
 
-	end
+			if remainders_array.include? 0
+					@result.medley_unique = false
+					puts @result
+					return @result
+			else
+					@result.medley_unique = true
+					puts @result
+					return @result
+			end
+		else 
+			@result.medley_unique = true
+			puts @result
+			return @result
+		end
+	end # End medley_uniquness_validation
 
 	def create_medley
 		# Find or Create Tags used in this Medley
-		@tag_one     =   Tag.find_by_tag(params[:tag_one].downcase.to_s)   || Tag.create(:tag => params[:tag_one].downcase.to_s) 
-		@tag_two     =   Tag.find_by_tag(params[:tag_two].downcase.to_s)   || Tag.create(:tag => params[:tag_two].downcase.to_s)
-		@tag_three   =   Tag.find_by_tag(params[:tag_three].downcase.to_s) || Tag.create(:tag => params[:tag_three].downcase.to_s)
-		# items_array  =   params[:items]
-
-		# TODO - FINISH THE Medley UNIQUENESS CHECK 
-		# check_medley_uniqueness(items_array)
+			# @tag_one     =   Tag.find_by_tag(params[:tag_one].downcase.to_s)   || Tag.create(:tag => params[:tag_one].downcase.to_s) 
+			# @tag_two     =   Tag.find_by_tag(params[:tag_two].downcase.to_s)   || Tag.create(:tag => params[:tag_two].downcase.to_s)
+			# @tag_three   =   Tag.find_by_tag(params[:tag_three].downcase.to_s) || Tag.create(:tag => params[:tag_three].downcase.to_s)
+			# items_array  =   params[:items]
 
 		@medley = Medley.new()
 		if current_user
@@ -329,10 +326,6 @@ class MedleyApiController < ApplicationController
 		@medley.remix_of 					= params[:remix_of]           									if params[:remix_of].present?
 		@medley.title 						= params[:title].downcase.split.map(&:capitalize).join(' ') 	if params[:title].present?
 		@medley.description			    	= params[:description].mb_chars.strip.normalize 				if params[:description].present?
-		@medley.category			    	= params[:category]        										if params[:category].present?
-		@medley.tag_1_id		        	= @tag_one.id
-		@medley.tag_2_id		        	= @tag_two.id
-		@medley.tag_3_id			    	= @tag_three.id
 		@medley.votes				    	= 0
 
 		if @medley.save
@@ -347,243 +340,198 @@ class MedleyApiController < ApplicationController
 		items_array  =   params[:items] 			if params[:items].present?
 
 		if items_array[0].present? 
-			@medley.i1_r					= items_array[0]["row"] 	   		if items_array[0]["row"].present?
-			@medley.i1_c			        = items_array[0]["col"] 	   		if items_array[0]["col"].present?
-	  		@medley.i1_x			   	 	= items_array[0]["sizex"] 	   		if items_array[0]["sizex"].present?
-	  		@medley.i1_y			    	= items_array[0]["sizey"] 	   		if items_array[0]["sizey"].present?
+			@medley.i1_r					= items_array[0]["r"] 	   			if items_array[0]["r"].present?
+			@medley.i1_c			        = items_array[0]["c"] 	   			if items_array[0]["c"].present?
+	  		@medley.i1_x			   	 	= items_array[0]["x"] 	   			if items_array[0]["x"].present?
+	  		@medley.i1_y			    	= items_array[0]["y"] 	   			if items_array[0]["y"].present?
 	  		@medley.i1_id			        = items_array[0]["id"]	   	   		if items_array[0]["id"].present?
 	  		@medley.i1_title			    = items_array[0]["title"]	   		if items_array[0]["title"].present?
 	  		@medley.i1_price			    = items_array[0]["price"]	   		if items_array[0]["price"].present?
-	  		@medley.i1_img_small			= items_array[0]["imagesmall"]	   	if items_array[0]["imagesmall"].present?
-			@medley.i1_img_big				= items_array[0]["imagelarge"]	   	if items_array[0]["imagelarge"].present?
+	  		@medley.i1_img_small			= items_array[0]["img_small"]	   	if items_array[0]["img_small"].present?
+			@medley.i1_img_big				= items_array[0]["img_big"]	   		if items_array[0]["img_big"].present?
 			@medley.i1_category			    = items_array[0]["category"]   		if items_array[0]["category"].present?
 			@medley.i1_source			    = items_array[0]["source"]   	    if items_array[0]["source"].present?
 			@medley.i1_link			        = items_array[0]["link"]  	        if items_array[0]["link"].present?
 		end
 		
 		if items_array[1].present? 
-			@medley.i2_r					= items_array[1]["row"] 	   		if items_array[1]["row"].present?
-			@medley.i2_c			        = items_array[1]["col"] 	   		if items_array[1]["col"].present?
-	  		@medley.i2_x			   	 	= items_array[1]["sizex"] 	   		if items_array[1]["sizex"].present?
-	  		@medley.i2_y			    	= items_array[1]["sizey"] 	   		if items_array[1]["sizey"].present?
+			@medley.i2_r					= items_array[1]["r"] 	   			if items_array[1]["r"].present?
+			@medley.i2_c			        = items_array[1]["c"] 	   			if items_array[1]["c"].present?
+	  		@medley.i2_x			   	 	= items_array[1]["x"] 	   			if items_array[1]["x"].present?
+	  		@medley.i2_y			    	= items_array[1]["y"] 	   			if items_array[1]["y"].present?
 	  		@medley.i2_id			        = items_array[1]["id"]	   	   		if items_array[1]["id"].present?
 	  		@medley.i2_title			    = items_array[1]["title"]	   		if items_array[1]["title"].present?
 	  		@medley.i2_price			    = items_array[1]["price"]	   		if items_array[1]["price"].present?
-	  		@medley.i2_img_small			= items_array[1]["imagesmall"]	   	if items_array[1]["imagesmall"].present?
-			@medley.i2_img_big				= items_array[1]["imagelarge"]	   	if items_array[1]["imagelarge"].present?
+	  		@medley.i2_img_small			= items_array[1]["img_small"]	   	if items_array[1]["img_small"].present?
+			@medley.i2_img_big				= items_array[1]["img_big"]	   		if items_array[1]["img_big"].present?
 			@medley.i2_category			    = items_array[1]["category"]   		if items_array[1]["category"].present?
 			@medley.i2_source			    = items_array[1]["source"]   	    if items_array[1]["source"].present?
 			@medley.i2_link			        = items_array[1]["link"]  	        if items_array[1]["link"].present?
 		end
 
 		if items_array[2].present?
-			@medley.i3_r					= items_array[2]["row"] 	   		if items_array[2]["row"].present?
-			@medley.i3_c			        = items_array[2]["col"] 	   		if items_array[2]["col"].present?
-	  		@medley.i3_x			   	 	= items_array[2]["sizex"] 	   		if items_array[2]["sizex"].present?
-	  		@medley.i3_y			    	= items_array[2]["sizey"] 	   		if items_array[2]["sizey"].present?
+			@medley.i3_r					= items_array[2]["r"] 	   			if items_array[2]["r"].present?
+			@medley.i3_c			        = items_array[2]["c"] 	   			if items_array[2]["c"].present?
+	  		@medley.i3_x			   	 	= items_array[2]["x"] 	   			if items_array[2]["x"].present?
+	  		@medley.i3_y			    	= items_array[2]["y"] 	   			if items_array[2]["y"].present?
 	  		@medley.i3_id			        = items_array[2]["id"]	   	   		if items_array[2]["id"].present?
 	  		@medley.i3_title			    = items_array[2]["title"]	   		if items_array[2]["title"].present?
 	  		@medley.i3_price			    = items_array[2]["price"]	   		if items_array[2]["price"].present?
-	  		@medley.i3_img_small			= items_array[2]["imagesmall"]	   	if items_array[2]["imagesmall"].present?
-			@medley.i3_img_big				= items_array[2]["imagelarge"]	   	if items_array[2]["imagelarge"].present?
+	  		@medley.i3_img_small			= items_array[2]["img_small"]	   	if items_array[2]["img_small"].present?
+			@medley.i3_img_big				= items_array[2]["img_big"]	   		if items_array[2]["img_big"].present?
 			@medley.i3_category			    = items_array[2]["category"]   		if items_array[2]["category"].present?
 			@medley.i3_source			    = items_array[2]["source"]   	    if items_array[2]["source"].present?
 			@medley.i3_link			        = items_array[2]["link"]  	        if items_array[2]["link"].present?
 		end
 
 		if items_array[3].present?
-			@medley.i4_r					= items_array[3]["row"] 	   		if items_array[3]["row"].present?
-			@medley.i4_c			        = items_array[3]["col"] 	   		if items_array[3]["col"].present?
-	  		@medley.i4_x			   	 	= items_array[3]["sizex"] 	   		if items_array[3]["sizex"].present?
-	  		@medley.i4_y			    	= items_array[3]["sizey"] 	   		if items_array[3]["sizey"].present?
+			@medley.i4_r					= items_array[3]["r"] 	   			if items_array[3]["r"].present?
+			@medley.i4_c			        = items_array[3]["c"] 	   			if items_array[3]["c"].present?
+	  		@medley.i4_x			   	 	= items_array[3]["x"] 	   			if items_array[3]["x"].present?
+	  		@medley.i4_y			    	= items_array[3]["y"] 	   			if items_array[3]["y"].present?
 	  		@medley.i4_id			        = items_array[3]["id"]	   	   		if items_array[3]["id"].present?
 	  		@medley.i4_title			    = items_array[3]["title"]	   		if items_array[3]["title"].present?
 	  		@medley.i4_price			    = items_array[3]["price"]	   		if items_array[3]["price"].present?
-	  		@medley.i4_img_small			= items_array[3]["imagesmall"]	   	if items_array[3]["imagesmall"].present?
-			@medley.i4_img_big				= items_array[3]["imagelarge"]	   	if items_array[3]["imagelarge"].present?
+	  		@medley.i4_img_small			= items_array[3]["img_small"]	   	if items_array[3]["img_small"].present?
+			@medley.i4_img_big				= items_array[3]["img_big"]	   		if items_array[3]["img_big"].present?
 			@medley.i4_category			    = items_array[3]["category"]   		if items_array[3]["category"].present?
 			@medley.i4_source			    = items_array[3]["source"]   	    if items_array[3]["source"].present?
 			@medley.i4_link			        = items_array[3]["link"]  	        if items_array[3]["link"].present?
 		end
 
 		if items_array[4].present?
-			@medley.i5_r					= items_array[4]["row"] 	   		if  items_array[4]["row"].present?
-			@medley.i5_c			        = items_array[4]["col"] 	   		if  items_array[4]["col"].present?
-	  		@medley.i5_x			   	 	= items_array[4]["sizex"] 	   		if  items_array[4]["sizex"].present?
-	  		@medley.i5_y			    	= items_array[4]["sizey"] 	   		if  items_array[4]["sizey"].present?
+			@medley.i5_r					= items_array[4]["r"] 	   			if  items_array[4]["r"].present?
+			@medley.i5_c			        = items_array[4]["c"] 	   			if  items_array[4]["c"].present?
+	  		@medley.i5_x			   	 	= items_array[4]["x"] 	   			if  items_array[4]["x"].present?
+	  		@medley.i5_y			    	= items_array[4]["y"] 	   			if  items_array[4]["y"].present?
 	  		@medley.i5_id			        = items_array[4]["id"]	   	   		if  items_array[4]["id"].present?
 	  		@medley.i5_title			    = items_array[4]["title"]	   		if  items_array[4]["title"].present?
 	  		@medley.i5_price			    = items_array[4]["price"]	   		if  items_array[4]["price"].present?
-	  		@medley.i5_img_small			= items_array[4]["imagesmall"]	   	if  items_array[4]["imagesmall"].present?
-			@medley.i5_img_big				= items_array[4]["imagelarge"]	   	if  items_array[4]["imagelarge"].present?
+	  		@medley.i5_img_small			= items_array[4]["img_small"]	   	if  items_array[4]["img_small"].present?
+			@medley.i5_img_big				= items_array[4]["img_big"]	   		if  items_array[4]["img_big"].present?
 			@medley.i5_category			    = items_array[4]["category"]   		if  items_array[4]["category"].present?
 			@medley.i5_source			    = items_array[4]["source"]   	    if  items_array[4]["source"].present?
 			@medley.i5_link			        = items_array[4]["link"]  	        if  items_array[4]["link"].present?
 		end
 
 		if items_array[5].present?
-			@medley.i6_r					= items_array[5]["row"] 	   		if  items_array[5]["row"].present?
-			@medley.i6_c			        = items_array[5]["col"] 	   		if  items_array[5]["col"].present?
-	  		@medley.i6_x			   	 	= items_array[5]["sizex"] 	   		if  items_array[5]["sizex"].present?
-	  		@medley.i6_y			    	= items_array[5]["sizey"] 	   		if  items_array[5]["sizey"].present?
+			@medley.i6_r					= items_array[5]["r"] 	   			if  items_array[5]["r"].present?
+			@medley.i6_c			        = items_array[5]["c"] 	   			if  items_array[5]["c"].present?
+	  		@medley.i6_x			   	 	= items_array[5]["x"] 	   			if  items_array[5]["x"].present?
+	  		@medley.i6_y			    	= items_array[5]["y"] 	   			if  items_array[5]["y"].present?
 	  		@medley.i6_id			        = items_array[5]["id"]	   	   		if  items_array[5]["id"].present?
 	  		@medley.i6_title			    = items_array[5]["title"]	   		if  items_array[5]["title"].present?
 	  		@medley.i6_price			    = items_array[5]["price"]	   		if  items_array[5]["price"].present?
-	  		@medley.i6_img_small			= items_array[5]["imagesmall"]	   	if  items_array[5]["imagesmall"].present?
-			@medley.i6_img_big				= items_array[5]["imagelarge"]	   	if  items_array[5]["imagelarge"].present?
+	  		@medley.i6_img_small			= items_array[5]["img_small"]	   	if  items_array[5]["img_small"].present?
+			@medley.i6_img_big				= items_array[5]["img_big"]	   		if  items_array[5]["img_big"].present?
 			@medley.i6_category			    = items_array[5]["category"]   		if  items_array[5]["category"].present?
 			@medley.i6_source			    = items_array[5]["source"]   	    if  items_array[5]["source"].present?
 			@medley.i6_link			        = items_array[5]["link"]  	        if  items_array[5]["link"].present?
 		end
 
 		if items_array[6].present?
-			@medley.i7_r					= items_array[6]["row"] 	   		if  items_array[6]["row"].present?
-			@medley.i7_c			        = items_array[6]["col"] 	   		if  items_array[6]["col"].present?
-	  		@medley.i7_x			   	 	= items_array[6]["sizex"] 	   		if  items_array[6]["sizex"].present?
-	  		@medley.i7_y			    	= items_array[6]["sizey"] 	   		if  items_array[6]["sizey"].present?
+			@medley.i7_r					= items_array[6]["r"] 	   			if  items_array[6]["r"].present?
+			@medley.i7_c			        = items_array[6]["c"] 	   			if  items_array[6]["c"].present?
+	  		@medley.i7_x			   	 	= items_array[6]["x"] 	   			if  items_array[6]["x"].present?
+	  		@medley.i7_y			    	= items_array[6]["y"] 	   			if  items_array[6]["y"].present?
 	  		@medley.i7_id			        = items_array[6]["id"]	   	   		if  items_array[6]["id"].present?
 	  		@medley.i7_title			    = items_array[6]["title"]	   		if  items_array[6]["title"].present?
 	  		@medley.i7_price			    = items_array[6]["price"]	   		if  items_array[6]["price"].present?
-	  		@medley.i7_img_small			= items_array[6]["imagesmall"]	   	if  items_array[6]["imagesmall"].present?
-			@medley.i7_img_big				= items_array[6]["imagelarge"]	   	if  items_array[6]["imagelarge"].present?
+	  		@medley.i7_img_small			= items_array[6]["img_small"]	   	if  items_array[6]["img_small"].present?
+			@medley.i7_img_big				= items_array[6]["img_big"]	   		if  items_array[6]["img_big"].present?
 			@medley.i7_category			    = items_array[6]["category"]   		if  items_array[6]["category"].present?
 			@medley.i7_source			    = items_array[6]["source"]   	    if  items_array[6]["source"].present?
 			@medley.i7_link			        = items_array[6]["link"]  	        if  items_array[6]["link"].present?
 		end
 
 		if items_array[7].present?	
-			@medley.i8_r					= items_array[7]["row"] 	   		if  items_array[7]["row"].present?
-			@medley.i8_c			        = items_array[7]["col"] 	   		if  items_array[7]["col"].present?
-	  		@medley.i8_x			   	 	= items_array[7]["sizex"] 	   		if  items_array[7]["sizex"].present?
-	  		@medley.i8_y			    	= items_array[7]["sizey"] 	   		if  items_array[7]["sizey"].present?
+			@medley.i8_r					= items_array[7]["r"] 	   			if  items_array[7]["r"].present?
+			@medley.i8_c			        = items_array[7]["c"] 	   			if  items_array[7]["c"].present?
+	  		@medley.i8_x			   	 	= items_array[7]["x"] 	   			if  items_array[7]["x"].present?
+	  		@medley.i8_y			    	= items_array[7]["y"] 	   			if  items_array[7]["y"].present?
 	  		@medley.i8_id			        = items_array[7]["id"]	   	   		if  items_array[7]["id"].present?
 	  		@medley.i8_title			    = items_array[7]["title"]	   		if  items_array[7]["title"].present?
 	  		@medley.i8_price			    = items_array[7]["price"]	   		if  items_array[7]["price"].present?
-	  		@medley.i8_img_small			= items_array[7]["imagesmall"]	   	if  items_array[7]["imagesmall"].present?
-			@medley.i8_img_big				= items_array[7]["imagelarge"]	   	if  items_array[7]["imagelarge"].present?
+	  		@medley.i8_img_small			= items_array[7]["img_small"]	   	if  items_array[7]["img_small"].present?
+			@medley.i8_img_big				= items_array[7]["img_big"]	   		if  items_array[7]["img_big"].present?
 			@medley.i8_category			    = items_array[7]["category"]   		if  items_array[7]["category"].present?
 			@medley.i8_source			    = items_array[7]["source"]   	    if  items_array[7]["source"].present?
 			@medley.i8_link			        = items_array[7]["link"]  	        if  items_array[7]["link"].present?
 		end
 
 		if items_array[8].present?
-			@medley.i9_r					= items_array[8]["row"] 	   		if  items_array[8]["row"].present?
-			@medley.i9_c			        = items_array[8]["col"] 	   		if  items_array[8]["col"].present?
-	  		@medley.i9_x			   	 	= items_array[8]["sizex"] 	   		if  items_array[8]["sizex"].present?
-	  		@medley.i9_y			    	= items_array[8]["sizey"] 	   		if  items_array[8]["sizey"].present?
+			@medley.i9_r					= items_array[8]["r"] 	   			if  items_array[8]["r"].present?
+			@medley.i9_c			        = items_array[8]["c"] 	   			if  items_array[8]["c"].present?
+	  		@medley.i9_x			   	 	= items_array[8]["x"] 	   			if  items_array[8]["x"].present?
+	  		@medley.i9_y			    	= items_array[8]["y"] 	   			if  items_array[8]["y"].present?
 	  		@medley.i9_id			        = items_array[8]["id"]	   	   		if  items_array[8]["id"].present?
 	  		@medley.i9_title			    = items_array[8]["title"]	   		if  items_array[8]["title"].present?
 	  		@medley.i9_price			    = items_array[8]["price"]	   		if  items_array[8]["price"].present?
-	  		@medley.i9_img_small			= items_array[8]["imagesmall"]	   	if  items_array[8]["imagesmall"].present?
-			@medley.i9_img_big				= items_array[8]["imagelarge"]	   	if  items_array[8]["imagelarge"].present?
+	  		@medley.i9_img_small			= items_array[8]["img_small"]	   	if  items_array[8]["img_small"].present?
+			@medley.i9_img_big				= items_array[8]["img_big"]	   		if  items_array[8]["img_big"].present?
 			@medley.i9_category			    = items_array[8]["category"]   		if  items_array[8]["category"].present?
 			@medley.i9_source			    = items_array[8]["source"]   	    if  items_array[8]["source"].present?
 			@medley.i9_link			        = items_array[8]["link"]  	        if  items_array[8]["link"].present?
 		end
 
 		if items_array[9].present?
-			@medley.i10_r					= items_array[9]["row"] 	   		if  items_array[9]["row"].present?
-			@medley.i10_c			        = items_array[9]["col"] 	   		if  items_array[9]["col"].present?
-	  		@medley.i10_x			   	 	= items_array[9]["sizex"] 	   		if  items_array[9]["sizex"].present?
-	  		@medley.i10_y			    	= items_array[9]["sizey"] 	   		if  items_array[9]["sizey"].present?
+			@medley.i10_r					= items_array[9]["r"] 	   			if  items_array[9]["r"].present?
+			@medley.i10_c			        = items_array[9]["c"] 	   			if  items_array[9]["c"].present?
+	  		@medley.i10_x			   	 	= items_array[9]["x"] 	   			if  items_array[9]["x"].present?
+	  		@medley.i10_y			    	= items_array[9]["y"] 	   			if  items_array[9]["y"].present?
 	  		@medley.i10_id			        = items_array[9]["id"]	   	   		if  items_array[9]["id"].present?
 	  		@medley.i10_title			    = items_array[9]["title"]	   		if  items_array[9]["title"].present?
 	  		@medley.i10_price			    = items_array[9]["price"]	   		if  items_array[9]["price"].present?
-	  		@medley.i10_img_small			= items_array[9]["imagesmall"]	   	if  items_array[9]["imagesmall"].present?
-			@medley.i10_img_big				= items_array[9]["imagelarge"]	   	if  items_array[9]["imagelarge"].present?
+	  		@medley.i10_img_small			= items_array[9]["img_small"]	   	if  items_array[9]["img_small"].present?
+			@medley.i10_img_big				= items_array[9]["img_big"]	   		if  items_array[9]["img_big"].present?
 			@medley.i10_category			= items_array[9]["category"]   		if  items_array[9]["category"].present?
 			@medley.i10_source			    = items_array[9]["source"]   	    if  items_array[9]["source"].present?
 			@medley.i10_link			    = items_array[9]["link"]  	        if  items_array[9]["link"].present?
 		end
 
 		if items_array[10].present?
-			@medley.i11_r					= items_array[10]["row"] 	   		if  items_array[10]["row"].present?
-			@medley.i11_c			        = items_array[10]["col"] 	   		if  items_array[10]["col"].present?
-	  		@medley.i11_x			   	 	= items_array[10]["sizex"] 	   		if  items_array[10]["sizex"].present?
-	  		@medley.i11_y			    	= items_array[10]["sizey"] 	   		if  items_array[10]["sizey"].present?
+			@medley.i11_r					= items_array[10]["r"] 	   			if  items_array[10]["r"].present?
+			@medley.i11_c			        = items_array[10]["c"] 	   			if  items_array[10]["c"].present?
+	  		@medley.i11_x			   	 	= items_array[10]["x"] 	   			if  items_array[10]["x"].present?
+	  		@medley.i11_y			    	= items_array[10]["y"] 	   			if  items_array[10]["y"].present?
 	  		@medley.i11_id			        = items_array[10]["id"]	   			if  items_array[10]["id"].present?
 	  		@medley.i11_title			    = items_array[10]["title"]	   		if  items_array[10]["title"].present?
 	  		@medley.i11_price			    = items_array[10]["price"]	   		if  items_array[10]["price"].present?
-	  		@medley.i11_img_small			= items_array[10]["imagesmall"]		if  items_array[10]["imagesmall"].present?
-			@medley.i11_img_big				= items_array[10]["imagelarge"]		if  items_array[10]["imagelarge"].present?
+	  		@medley.i11_img_small			= items_array[10]["img_small"]		if  items_array[10]["img_small"].present?
+			@medley.i11_img_big				= items_array[10]["img_big"]		if  items_array[10]["img_big"].present?
 			@medley.i11_category			= items_array[10]["category"]   	if  items_array[10]["category"].present?
 			@medley.i11_source			    = items_array[10]["source"]   	    if  items_array[10]["source"].present?
 			@medley.i11_link			    = items_array[10]["link"]  	    	if  items_array[10]["link"].present?
 		end
 
 		if items_array[11].present?
-			@medley.i12_r					= items_array[11]["row"] 	   		if  items_array[11]["row"].present?
-			@medley.i12_c			        = items_array[11]["col"] 	   		if  items_array[11]["col"].present?
-	  		@medley.i12_x			   	 	= items_array[11]["sizex"] 	   		if  items_array[11]["sizex"].present?
-	  		@medley.i12_y			    	= items_array[11]["sizey"] 	   		if  items_array[11]["sizey"].present?
+			@medley.i12_r					= items_array[11]["r"] 	   			if  items_array[11]["r"].present?
+			@medley.i12_c			        = items_array[11]["c"] 	   			if  items_array[11]["c"].present?
+	  		@medley.i12_x			   	 	= items_array[11]["x"] 	   			if  items_array[11]["x"].present?
+	  		@medley.i12_y			    	= items_array[11]["y"] 	   			if  items_array[11]["y"].present?
 	  		@medley.i12_id			        = items_array[11]["id"]	   	   		if  items_array[11]["id"].present?
 	  		@medley.i12_title			    = items_array[11]["title"]	   		if  items_array[11]["title"].present?
 	  		@medley.i12_price			    = items_array[11]["price"]	   		if  items_array[11]["price"].present?
-	  		@medley.i12_img_small			= items_array[11]["imagesmall"]		if  items_array[11]["imagesmall"].present?
-			@medley.i12_img_big				= items_array[11]["imagelarge"]		if  items_array[11]["imagelarge"].present?
+	  		@medley.i12_img_small			= items_array[11]["img_small"]		if  items_array[11]["img_small"].present?
+			@medley.i12_img_big				= items_array[11]["img_big"]		if  items_array[11]["img_big"].present?
 			@medley.i12_category			= items_array[11]["category"]   	if  items_array[11]["category"].present?
 			@medley.i12_source			    = items_array[11]["source"]   	    if  items_array[11]["source"].present?
 			@medley.i12_link			    = items_array[11]["link"]  	    	if  items_array[11]["link"].present?
 		end
 
 		if items_array[12].present?
-			@medley.i13_r					= items_array[12]["row"] 	   		if  items_array[12]["row"].present?
-			@medley.i13_c			        = items_array[12]["col"] 	   		if  items_array[12]["col"].present?
-	  		@medley.i13_x			   	 	= items_array[12]["sizex"] 	   		if  items_array[12]["sizex"].present?
-	  		@medley.i13_y			    	= items_array[12]["sizey"] 	   		if  items_array[12]["sizey"].present?
+			@medley.i13_r					= items_array[12]["r"] 	   			if  items_array[12]["r"].present?
+			@medley.i13_c			        = items_array[12]["c"] 	   			if  items_array[12]["c"].present?
+	  		@medley.i13_x			   	 	= items_array[12]["x"] 	   			if  items_array[12]["x"].present?
+	  		@medley.i13_y			    	= items_array[12]["y"] 	   			if  items_array[12]["y"].present?
 	  		@medley.i13_id			        = items_array[12]["id"]	   	   		if  items_array[12]["id"].present?
 	  		@medley.i13_title			    = items_array[12]["title"]	   		if  items_array[12]["title"].present?
 	  		@medley.i13_price			    = items_array[12]["price"]	   		if  items_array[12]["price"].present?
-	  		@medley.i13_img_small			= items_array[12]["imagesmall"]		if  items_array[12]["imagesmall"].present?
-			@medley.i13_img_big				= items_array[12]["imagelarge"]		if  items_array[12]["imagelarge"].present?
+	  		@medley.i13_img_small			= items_array[12]["img_small"]		if  items_array[12]["img_small"].present?
+			@medley.i13_img_big				= items_array[12]["img_big"]		if  items_array[12]["img_big"].present?
 			@medley.i13_category			= items_array[12]["category"]   	if  items_array[12]["category"].present?
 			@medley.i13_source			    = items_array[12]["source"]   	    if  items_array[12]["source"].present?
 			@medley.i13_link			    = items_array[12]["link"]  	    	if  items_array[12]["link"].present?
-		end
-
-		if items_array[13].present?
-			@medley.i14_r					= items_array[13]["row"] 	   		if  items_array[13]["row"].present?
-			@medley.i14_c			        = items_array[13]["col"] 	   		if  items_array[13]["col"].present?
-	  		@medley.i14_x			   	 	= items_array[13]["sizex"] 	   		if  items_array[13]["sizex"].present?
-	  		@medley.i14_y			    	= items_array[13]["sizey"] 	   		if  items_array[13]["sizey"].present?
-	  		@medley.i14_id			        = items_array[13]["id"]	   	   		if  items_array[13]["id"].present?
-	  		@medley.i14_title			    = items_array[13]["title"]	   		if  items_array[13]["title"].present?
-	  		@medley.i14_price			    = items_array[13]["price"]	   		if  items_array[13]["price"].present?
-	  		@medley.i14_img_small			= items_array[13]["imagesmall"]		if  items_array[13]["imagesmall"].present?
-			@medley.i14_img_big				= items_array[13]["imagelarge"]		if  items_array[13]["imagelarge"].present?
-			@medley.i14_category			= items_array[13]["category"]  		if  items_array[13]["category"].present?
-			@medley.i14_source			    = items_array[13]["source"]   	    if  items_array[13]["source"].present?
-			@medley.i14_link			    = items_array[13]["link"]  			if  items_array[13]["link"].present?
-		end
-
-		if items_array[14].present?	
-			@medley.i15_r					= items_array[14]["row"] 	   		if  items_array[14]["row"].present?
-			@medley.i15_c			        = items_array[14]["col"] 	   		if  items_array[14]["col"].present?
-	  		@medley.i15_x			   	 	= items_array[14]["sizex"] 	   		if  items_array[14]["sizex"].present?
-	  		@medley.i15_y			    	= items_array[14]["sizey"] 	   		if  items_array[14]["sizey"].present?
-	  		@medley.i15_id			        = items_array[14]["id"]	   	   		if  items_array[14]["id"].present?
-	  		@medley.i15_title			    = items_array[14]["title"]	   		if  items_array[14]["title"].present?
-	  		@medley.i15_price			    = items_array[14]["price"]	   		if  items_array[14]["price"].present?
-	  		@medley.i15_img_small			= items_array[14]["imagesmall"]		if  items_array[14]["imagesmall"].present?
-			@medley.i15_img_big				= items_array[14]["imagelarge"]		if  items_array[14]["imagelarge"].present?
-			@medley.i15_category			= items_array[14]["category"]   	if  items_array[14]["category"].present?
-			@medley.i15_source			    = items_array[14]["source"]   	    if  items_array[14]["source"].present?
-			@medley.i15_link			    = items_array[14]["link"]  	   		if  items_array[14]["link"].present?
-		end
-
-		if items_array[15].present?
-			@medley.i16_r					= items_array[15]["row"] 	   		if  items_array[15]["row"].present?
-			@medley.i16_c			        = items_array[15]["col"] 	   		if  items_array[15]["col"].present?
-	  		@medley.i16_x			   	 	= items_array[15]["sizex"] 	   		if  items_array[15]["sizex"].present?
-	  		@medley.i16_y			    	= items_array[15]["sizey"] 	   		if  items_array[15]["sizey"].present?
-	  		@medley.i16_id			        = items_array[15]["id"]	   	   		if  items_array[15]["id"].present?
-	  		@medley.i16_title			    = items_array[15]["title"]	   		if  items_array[15]["title"].present?
-	  		@medley.i16_price			    = items_array[15]["price"]	   		if  items_array[15]["price"].present?
-	  		@medley.i16_img_small			= items_array[15]["imagesmall"]		if  items_array[15]["imagesmall"].present?
-			@medley.i16_img_big				= items_array[15]["imagelarge"]		if  items_array[15]["imagelarge"].present?
-			@medley.i16_category			= items_array[15]["category"]  		if  items_array[15]["category"].present?
-			@medley.i16_source			    = items_array[15]["source"]   	    if  items_array[15]["source"].present?
-			@medley.i16_link			    = items_array[15]["link"]  			if  items_array[15]["link"].present?
 		end
 
 		if @medley.save

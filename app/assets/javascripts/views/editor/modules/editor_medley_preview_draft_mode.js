@@ -6,7 +6,7 @@ Medley.Views.EditorMedleyPreviewDraftMode = Backbone.View.extend({
 
 	initialize: function() {
 		_.bindAll(this);
-        console.log("You Are In Draft Mode...");
+        console.log("You Are In Draft Mode...", this.model);
 	},
 
 	events: {
@@ -57,8 +57,7 @@ Medley.Views.EditorMedleyPreviewDraftMode = Backbone.View.extend({
 
 	render: function() {
         var self = this;
-        if (self.model != false) {
-            console.log("Here is the your Medley Draft: ", self.model);
+        if (self.model !== false) {
             this.$el.html(this.template({ model: self.model })).fadeIn(1000);
             // Defer the instantiation of Gridster so that it happens at the end of everything else
             _.defer( function() { self.loadMedleyDraft(self.model); } )
