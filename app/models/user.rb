@@ -1,11 +1,10 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me, :affiliate_id
+  attr_protected
 
   # Define Relations
   has_many :cart_items, dependent: :destroy
@@ -20,30 +19,35 @@ class User < ActiveRecord::Base
   # This is in addition to a real persisted field like 'username'
   attr_accessor :login
 
-  def self.find_first_by_auth_conditions(warden_conditions)
-      conditions = warden_conditions.dup
-      if login = conditions.delete(:login)
-        where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-      else
-        where(conditions).first
+  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
+      user = User.where(:provider => auth.provider, :uid => auth.uid).first
+      unless user
+        user = User.create(
+           email:auth.info.email,
+           username:auth.extra.raw_info.username,
+           uid:auth.uid,
+           name:auth.extra.raw_info.name,
+           first_name:auth.extra.raw_info.first_name,
+           last_name:auth.extra.raw_info.last_name,
+           location:auth.info.location,
+           gender:auth.extra.raw_info.gender,
+           timezone:auth.extra.raw_info.timezone,
+           image:auth.info.image,
+           provider:auth.provider,
+           password:Devise.friendly_token[0,20]
+        )
+      end
+      user
+  end
+
+  def self.new_with_session(params, session)
+      super.tap do |user|
+        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
+          user.email = data["email"]
+        end
       end
   end
 
-  def apply_omniauth(auth)
-      # In previous omniauth, 'user_info' was used in place of 'raw_info'
-      self.email = auth['extra']['raw_info']['email']
-      self.username = auth['extra']['raw_info']['username']
-      self.uid = auth['extra']['raw_info']['id']
-      self.name = auth['extra']['raw_info']['name']
-      self.first_name = auth['extra']['raw_info']['first_name']
-      self.last_name = auth['extra']['raw_info']['last_name']
-      self.location = auth['info']['location']
-      self.gender = auth['extra']['raw_info']['gender']
-      self.timezone = auth['extra']['raw_info']['timezone']
-      self.image = auth['info']['image']
-      # Again, saving token is optional. If you haven't created the column in authentications table, this will fail
-      authentications.build(:provider => auth['provider'], :uid => auth['uid'], :token => auth['credentials']['token'])
-  end
 
   protected
 

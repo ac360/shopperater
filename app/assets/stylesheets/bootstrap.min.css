@@ -35,8 +35,8 @@
  .btn {border-radius:0px;}
  .btn-primary {background:#000000;border:0px;font-family:nexa_boldregular;text-transform: uppercase;letter-spacing:3px;}
  .btn-primary:hover {background:#333;}
- .btn-publish, .btn-grey {background:#777777;color:#fff;border:0px;min-width:140px;height:40px;line-height:25px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
- .btn-publish:hover, .btn-grey:hover {background:#aaaaaa;}
+ .btn-publish, .btn-grey {background:#777777!important;color:#fff;border:0px;min-width:140px;height:40px;line-height:25px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
+ .btn-publish:hover, .btn-grey:hover {background:#aaaaaa!important;}
  .btn-black {background:#111;color:#fff;border:0px;min-width:140px;height:40px;line-height:25px;margin:5px 0px;font-size:10px;font-family:nexa_boldregular;font-weight:100!important;text-transform: uppercase;letter-spacing:3px;}
  .btn-black:hover {background:#333;}
  :focus {outline: 0!important; }
@@ -167,8 +167,8 @@
  .no-results-container p {margin:0px;padding:0px;color:#777;font-size:14px;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:200;}
 
  /* Welcome Modal */
- #welcome-modal .modal-content {background:transparent;border:none!important;}
-
+ #welcome-modal .modal-content {background:transparent;border:none!important;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;}
+ #welcome-modal p {font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-weight:200;color:#555;}
  /* Product Modal */
  #product-modal .modal-content {background:transparent;border:none!important;}
  .product-popup-image {max-width:90%;max-height:270px;padding:5px;margin:20px auto 0px auto;background:#fff;}

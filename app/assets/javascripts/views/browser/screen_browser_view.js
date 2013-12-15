@@ -44,6 +44,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click .medley-result-box"					:   "showMedleySearchResult",
 		"click .medley-most-recent-box"				:   "showMedleyMostRecentResult",
 		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
+		"click #welcome-skip-link"                  :   "hideWelcomeModal",
 		"click #hide-banner-link"					:   "hideBannerLink",
 		"click .share-tab"                          :   "shareModalTabChange",
 		"click .retailer-select"                    :   "detectDropdown"
@@ -151,17 +152,20 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 												    }, 2000);
 		                                      }, 500);
 	                                      }, 
-	                                      error: function(xhr) {
-										      var errorMessage = '<h2 class="">Whoops...</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
-										      $('#error-modal-content').html(errorMessage);
-										      $('#error-modal').modal({ show: true });
-	                                          $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
-                                          	  setTimeout(function() {
-										          $('#status-update').fadeOut(100, function() {
-										        	  $('#header-box').fadeIn(100);
-										          })
-										      }, 2000);
-										      return false;
+	                                      error: function(model, xhr) {
+	                                      	  var response = $.parseJSON(xhr.responseText)
+	                                      	  if(response.errors && response.errors == "Etsy Store Does Not Exist") {
+												      var errorMessage = '<h2 class="">Whoops...</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
+												      $('#error-modal-content').html(errorMessage);
+												      $('#error-modal').modal({ show: true });
+			                                          $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
+		                                          	  setTimeout(function() {
+												          $('#status-update').fadeOut(100, function() {
+												        	  $('#header-box').fadeIn(100);
+												          })
+												      }, 2000);
+												      return false;
+											   }
 										  }
 	                              }); // End searchItems.fetch
 

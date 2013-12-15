@@ -51,13 +51,13 @@
 					<div class="col-lg-offset-1 col-lg-10">
 			   		<ul id="upper-navigation-links" class="list-inline pull-right m-font-light">
 						<li><a href="#"><%= current_user.name.upcase %></a></li>
-						<li><a href="/logout">LOGOUT</a></li>
+						<li><%= link_to('SIGN OUT', destroy_user_session_path, :method => :delete) %> </li>
 					</ul>
 		       	</div>
 				<% else %>
 				  	<div class="col-lg-offset-1 col-lg-10">
 				   		<ul id="upper-navigation-links" class="list-inline pull-right m-font-light">
-							<li><%= link_to 'SIGN IN WITH FACEBOOK', '/auth/facebook/' %></li>
+							<li><%= link_to "SIGN IN WITH FACEBOOK", user_omniauth_authorize_path(:facebook) %></li>
 						</ul>
 			       	</div>
 		       	<% end %>

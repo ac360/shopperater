@@ -34,10 +34,11 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		};
 
 		// Check for SEARCH Param and pre-load a search
-		if ( medleyDraft !== false && medleyDraft.search !== undefined ){
-				var editorSearch = new Medley.Views.EditorSearch({ model: medleyDraft });
+		var searchKeywords = $.jStorage.get("medley_search_keywords", false)
+		if (searchKeywords) {
+			var editorSearch = new Medley.Views.EditorSearch({ model: searchKeywords });
 		} else {
-				var editorSearch = new Medley.Views.EditorSearch({});
+		    var editorSearch = new Medley.Views.EditorSearch({});
 		}
 
 		// Call Auto-Save Function Every 6 Seconds

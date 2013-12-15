@@ -19,20 +19,18 @@ Shopperater::Application.routes.draw do
     match 'v1/medley/:id',          :to => 'api_external#medley_show',                :via => [:get]
   end
 
-  match '/auth/:provider/callback', :to => 'authentications#create'
 
   authenticated :user do
     match 'api/get_cart_items',     :to => 'shopperater_api#get_cart_items'
     # Authenticated API Routes
     match 'api/current_user',       :to => 'medley_api#user_information',   :via => [:get]
   end
-  devise_for :users
-  devise_scope :user do
-    get '/login'    => 'devise/sessions#new'
-    get '/register' => 'devise/registrations#new'
-    get 'logout'    => 'devise/sessions#destroy'
-    get '/settings' => 'devise/registrations#edit'
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_scope :users do
+    post '/users' => 'registrations#create', :as => 'user_registration'
+    delete "/logout" => "devise/sessions#destroy"
   end
+  
   
   # Other Application Routes
   get '/_=_',         to: redirect('/')

@@ -5,7 +5,7 @@ Medley.Views.EditorSearch = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
     // Check if a search can be pre-loaded from Local Storage
-    if (this.model !== undefined && this.model.search !== undefined) {
+    if (this.model !== undefined) {
       _(this.searchPreLoad).defer();
     };
 	},
@@ -17,7 +17,7 @@ Medley.Views.EditorSearch = Backbone.View.extend({
   },
 
   searchPreLoad: function() {
-    var searchKeywords = decodeURI(this.model.search)
+    var searchKeywords = decodeURI(this.model)
     $('#primary-search-field').val(searchKeywords);
     this.searchProducts();
   },
@@ -36,9 +36,9 @@ Medley.Views.EditorSearch = Backbone.View.extend({
       if (searchRetailer === "Etsy") {
         var searchEtsyStoreId = $('#etsy-storeid-field').val();
       };
-
+      // Save Search to Local Storage
+      $.jStorage.set("medley_search_keywords", searchKeywords);
       // Put Search Information into Attribute on the Search Bar for Auto-Save to access...
-
       $('#primary-search-field').attr( 'data-search', searchKeywords );
 
     	var searchItem = new Medley.Collections.ProductSearch();
@@ -64,17 +64,20 @@ Medley.Views.EditorSearch = Backbone.View.extend({
       				var searchResultsView = new Medley.Views.EditorSearchResults({ collection: results });
       				$('#module-product-results').html(searchResultsView.render().$el);
 			    }, // End Success
-          error: function(xhr) {
-            var errorMessage = '<h2 class="" id="myModalLabel" style="color:#ff9c97">Error</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
-            $('#error-modal-content').html(errorMessage);
-            $('#error-modal').modal({ show: true });
-                              $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
-                                setTimeout(function() {
-                $('#status-update').fadeOut(100, function() {
-                  $('#header-box').fadeIn(100);
-                })
-            }, 2000);
-            return false;
+          error: function(model, xhr) {
+            var response = $.parseJSON(xhr.responseText)
+            if(response.errors && response.errors == "Etsy Store Does Not Exist") {
+              var errorMessage = '<h2 class="">Whoops...</h2><h1>The Etsy store you entered does not exist.</h1><ul class="" style="padding-left:40px;"><li>Check the spelling of the Etsy store you entered</li></ul>'
+              $('#error-modal-content').html(errorMessage);
+              $('#error-modal').modal({ show: true });
+                                $('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered">No Products Found.</h5>');
+                                  setTimeout(function() {
+                  $('#status-update').fadeOut(100, function() {
+                    $('#header-box').fadeIn(100);
+                  })
+              }, 2000);
+              return false;
+            };
           }
 		}); // End fetch
   },
