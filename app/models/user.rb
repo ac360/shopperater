@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
 
   # Setup accessible (or protected) attributes for your model
   attr_protected
@@ -41,11 +41,11 @@ class User < ActiveRecord::Base
   end
 
   def self.new_with_session(params, session)
-      super.tap do |user|
-        if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["user_hash"]
-          user.email = data["email"]
-        end
+    super.tap do |user|
+      if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
       end
+    end
   end
 
 
