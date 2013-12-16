@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook]
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [:facebook, :etsy]
 
   # Setup accessible (or protected) attributes for your model
   attr_protected
@@ -40,11 +40,38 @@ class User < ActiveRecord::Base
       user
   end
 
+  def self.find_for_etsy_oauth(auth, signed_in_resource=nil)
+      user = User.where(:provider => auth.provider, :uid => auth.uid).first
+      puts "HEERE!"
+      unless user
+        user = User.create!(
+          uid:auth.uid,
+          provider:auth.provider,
+          username:auth.info.nickname,
+          token:auth.info.token,
+          email:auth.info.email,
+          name:auth.info.name,
+          first_name:auth.info.first_name,
+          last_name:auth.info.last_name,
+          gender:auth.info.gender,
+          location:auth.info.location,
+          image:auth.info.image, 
+          password:Devise.friendly_token[0,20]
+        )
+      end
+      user
+  end
+
+  # Update Account Information On Login
   def self.new_with_session(params, session)
     super.tap do |user|
+      
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
-        user.email = data["email"] if user.email.blank?
+        user.email = data["email"]
+      elsif data = session["devise.etsy_data"] && session["devise.etsy_data"]["info"]
+        user.email = data["email"]
       end
+        
     end
   end
 

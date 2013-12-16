@@ -201,6 +201,8 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET'], :strategy_class => OmniAuth::Strategies::Facebook, 
     :scope => 'email, read_stream, user_birthday, read_friendlists, friends_likes, offline_access', 
     :display => 'page'
+  config.omniauth :etsy, ENV['ETSY_KEY'], ENV['ETSY_SECRET'], :strategy_class => OmniAuth::Strategies::Etsy, 
+  :scope => 'email_r,profile_r,listings_r'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

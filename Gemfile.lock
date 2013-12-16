@@ -80,6 +80,8 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    font-awesome-rails (4.0.3.0)
+      railties (>= 3.2, < 5.0)
     google-webfonts (0.1.2)
       actionpack (>= 3.0.0)
     hashie (2.0.5)
@@ -105,10 +107,11 @@ GEM
     mime-types (1.23)
     money (5.1.1)
       i18n (~> 0.6.0)
-    multi_json (1.7.7)
+    multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     newrelic_rpm (3.7.0.177)
+    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -118,8 +121,15 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
+    omniauth-etsy (0.1.1)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth (~> 1.0)
     omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -197,12 +207,14 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   dotenv-rails
+  font-awesome-rails
   google-webfonts
   httparty
   jquery-rails
   json
   newrelic_rpm
   omniauth
+  omniauth-etsy
   omniauth-facebook
   pg
   rabl

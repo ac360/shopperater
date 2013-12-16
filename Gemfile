@@ -36,7 +36,9 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'httparty'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-etsy'
 gem 'newrelic_rpm'
+gem 'font-awesome-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
