@@ -294,16 +294,16 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		setTimeout(function() {
 
 			setTimeout(function() {
-			      $('#primary-search-field').val('G')
+			      $('#primary-search-field').val('CO')
 			}, 200);
 			setTimeout(function() {
-			      $('#primary-search-field').val('GT')
+			      $('#primary-search-field').val('ZY')
 			}, 400);
 			setTimeout(function() {
-			      $('#primary-search-field').val('GTA')
+			      $('#primary-search-field').val('NIG')
 			}, 600);
 			setTimeout(function() {
-			      $('#primary-search-field').val('GTA V')
+			      $('#primary-search-field').val('HT IN')
 			}, 800);
 			setTimeout(function() {
 			      self.search();
