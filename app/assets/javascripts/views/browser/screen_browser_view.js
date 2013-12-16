@@ -292,25 +292,39 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		console.log("Showing Demo...")
 		var self = this;
 		setTimeout(function() {
-
+			setTimeout(function() {
+			      $( "#primary-search-field" ).focus();
+			}, 100);
 			setTimeout(function() {
 			      $('#primary-search-field').val('C');
 			}, 200);
 			setTimeout(function() {
+			      $('#primary-search-field').val('CO');
+			}, 300);
+			setTimeout(function() {
 			      $('#primary-search-field').val('COZY');
 			}, 400);
 			setTimeout(function() {
-			      $('#primary-search-field').val('COZY NIGH');
+			      $('#primary-search-field').val('COZY N');
+			}, 500);
+			setTimeout(function() {
+			      $('#primary-search-field').val('COZY NI');
 			}, 600);
 			setTimeout(function() {
-			      $('#primary-search-field').val('COZY NIGHT IN');
+			      $('#primary-search-field').val('COZY NIG');
+			}, 700);
+			setTimeout(function() {
+			      $('#primary-search-field').val('COZY NIGH');
 			}, 800);
 			setTimeout(function() {
-			      self.search();
-			}, 1100);
+			      $('#primary-search-field').val('COZY NIGHT');
+			}, 900);
 			setTimeout(function() {
-			      $( "#primary-search-field" ).focus();
-			}, 1200);
+			      $('#primary-search-field').val('COZY NIGHT I');
+			}, 1000);
+			setTimeout(function() {
+			      $('#primary-search-field').val('COZY NIGHT IN');
+			}, 1100);
 
 		}, 1000);
 	}
