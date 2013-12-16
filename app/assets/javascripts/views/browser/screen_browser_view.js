@@ -325,6 +325,9 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 			setTimeout(function() {
 			      $('#primary-search-field').val('COZY NIGHT IN');
 			}, 1100);
+			setTimeout(function() {
+			      self.search();
+			}, 1200);
 
 		}, 1000);
 	}
