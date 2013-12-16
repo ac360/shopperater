@@ -72,7 +72,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
     	var self = this;
     	console.log("New Search Executed...");
     	$('#header-box').fadeOut(100, function(){
-    		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching for Related Products...</h5>');
+    		$('#status-update-content').html('<h5 style="color:#999;margin-top:28px;" class="m-centered"><i class="fa fa-refresh fa-spin"></i> Searching for Medleys...</h5>');
     		$('#status-update').fadeIn(100);
     	});
     	if (keywords) {
