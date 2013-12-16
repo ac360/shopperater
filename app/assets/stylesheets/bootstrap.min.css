@@ -39,6 +39,7 @@
  .alert {border-radius:0px;padding:5px 35px 5px 15px;}
  .error-background {background:#bd4f4f!important;border:1px solid #bd4f4f!important;}
  .m-capitalize {text-transform: capitalize;}
+ .m-helvetica {font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;}
  /* Style Placeholder Text --> */ ::-webkit-input-placeholder { text-align:center!important; } :-moz-placeholder { /* Firefox 18- */ text-align:center!important; } ::-moz-placeholder {  /* Firefox 19+ */ text-align:center!important; } :-ms-input-placeholder { text-align:center!important; } .form-control:focus {border: none; outline: 0; -webkit-box-shadow:none; box-shadow:none; }
  
  /* Animations */
