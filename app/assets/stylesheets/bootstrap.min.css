@@ -148,7 +148,7 @@
  .gridster li {margin-left:5px;}
  .temp-grid-item {background:#eaeaea!important;}
  #medley-description {min-height:100px;color:#777;font-size:13px;}
- #module-medley-results {background:transparent;height:500px;}
+ #module-medley-results {background:transparent;height:500px;overflow:hidden;}
  #module-medley-results h6 {letter-spacing:3px;color:#444;font-size:11px}
  #recent-medleys-title {letter-spacing:3px;color:#444;font-size:11px}
  .item-small img  { max-height:80px;max-width:80px; }
@@ -174,7 +174,7 @@
  /* Screen - Editor */
  #medley-title       {background:#bbb;border:1px solid #bbb;letter-spacing:3px;color:#fff;font-size:16px;margin-bottom:10px;margin-top:5px;padding:10px 10px;line-height: 20px;}
  #medley-title:focus {border:1px solid #888;}
- .medley-grid-item  {background:#ffffff;cursor:pointer;-webkit-box-shadow: 0px 1px 1px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 1px hsla(0, 0%, 0%, 0.30);}
+ .medley-grid-item  {background:#ffffff;cursor:pointer;-webkit-box-shadow: 0px 1px 0px hsla(0, 0%, 0%, 0.30) ;box-shadow:  0px 1px 0px hsla(0, 0%, 0%, 0.30);}
  .medley-grid-item:hover {-webkit-box-shadow: 0px 0px 8px 0px #ffffff;box-shadow:0px 0px 8px 0px #ffffff;border:1px solid #fff;}
  .medley-grid-item-view {min-height:100%;}
  #medley-item-image-container {text-align:center;}
