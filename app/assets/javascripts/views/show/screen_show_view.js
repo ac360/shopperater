@@ -9,7 +9,24 @@ Medley.Views.ScreenShow = Backbone.View.extend({
 	}, // initialize
 
 	events: {
-		'click .medley-result-box'			:          'loadNewMedley'
+		'click .medley-result-box'			:          'loadNewMedley',
+		'click .medley-grid-item'           :          'showProductPopUp'
+	},
+
+	showProductPopUp: function(e) {
+	    // Get ID of Product
+	    var productID = $(e.currentTarget).attr('data-id');
+	    // Get Specific Product From Model & Make It A Seperate Model
+	    var thisProduct = _.where(this.model.items, { id: productID })[0];
+	    // Update Link
+	    thisProduct.link = $(e.currentTarget).attr('data-link') + "%26tag%3D" + this.model.user.affiliate_id
+	    // Prepare Modal
+	    $('#product-modal').html('');
+	    var productPopUp = new Medley.Views.BrowserProductPopUp({ model: thisProduct })
+	    $('#product-modal').html(productPopUp.render().$el);
+
+	    $('#product-modal').modal();
+	    $('#product-modal').modal('show');
 	},
 
 	loadNewMedley: function(e) {
