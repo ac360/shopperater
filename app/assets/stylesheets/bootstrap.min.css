@@ -204,6 +204,7 @@
  /* Screen - Show */
  #user-medley-results {height:500px;overflow:hidden;}
  #user-medley-results .medley-result-box:hover {border:1px solid #888;}
+ #user-medley-results .medley-result-box {padding:10px;}
 
  /* Registration/Log In Page */
  #user-actions-box {background:#151515;padding-top:15px;padding-bottom:35px;}
