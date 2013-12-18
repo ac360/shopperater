@@ -11,6 +11,10 @@
 		<% _.each(collection, function(medley) { %>
 			<div class="row">
 				<div class="medley-result-box m-box-shadow-one animated bounceInUp" data-id="<%= medley.id %>">
+
+					<p class="m-font-bold m-centered result-title" style="font-size:11px;line-height:16px;letter-spacing:2px;margin-bottom:8px;"><%= medley.title %></p>
+
+					<hr style="width:70%;margin:0 auto;margin-bottom:15px;">
 					
 					<div class="row">
 							<%  if (medley.items[0].img_small) { %>
@@ -58,8 +62,6 @@
 
 					<div class="row">
 						<div class="col-lg-offset-1 col-lg-10">
-
-							<p class="result-title m-centered" style="font-size:12px;line-height:16px;letter-spacing:0.5px;"><%= medley.title %></p>
 
 							<p class="result-category m-centered">
 								<%= M.getCategory(medley.category) %>

@@ -5,12 +5,40 @@ Medley.Views.ScreenShow = Backbone.View.extend({
 	initialize: function() {
 		_.bindAll(this);
 		var self = this;
+
+		var query = location.search.substr(1);
+		if(query){
+            var data = query.split("&");
+            var params = {};
+            for(var i=0; i<data.length; i++) {
+                var item = data[i].split("=");
+                params[item[0]] = item[1];
+            }
+           	this.options.params = params;
+        };
+
 		this.render();
 	}, // initialize
 
 	events: {
 		'click .medley-result-box'			:          'loadNewMedley',
 		'click .medley-grid-item'           :          'showProductPopUp'
+	},
+
+	showSuccessModal: function() {
+		if (this.options.params && this.options.params.success) {
+			setTimeout(function(){
+				
+			    // Prepare Modal
+			    $('#success-modal').html('');
+			    var successModal = new Medley.Views.SuccessModal()
+			    $('#success-modal').html(successModal.render().$el);
+
+			    $('#success-modal').modal();
+			    $('#success-modal').modal('show');
+
+			},1000);
+		}
 	},
 
 	showProductPopUp: function(e) {
@@ -59,9 +87,12 @@ Medley.Views.ScreenShow = Backbone.View.extend({
 			    var medleyPreview = new Medley.Views.ShowMedleyPreview({ model: self.model });
 			    $('#show-container').html(medleyPreview.render().$el);
 			    self.renderUserMedleys();
+			    // Show Success Modal
+			    _.defer( function() { self.showSuccessModal() } );
             },
             error: function(model, xhr){
                 console.log(model, xhr);
+                alert("A Medley with that ID does not exist");
             }
         });
 		return this;

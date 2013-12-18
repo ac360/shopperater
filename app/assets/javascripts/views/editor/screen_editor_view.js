@@ -290,8 +290,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 				          	thisMedley.save({
 				          		items: self.model.items
 				          	}, {
-						          success: function () {
-						          		console.log("Medley should now contain the items!");
+						          success: function (response) {
+						          	    self.options.newMedley = response.toJSON();
 						          		self.publishSuccess();
 						          },
 						          error: function (model, xhr) {
@@ -318,7 +318,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
     	alert("Success!");
     	var self = this;
 		$.jStorage.deleteKey("medley_current");
-		window.location = homeLink
+		window.location = '/' + this.options.newMedley.id + '?success=true';
     },
 
 	render: function () {
