@@ -71,21 +71,8 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'click #medley-publish-button'              :   'publishMedley',
 		'click #publish-confirm-button'			    :   'publishMedley',
 		'click #medley-reset-link'					:   'deleteMedley',
-		'click #try-again-btn'                      :   'hidePublishModal',
-		'click #publish-success-button'				:   'clearMedleyAndRedirect',
-		'click .retailer-select'                    :   'detectDropdown'
+		'click #try-again-btn'                      :   'hidePublishModal'
 	},
-
-	detectDropdown: function(e) {
-    	var retailer = $(e.currentTarget).attr('data-retailer');
-    	$('#retailer-title').text(retailer);
-    	console.log(retailer);
-    	if (retailer === "Etsy") {
-    		$('#retailer-options-etsy').slideDown(150, function() {});
-    	} else {
-    		$('#retailer-options-etsy').slideUp(150, function() {});
-    	};
-    },
 
 	gridHighlightDropzone: function(e) {
     	e.preventDefault();

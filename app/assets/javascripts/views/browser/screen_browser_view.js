@@ -46,19 +46,7 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
 		"click #welcome-skip-link"                  :   "hideWelcomeModal",
 		"click #hide-banner-link"					:   "hideBannerLink",
-		"click .share-tab"                          :   "shareModalTabChange",
-		"click .retailer-select"                    :   "detectDropdown"
-    },
-
-    detectDropdown: function(e) {
-    	var retailer = $(e.currentTarget).attr('data-retailer');
-    	$('#retailer-title').text(retailer);
-    	console.log(retailer);
-    	if (retailer === "Etsy") {
-    		$('#retailer-options-etsy').slideDown(150, function() {});
-    	} else {
-    		$('#retailer-options-etsy').slideUp(150, function() {});
-    	};
+		"click .share-tab"                          :   "shareModalTabChange"
     },
 
     detectEnterButton: function(event) {

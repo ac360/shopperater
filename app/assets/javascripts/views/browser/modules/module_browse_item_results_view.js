@@ -13,6 +13,14 @@ Medley.Views.ModuleBrowseItemResults = Backbone.View.extend({
 		"click .item-result-row":           "showProductPopUp"
     },
 
+    instantiateScroll: function() {
+		$("#module-product-results").niceScroll({
+			cursorcolor:"#999",
+			cursorwidth: 5,
+			cursorborder: '0px solid #fff'
+		});
+	},
+
     showProductPopUp: function(e) {
     	var self = this;
     	console.log(this.collection)
@@ -35,8 +43,12 @@ Medley.Views.ModuleBrowseItemResults = Backbone.View.extend({
     },
 
 	render: function () {
-    this.$el.html(this.template({ collection: this.collection })).fadeIn(500);
-	return this;
+		var self = this;
+	    this.$el.html(this.template({ collection: this.collection })).fadeIn(500);
+
+	    _.defer( function() { self.instantiateScroll() } );
+
+		return this;
 	}
 
 });

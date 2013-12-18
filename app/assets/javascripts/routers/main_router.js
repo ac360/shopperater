@@ -3,6 +3,7 @@ Medley.Routers.Main = Backbone.Router.extend({
 	routes: { 
       ""                    :              "browser",
       "editor"              :              "editor",
+      ":id"                 :              "show",
       "register"            :              "register",
       "users/sign_up"       :              "register"
     },
@@ -19,6 +20,11 @@ Medley.Routers.Main = Backbone.Router.extend({
     editor: function() {
         var header = new Medley.Views.Header();
         var screenEditor = new Medley.Views.ScreenEditor();
+    },
+
+    show: function(id) {
+        var header = new Medley.Views.Header();
+        var screenShow = new Medley.Views.ScreenShow({ id: id });
     },
 
     register: function() {

@@ -1,0 +1,89 @@
+<div class="col-lg-12">
+
+	<% if (collection.length < 1) { %>
+			<div class="row item-result-row animated bounceInUp">
+				<div class="col-lg-offset-1 col-lg-10 no-results-container">
+					<p class="m-centered">No Medleys Found</p>
+				</div>
+			</div>
+	<% } else { %>
+	
+		<% _.each(collection, function(medley) { %>
+			<div class="row">
+				<div class="medley-result-box m-box-shadow-one animated bounceInUp" data-id="<%= medley.id %>">
+					
+					<p class="m-font-bold m-centered result-title" style="font-size:12px;line-height:16px;letter-spacing:2px;"><%= medley.title %></p>
+
+					<div class="row">
+							<%  if (medley.items[0].img_small) { %>
+									<div class="col-lg-offset-2 col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.items[0].img_small %>"></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
+
+							<%  if (medley.items[1].img_small) { %>
+									<div class="col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.items[1].img_small %>" draggable="false" class=""></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
+					</div>
+					<div class="row">
+							<%  if (medley.items[2].img_small) { %>
+									<div class="col-lg-offset-2 col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.items[2].img_small %>" draggable="false" class=""></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-offset-2 col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
+
+							<%  if (medley.items[3].img_small) { %>
+									<div class="col-lg-4 medley-result-img-container">
+										<center><img src="<%= medley.items[3].img_small %>" draggable="false" class=""></center>
+									</div>
+							<%  } else {  %>
+									<div class="col-lg-4 medley-result-img-container">
+										<p class="s-centered m-nine" style="color:#ccc;padding-top:10px;">No Image</p>
+									</div>
+							<%	}  %>
+					</div>
+
+
+					<div class="row">
+						<div class="col-lg-offset-1 col-lg-10">
+
+							<p class="result-votes m-centered">
+								<i class="fa fa-heart-o"></i> <%= medley.votes %>
+							</p> 
+
+						</div> <!-- .col-lg-offset-1 -->
+					</div> <!-- .row -->
+
+				</div> <!-- .col-lg-offset-1 col-lg-10 -->
+			</div> <!-- .row -->
+		<% }); %>
+
+	<% } %>
+
+	<% if (collection.length < 15) { %>
+
+		<p id="recent-medleys-title" class="m-centered s-font-bold">Recent Medleys</p>
+		<div class="row">
+			<div id="medleys-most-recent" class="col-lg-12">
+			</div>
+		</div>
+
+	<% } %>
+
+	</div> <!-- row -->
+</div> <!-- col-lg-12 -->
+

@@ -18,9 +18,21 @@ class MedleyApiController < ApplicationController
 		# Build Custom Item URLs Here...
 	end
 
+	def medley_show
+		begin
+		  @medley = Medley.find(params[:id])
+		rescue ActiveRecord::RecordNotFound => e
+		  render :json => "Medley Not Found"
+		end
+	end
+
 	def medley_most_recent
 		@medleys = Medley.last(15).reverse
 		@medleys = medley_extra_formatter(@medleys)
+	end
+
+	def medleys_by_user
+		@medleys = Medley.where(:user_id => params[:user_id]).last(20).reverse
 	end
 
 	def product_search

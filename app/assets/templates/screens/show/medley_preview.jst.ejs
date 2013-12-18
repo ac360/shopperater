@@ -1,0 +1,115 @@
+
+	<h2 id="medley-title-browser" data-id="<%= model.id %>" class="s-grey s-font-bold s-centered"><%= model.title %></h2>
+	<div class="row">
+		<div id="medley-container" class="col-lg-offset-2 col-lg-8 animated bounceIn">
+
+			<div class="gridster">
+	    		<ul id="medley-grid" class="list-unstyled">
+
+	    		</ul>
+	    	</div>
+
+		</div>
+	</div> <!-- .row -->
+
+	<div class="row">
+		<div id="medley-description" class="col-lg-offset-2 col-lg-5 m-font-light">
+			<%= model.description %>
+		</div>
+
+		<div class="col-lg-3">
+
+			<div class="row">
+				<div id="owner-info-container" class="col-lg-12">
+					<p id="created-by" style="margin-bottom:3px;">Created by</p>
+					<h3 id="created-by-username"><%= model.user.username %></h3>
+				</div>
+			</div>
+			<div class="row">
+				<ul id="actions-container" class="col-lg-12 list-unstyled">
+					<li>
+						<a id="remix-link" class="m-font-light" href="#">
+							<i class="fa fa-retweet"></i> Remix Medley
+						</a>
+					</li>
+					<li>
+						<a id="share-link" class="m-font-light" href="#">
+							<i class="fa fa-globe" style="padding-right:4px;"></i> Share Medley
+						</a>
+					</li>
+				</ul>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<!-- Modals -->
+	
+    <!-- Remix Modal -->
+    <div id="remix-modal" class="modal animated remixed fade">
+      <div class="modal-dialog">
+        <div class="modal-content animated remixed">
+          <h1 class="s-centered s-font-bold" style="font-size:50px;margin-bottom:0px;line-height:60px;margin-top:35px;color:#333;">Remix</h1>
+        <h3 class="s-centered m-font-light" style="margin:15px 0px;font-size:18px;color:#666;">Want To Make Your Own Medley Out Of This One?</h3>
+        <p id="editor-link-container" class="s-centered" style="margin-top:35px;"><a href="#" id="editor-button" class="btn btn-primary" style="width:150px;padding:15px;font-size:12px;">YES</a></p>
+        <p class="s-centered"><a id="cancel-remix-link" class="m-font-light" style="font-size:14px;color:#888;" data-dismiss="modal" aria-hidden="true">No Thanks</a></p>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /#remix-modal -->
+
+    <!-- Share Modal -->
+    <div id="share-modal" class="modal animated remixed fade">
+      <div class="modal-dialog">
+        <div class="modal-content animated remixed row">
+        		<button type="button" class="close" data-dismiss="modal" aria-hidden="true" style="padding:10px 10px 0px 0px">&times;</button>
+        		<div class="col-lg-4 left-col" style="padding:0px;">
+        			<ul class="list-unstyled">
+        				<li class="active share-tab" data-id="1">Embed Medley On Website</li>
+        				<li class="share-tab" data-id="2">Embed Medley On Tumblr</li>
+        				<li class="share-tab" data-id="3">Share On Facebook</li>
+        			</ul>
+        		</div>
+        		<div class="col-lg-8 right-col">
+        			<div class="row">
+        				<div id="share-website-screen" class="col-lg-12 share-screen">
+        					<h3 class="m-no-margin">Embed On Website</h3>
+        					<p style="padding:15px 0px 10px 0px;margin:0px;">
+        						To show this Medley on your website, copy and paste the code below into the source code of your web page.
+        					</p>
+        					<h5 style="margin: 0px 0px 10px 0px"><%= model.title %> - Embed Code</h5>
+        					<div class="embed-code well"><code id="website-embed-code">
+	        					&lt;div class="MDLYa1 cleanslate" data-id="<%= model.id %>"&gt;&lt;/div&gt;
+	        					<br/>
+	        					&lt;script async src="http://mdly.co/script/medleywidgets.min.js" charset="utf-8"&gt;&lt;/script&gt;
+        					</code></div>
+        				</div>
+        				<div id="share-tumblr-screen" class="col-lg-12 share-screen hide">
+        					<h3 class="m-no-margin">Embed On Tumblr</h3>
+        					<p style="padding:15px 0px 10px 0px;margin:0px;">
+        						To show this Medley on your Tumblr blog, first you need to enable putting HTML in your posts.  Go to your Tumblr account settings by clicking <i class="glyphicon glyphicon-cog" style="font-size:14px;color:#444;"></i>.  Then select <span style="font-weight:bold;">Account</span> on the left side and next to <span style="font-weight:bold;">Edit Posts</span> select the option <span style="font-weight:bold;">Using Plain Text/HTML</span> and hit <span style="font-weight:bold;">Save</span>.
+        					</p>
+        					<p>
+        						Now, copy the code below and you will be able to paste it directly into your Tumblr posts.
+        					</p>
+        					<h5 style="margin: 0px 0px 10px 0px"><%= model.title %> - Embed Code</h5>
+        					<div class="embed-code well"><code id="website-embed-code">
+	        					&lt;div class="MDLYa1 cleanslate" data-id="<%= model.id %>"&gt;&lt;/div&gt;
+	        					<br/>
+	        					&lt;script async src="http://mdly.co/script/medleywidgets.min.js" charset="utf-8"&gt;&lt;/script&gt;
+        					</code></div>
+        				</div>
+        				<div id="share-facebook-screen" class="col-lg-12 share-screen hide">
+        					<h3 class="m-no-margin">Share On Facebook</h3>
+        					<h5 style="margin-top:20px;">Coming Soon :)</h5>
+        				</div>
+        			</div>
+        		</div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /#remix-modal -->
+
+
+
