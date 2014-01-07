@@ -251,7 +251,7 @@ class MedleyApiController < ApplicationController
 	end
 
 	def facebook_login
-		# Find by Facebook id
+		# Find User by Facebook id
 		@user = User.where(:facebook_id => params[:user][:id])[0]
 		puts @user
 		if !@user.blank?
