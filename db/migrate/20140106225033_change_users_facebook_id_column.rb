@@ -3,4 +3,3 @@ class ChangeUsersFacebookIdColumn < ActiveRecord::Migration
   	change_column :users, :facebook_id, :string, :unique => true
   end
 end
-r
