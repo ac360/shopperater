@@ -39,7 +39,7 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 			var editorSearch = new Medley.Views.EditorSearch({ model: searchKeywords });
 		} else {
 		    var editorSearch = new Medley.Views.EditorSearch({});
-		}
+		};
 
 		// Call Auto-Save Function Every 6 Seconds
 		window.setInterval(function(){
@@ -71,8 +71,16 @@ Medley.Views.ScreenEditor = Backbone.View.extend({
 		'click #medley-publish-button'              :   'publishMedley',
 		'click #publish-confirm-button'			    :   'publishMedley',
 		'click #medley-reset-link'					:   'deleteMedley',
-		'click #try-again-btn'                      :   'hidePublishModal'
+		'click #try-again-btn'                      :   'hidePublishModal',
+		'click #facebook-login-link'                :   'facebookLogin'
 	},
+
+	facebookLogin: function(e) {
+		e.preventDefault()
+    	M.facebookLogin(function() {
+    		location.reload();
+    	});
+    },
 
 	gridHighlightDropzone: function(e) {
     	e.preventDefault();

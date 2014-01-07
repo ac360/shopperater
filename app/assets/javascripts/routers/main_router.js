@@ -10,6 +10,8 @@ Medley.Routers.Main = Backbone.Router.extend({
 
     initialize: function() {
         _.bindAll(this);
+        // Set Login Header
+        M.userLoginStatus();
     }, // /initialize
 
     browser: function() {

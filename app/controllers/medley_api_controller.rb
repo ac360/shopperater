@@ -242,7 +242,43 @@ class MedleyApiController < ApplicationController
 	end # product_lookup
 
 	def user_information 
-		@user =  User.find(current_user.id)
+		if current_user
+			@user = current_user
+		else
+			@user = nil
+			render :json => @user
+		end
+	end
+
+	def facebook_login
+		# Find by Facebook id
+		@user = User.where(:facebook_id => params[:user][:id])[0]
+		puts @user
+		if !@user.blank?
+			puts "User is present"
+			@user.update_attributes!(
+				:email      => params[:user][:email].to_s,
+				:first_name => params[:user][:first_name].to_s,
+				:last_name  => params[:user][:last_name].to_s,
+				:gender     => params[:user][:gender].to_s,
+				:username   => params[:user][:username].to_s,
+				:timezone   => params[:user][:timezone].to_s
+			)
+			sign_in(@user)
+		else
+			puts "User is not present"
+			@user = User.create!(
+				:email 				=> 	params[:user][:email].to_s,
+				:first_name 		=> 	params[:user][:first_name].to_s,
+				:last_name      	=>  params[:user][:last_name].to_s,
+				:gender         	=>  params[:user][:gender].to_s,
+				:username       	=>  params[:user][:username].to_s,
+				:timezone       	=>  params[:user][:timezone].to_s,
+				:facebook_id        =>  params[:user][:id].to_s,
+				:password 			=>  Devise.friendly_token[0,20]
+			)
+			sign_in(@user)
+		end
 	end
 
 	def username_validation

@@ -1,6 +1,7 @@
 Shopperater::Application.routes.draw do
 
   # Internal API Routes
+  match 'api/current_user',                 :to => 'medley_api#user_information',             :via => [:get]
   match 'api/medleys',                      :to => 'medley_api#medley_search',                :via => [:get]
   match 'api/medleys',                      :to => 'medley_api#create_medley',                :via => [:post]
   match 'api/medley_create_items/:id',      :to => 'medley_api#medley_create_items',          :via => [:put]
@@ -15,21 +16,16 @@ Shopperater::Application.routes.draw do
   match 'api/medley_title_validation',      :to => 'medley_api#medley_title_validation',      :via => [:get]
   match 'api/medley_uniqueness_validation', :to => 'medley_api#medley_uniqueness_validation', :via => [:get]
   match 'api/add_newsletter_subscriber',    :to => 'medley_api#add_newsletter_subscriber',    :via => [:post]
+  match 'api/facebook_login',               :to => 'medley_api#facebook_login',               :via => [:post]
 
   # External API Routes
   constraints subdomain: 'api' do
     match 'v1/medley/:id',          :to => 'api_external#medley_show',                :via => [:get]
   end
 
-  authenticated :user do
-    match 'api/get_cart_items',     :to => 'shopperater_api#get_cart_items'
-    # Authenticated API Routes
-    match 'api/current_user',       :to => 'medley_api#user_information',   :via => [:get]
-  end
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :users do
     post '/users' => 'registrations#create', :as => 'user_registration'
-    delete "/logout" => "devise/sessions#destroy"
   end
 
   # Other Application Routes

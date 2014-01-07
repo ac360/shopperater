@@ -46,7 +46,17 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 		"click #newsletter-subscribe-submit-button" :   "hideWelcomeModal",
 		"click #welcome-skip-link"                  :   "hideWelcomeModal",
 		"click #hide-banner-link"					:   "hideBannerLink",
-		"click .share-tab"                          :   "shareModalTabChange"
+		"click .share-tab"                          :   "shareModalTabChange",
+		"click #facebook-login-link"                :   "facebookLogin",
+		"click #facebook-logout-link"               :   "facebookLogout"
+    },
+
+    facebookLogin: function() {
+    	M.facebookLogin();
+    },
+
+    facebookLogout: function() {
+    	M.facebookLogout();
     },
 
     detectEnterButton: function(event) {
@@ -191,14 +201,13 @@ Medley.Views.ScreenBrowser = Backbone.View.extend({
 	                
 	          } // End Success this.options.medleys
 	      }); // End this.options.medleys.fetch
-
 	}, // end search
 
 	detectEnterButton: function(event) {
 	  	var keycode = (event.keyCode ? event.keyCode : event.which);
-	  		if(keycode == '13'){
-	  			this.search();	
-	  	}
+  		if(keycode == '13'){
+  			this.search();	
+  		}
 	},
 
 	showMedleySearchResult: function(e) {

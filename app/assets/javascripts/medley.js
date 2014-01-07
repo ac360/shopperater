@@ -14,14 +14,128 @@ window.Medley = {
 
 $(document).ready(function(){
   if (window.location.hash && window.location.hash == '#_=_') {
-      window.location = '';
+    window.location = '';
   }
   Medley.initialize();
+  M.facebookInitialize();
 });
-
 
 // Medley Helper Functions
 var M = {};
+
+M.userLoginStatus = function(cb) {
+  var currentUser = new Medley.Models.CurrentUser()
+  currentUser.fetch({
+      success: function (response) {
+        var loginStatus = response.toJSON();
+        console.log('Login Status Response:', loginStatus)
+        if (loginStatus.email) {
+            console.log('User Is Logged In');
+            $('#facebook-link').html('<a id="" href="/users/sign_out">SIGN OUT</a>');
+            $('#etsy-link').hide();
+            // Callback
+            if (cb) {cb()};
+        } else {
+            console.log('User Is Not Logged In');
+            $('#etsy-link').html('<a href="/users/auth/etsy">SIGN IN VIA ETSY</a>')
+            $('#facebook-link').html('<a id="facebook-login-link" href="#">SIGN IN VIA FACEBOOK</a>')
+        }
+      },
+      error: function (model, xhr) {
+        var errors = $.parseJSON(xhr.responseText).errors
+        console.log(errors);
+      }
+  }) // End of currentUser.fetch
+};
+
+M.facebookLogin = function(cb) {
+  FB.login(function(response) {
+    if (response.authResponse) {
+      FB.api('/me', function(response) {
+         console.log(response);
+         var facebookUser = new Medley.Models.FacebookLogin()
+          facebookUser.save({
+              user: response
+          }, {
+              success: function (response) {
+                M.userLoginStatus(cb);
+              },
+              error: function (model, xhr) {
+                var errors = $.parseJSON(xhr.responseText).errors
+                console.log(errors);
+              }
+          }) // End of facebookUser.save
+      });
+    } else {
+      M.userLoginStatus();
+    }
+  }, 
+  {
+    scope: 'email,user_likes'
+  });
+
+};
+
+M.facebookLogout = function() {
+  FB.logout(function(response) {
+    var facebookLogout = new Medley.Models.FacebookLogout()
+    facebookLogout.fetch({}, {
+        success: function (response) {
+        },
+        error: function (model, xhr) {
+          var errors = $.parseJSON(xhr.responseText).errors
+          console.log(errors);
+        }
+    }) // End of facebookUser.save
+    console.log('User is now logged out', response);
+    $('#etsy-link').show();
+    $('#etsy-link').html('<a href="/users/auth/etsy">SIGN IN VIA ETSY</a>')
+    $('#facebook-link').html('<a id="facebook-login-link" href="#">SIGN IN VIA FACEBOOK</a>')
+  });
+}
+
+M.facebookInitialize = function() {
+    window.fbAsyncInit = function() {
+      // init the FB JS SDK
+      FB.init({
+        appId      : '773987702618372',                    // App ID from the app dashboard
+        status     : true,                                 // Check Facebook Login status
+        xfbml      : true                                  // Look for social plugins on the page
+      });
+      // Additional initialization code such as adding Event Listeners goes here
+      // FB.getLoginStatus(function(response) {
+      //   if (response.status === 'connected') {
+      //       // the user is logged in and has authenticated your
+      //       // app, and response.authResponse supplies
+      //       // the user's ID, a valid access token, a signed
+      //       // request, and the time the access token 
+      //       // and signed request each expire
+      //   } else if (response.status === 'not_authorized') {
+      //       // the user is logged in to Facebook, 
+      //       // but has not authenticated your app
+      //   } else {
+      //       // the user isn't logged in to Facebook.
+      //   }
+      // });
+    };
+
+    // Load the SDK asynchronously
+    (function(){
+       // If we've already installed the SDK, we're done
+       if (document.getElementById('facebook-jssdk')) {return;}
+       // Get the first script element, which we'll use to find the parent node
+       var firstScriptElement = document.getElementsByTagName('script')[0];
+       // Create a new script element and set its id
+       var facebookJS = document.createElement('script'); 
+       facebookJS.id = 'facebook-jssdk';
+       // Set the new script's source to the source of the Facebook JS SDK
+       facebookJS.src = '//connect.facebook.net/en_US/all.js';
+       // Insert the Facebook JS SDK into the DOM
+       firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
+    }());
+}
+
+
 // Create Helper Object Functions
 M.checkMedleyItemCount = function() {
   var medleyItemsCount = $("#medley-grid li").size()
